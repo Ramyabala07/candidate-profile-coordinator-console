@@ -424,11 +424,7 @@ textarea.inp{min-height:70px;resize:vertical}
 </style>
 
 <div class="proto">
-  <span class="ttl">Exam-first candidate profile</span>
-  <div class="seg" role="group">
-    <button data-v="a" aria-pressed="true">Timeline</button>
-    <button data-v="c" aria-pressed="false">Cards</button>
-  </div>
+  <span class="ttl">Exam-first candidate profile &middot; Cards</span>
   <span class="hint">Click any candidate row</span>
 </div>
 <div id="root"></div>
@@ -777,7 +773,7 @@ ATTEMPTS.forEach(a=>{const m=WHEN[a.id]||{};a.stages.forEach(st=>{const w=m[st.k
   if(w){st.when=w[0];st.time=w[1];st.gap=w[2]||'';st.ts=w[3]||0;}});});
 
 /* ===================== state ===================== */
-let V='a', open=false, candIdx=0, at=0, stack=[], tab='overview', action=null, toast=null, openRow=false;
+let V='c', open=false, candIdx=0, at=0, stack=[], tab='overview', action=null, toast=null, openRow=false;
 const cardOpen={}, moreOpen={};
 const scrollMem={};
 const LIST=()=>ATTEMPTS;
