@@ -1,0 +1,729 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Candidate Workspace</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font:'Roboto',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --g50:#F9FAFB;--g100:#F3F4F6;--g200:#E5E7EB;--g300:#D1D5DB;--g400:#9CA3AF;
+  --g500:#6B7280;--g600:#4B5563;--g700:#374151;--g800:#1F2937;--g900:#111827;
+  --b50:#EFF6FF;--b100:#DBEAFE;--b200:#BFDBFE;--b600:#2563EB;--b700:#1D4ED8;--b800:#1E40AF;
+  --r50:#FEF2F2;--r300:#FCA5A5;--r600:#DC2626;--r700:#B91C1C;
+  --o50:#FFF7ED;--o300:#FDBA74;--o600:#EA580C;--o700:#C2410C;
+  --gr50:#F0FDF4;--gr300:#86EFAC;--gr600:#16A34A;--gr700:#15803D;
+  --tl50:#F0FDFA;--tl300:#5EEAD4;--tl700:#0F766E;
+  --surface:#fff;--border:var(--g200);--bd2:var(--g300);
+  --tp:var(--g900);--ts:var(--g700);--tt:var(--g500);--accent:var(--b700);
+  --sh:0 1px 2px rgba(17,24,39,.06);
+  --shl:0 10px 34px rgba(17,24,39,.14),0 2px 6px rgba(17,24,39,.06);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--g100);color:var(--tp);font:400 14px/20px var(--font);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0;text-align:left}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.proto{display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;background:var(--g900);color:#fff;position:sticky;top:0;z-index:100}
+.proto .ttl{font:500 12px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--g400)}
+.proto .hint{margin-left:auto;font:400 12px/16px var(--font);color:var(--g400)}
+
+.app{position:relative;display:flex;height:calc(100vh - 44px);min-height:700px;background:var(--surface);overflow:hidden}
+.rail{width:52px;flex:0 0 52px;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:14px}
+.rail .ic{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--g500)}
+.rail .ic.on{background:var(--g100);color:var(--g900)}
+.rail .sp{flex:1}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+
+.crumb{display:flex;align-items:center;gap:8px;padding:13px 22px;border-bottom:1px solid var(--border);font:400 14px/21px var(--font);color:var(--tt);flex:0 0 auto}
+.crumb .lk{color:var(--accent)}
+.crumb .lk:hover{text-decoration:underline}
+.crumb b{font-weight:500;color:var(--tp)}
+.crumb .sl{color:var(--g300)}
+.crumb .rt{margin-left:auto;display:flex;align-items:center;gap:4px}
+.ibtn{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--g500)}
+.ibtn:hover{background:var(--g100);color:var(--tp)}
+.vdiv{width:1px;height:20px;background:var(--border);margin:0 5px}
+
+.wrap{flex:1;min-height:0;display:flex}
+.page{flex:1;min-width:0;overflow-y:auto;padding:20px 22px 40px}
+.page.narrow{padding-right:16px}
+
+/* ---- identity band ---- */
+.band{display:grid;grid-template-columns:minmax(300px,340px) minmax(0,1fr);gap:16px;margin-bottom:22px}
+@media (max-width:1080px){.band{grid-template-columns:1fr}}
+.idcard{border:1px solid var(--border);border-radius:12px;padding:16px;background:var(--surface);display:flex;gap:13px}
+.av{width:52px;height:52px;flex:0 0 52px;border-radius:50%;background:var(--b50);color:var(--b800);
+  display:flex;align-items:center;justify-content:center;font:500 17px/1 var(--font)}
+.idb{min-width:0;flex:1}
+.idb .nm{display:flex;align-items:center;gap:7px;font:500 18px/26px var(--font)}
+.mini{width:20px;height:20px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 20px}
+.mini.parent{background:var(--b50);color:var(--b700)}
+.mini.acc{background:var(--gr50);color:var(--gr700)}
+.idb .sub{font:400 12.5px/19px var(--font);color:var(--tt);margin-top:2px}
+.idb .ct{display:flex;flex-direction:column;gap:3px;margin-top:10px}
+.idb .ct a{display:flex;align-items:center;gap:7px;font:400 12.5px/19px var(--font);color:var(--ts);text-decoration:none}
+.idb .ct a:hover{color:var(--accent);text-decoration:underline}
+.idb .ct svg{color:var(--g400);flex:0 0 auto}
+
+.attn{border:1px solid var(--o300);border-radius:12px;background:var(--o50);padding:14px 16px}
+.attn.clear{border-color:var(--gr300);background:var(--gr50)}
+.attn h3{margin:0 0 2px;font:500 14px/21px var(--font);color:var(--o700);display:flex;align-items:center;gap:8px}
+.attn.clear h3{color:var(--gr700)}
+.attn .note{font:400 12.5px/19px var(--font);color:var(--ts)}
+.attn .list{display:flex;flex-direction:column;gap:7px;margin-top:11px}
+.arow{display:flex;align-items:flex-start;gap:10px;width:100%;padding:8px 11px;border-radius:8px;background:var(--surface);
+  border:1px solid var(--o300);transition:box-shadow .12s}
+.arow.e{border-color:var(--r300)}
+.arow:hover{box-shadow:var(--sh);border-color:var(--o600)}
+.arow.e:hover{border-color:var(--r600)}
+.arow .mk{display:block;flex:0 0 15px;padding-top:2px;color:var(--o700)}
+.arow.e .mk{color:var(--r700)}
+.arow .bd{display:block;flex:1;min-width:0}
+.arow .t{display:block;font:500 13px/19px var(--font)}
+.arow .s{display:block;font:400 12px/18px var(--font);color:var(--tt);margin-top:1px}
+.arow .go{display:block;flex:0 0 auto;color:var(--g400);padding-top:2px}
+.flagline{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:11px;padding-top:10px;border-top:1px solid var(--o300);
+  font:400 11.5px/18px var(--font);color:var(--ts)}
+.attn.clear .flagline{border-top-color:var(--gr300)}
+.flagline b{font-weight:500;color:var(--tt);margin-right:2px}
+.flagline button{display:inline-flex;align-items:baseline;gap:6px;padding:2px 9px;border-radius:99px;
+  border:1px dashed var(--o300);background:var(--surface);font:400 11.5px/18px var(--font);color:var(--o700)}
+.flagline button span{color:var(--tt);font-size:11px}
+.flagline button:hover{border-style:solid;background:var(--o50)}
+.arow:hover .go{color:var(--accent)}
+
+/* ---- section heads ---- */
+.sec{margin-bottom:24px}
+.sech{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+.sech h2{margin:0;font:500 11px/16px var(--font);letter-spacing:.09em;text-transform:uppercase;color:var(--g600)}
+.sech .ct{font:400 12px/18px var(--font);color:var(--tt)}
+.sech .rt{margin-left:auto;display:flex;align-items:center;gap:13px}
+.leg{display:flex;align-items:center;gap:11px;font:400 11px/16px var(--font);color:var(--tt)}
+.leg span{display:inline-flex;align-items:center;gap:5px}
+
+/* ---- the matrix ---- */
+.mx{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface)}
+.mxs{overflow-x:auto}
+.mxt{width:100%;border-collapse:collapse;min-width:820px}
+.mxt th{font:400 11px/15px var(--font);color:var(--g600);font-weight:400;padding:9px 4px;text-align:center;
+  background:var(--g50);border-bottom:1px solid var(--border);white-space:nowrap}
+.mxt th.lbl{text-align:left;padding-left:14px;width:250px;position:sticky;left:0;background:var(--g50);z-index:2}
+.mxt th.st{text-align:right;padding-right:14px;width:150px;position:sticky;right:0;background:var(--g50);z-index:2}
+.mxt td{padding:0;border-bottom:1px solid var(--border);vertical-align:middle}
+.mxt tr:last-child td{border-bottom:none}
+.exrow td{background:var(--g50);padding:7px 14px;font:500 12px/18px var(--font);color:var(--g700);position:sticky;left:0}
+.exrow .code{font-weight:500}
+.exrow .nm2{font-weight:400;color:var(--tt)}
+.exrow .ct2{float:right;font-weight:400;color:var(--tt);font-size:11.5px}
+.enr{cursor:pointer}
+.enr:hover td{background:var(--b50)}
+.enr.on .lbl,.enr.on .st,.enr:hover .lbl,.enr:hover .st{background:var(--b50)}
+.enr.on td{background:var(--b50);box-shadow:inset 3px 0 0 var(--b600)}
+.enr .lbl{padding:10px 14px;width:250px;position:sticky;left:0;background:var(--surface);z-index:1;box-shadow:1px 0 0 var(--border)}
+.enr .lbl b{display:block;font:500 13.5px/20px var(--font)}
+.enr .lbl span{display:block;font:400 11.5px/17px var(--font);color:var(--tt)}
+.cell{text-align:center;padding:0}
+.cellb{width:100%;height:42px;display:flex;align-items:center;justify-content:center;border-radius:6px}
+.cellb:hover{background:rgba(37,99,235,.10)}
+.dot{width:11px;height:11px;border-radius:50%;display:block}
+.dot.done{background:var(--gr600)}
+.dot.attention{background:var(--o600)}
+.dot.blocked{background:var(--r600)}
+.dot.flag{background:none;border:2.5px solid var(--o600)}
+.dot.up{background:none;border:1.5px solid var(--g300)}
+.dot.na{width:8px;height:2px;border-radius:1px;background:var(--g200)}
+.enr .st{text-align:right;padding:10px 14px;position:sticky;right:0;background:var(--surface);z-index:1;box-shadow:-1px 0 0 var(--border)}
+
+.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:99px;font:500 12px/19px var(--font);border:1px solid;white-space:nowrap}
+.pill i{width:6px;height:6px;border-radius:50%;background:currentColor;display:block}
+.pill.ok{background:var(--gr50);color:var(--gr700);border-color:var(--gr300)}
+.pill.info{background:var(--b50);color:var(--b800);border-color:var(--b200)}
+.pill.warn{background:var(--o50);color:var(--o700);border-color:var(--o300)}
+.pill.err{background:var(--r50);color:var(--r700);border-color:var(--r300)}
+.pill.mute{background:var(--g100);color:var(--g600);border-color:var(--g300)}
+.pill.teal{background:var(--tl50);color:var(--tl700);border-color:var(--tl300)}
+
+/* ---- identity lineup ---- */
+.lineup{display:flex;gap:10px;overflow-x:auto;padding:2px}
+.cap{flex:0 0 132px;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface);text-align:left}
+.cap:hover{box-shadow:var(--sh);border-color:var(--bd2)}
+.cap .im{display:block;height:96px;position:relative;background:var(--g100)}
+.cap .tag{position:absolute;left:6px;top:6px;padding:1px 7px;border-radius:99px;font:500 10.5px/16px var(--font);background:rgba(255,255,255,.94);border:1px solid var(--border)}
+.cap .tag.ref{color:var(--b800);border-color:var(--b200)}
+.cap .tag.ok{color:var(--gr700);border-color:var(--gr300)}
+.cap .tag.err{color:var(--r700);border-color:var(--r300)}
+.cap.base{border-color:var(--b600);box-shadow:0 0 0 1px var(--b600)}
+.cap .mt{display:block;padding:8px 9px}
+.cap .mt b{display:block;font:500 12px/18px var(--font)}
+.cap .mt span{display:block;font:400 11px/16px var(--font);color:var(--tt)}
+
+/* ---- bottom band ---- */
+.b2{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:16px}
+@media (max-width:1080px){.b2{grid-template-columns:1fr}}
+.panelx{border:1px solid var(--border);border-radius:12px;background:var(--surface);overflow:hidden}
+.panelx > h3{margin:0;padding:11px 14px;background:var(--g50);border-bottom:1px solid var(--border);
+  font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--g600);display:flex;align-items:center;gap:10px}
+.chips{margin-left:auto;display:flex;gap:4px}
+.chips button{padding:2px 9px;border-radius:99px;font:400 11px/17px var(--font);color:var(--tt);border:1px solid var(--border)}
+.chips button.on{background:var(--g900);color:#fff;border-color:var(--g900)}
+.lg{display:flex;gap:11px;padding:10px 14px;border-bottom:1px solid var(--border)}
+.lg:last-child{border-bottom:none}
+.lg .dt{display:block;flex:0 0 9px;padding-top:6px}
+.lg .dt i{width:9px;height:9px;border-radius:50%;display:block}
+.lg .bd{display:block;flex:1;min-width:0}
+.lg .t{display:block;font:400 13px/19px var(--font)}
+.lg .t b{font-weight:500}
+.lg .m{display:block;font:400 11.5px/17px var(--font);color:var(--tt);margin-top:2px}
+.extag{display:inline-block;padding:0 6px;border-radius:4px;background:var(--g100);color:var(--g600);font:500 10.5px/16px var(--font);margin-right:6px}
+.kv{display:flex;justify-content:space-between;gap:14px;padding:8px 14px;border-bottom:1px solid var(--border);font:400 12.5px/19px var(--font)}
+.kv:last-child{border-bottom:none}
+.kv .k{color:var(--tt);flex:0 0 auto}
+.kv .v{text-align:right;color:var(--ts)}
+.docs{display:flex;flex-wrap:wrap;gap:6px;padding:11px 14px}
+.doc{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:7px;border:1px solid var(--border);font:400 12px/18px var(--font);color:var(--ts)}
+.doc:hover{border-color:var(--bd2);background:var(--g50)}
+
+/* ---- side panel (non-modal peek) ---- */
+.peek{flex:0 0 440px;width:440px;border-left:1px solid var(--border);background:var(--surface);display:flex;flex-direction:column;min-width:0}
+.peekh{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border);flex:0 0 auto}
+.peekh .bd{flex:1;min-width:0}
+.peekh .ex{font:400 11.5px/17px var(--font);color:var(--tt)}
+.peekh .t{font:500 15.5px/23px var(--font);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.peekb{flex:1;min-height:0;overflow-y:auto;padding:14px 16px 26px}
+.peekf{flex:0 0 auto;padding:11px 16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--g50)}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:8px;font:500 13px/19px var(--font);border:1px solid var(--bd2);color:var(--ts);background:var(--surface)}
+.btn:hover{background:var(--g50)}
+.btn.pri{background:var(--g900);color:#fff;border-color:var(--g900)}
+.btn.pri:hover{background:var(--g800)}
+.btn.sm{padding:4px 10px;font-size:12.5px}
+
+.st{border:1px solid var(--border);border-radius:10px;margin-bottom:9px;overflow:hidden}
+.st.attention{border-color:var(--o300)}
+.st.blocked{border-color:var(--r300)}
+.sth{display:flex;align-items:flex-start;gap:10px;width:100%;padding:11px 12px}
+.sth:hover{background:var(--g50)}
+.st.attention .sth{background:var(--o50)}
+.st.blocked .sth{background:var(--r50)}
+.sth .mk{display:block;flex:0 0 14px;padding-top:3px;color:var(--g300)}
+.st.attention .sth .mk{color:var(--o700)}
+.st.blocked .sth .mk{color:var(--r700)}
+.sth .bd{display:block;flex:1;min-width:0}
+.sth .t{display:block;font:500 13px/19px var(--font)}
+.sth .v{display:block;font:400 12px/18px var(--font);color:var(--tt);margin-top:1px}
+.st.attention .sth .v{color:var(--o700)}
+.st.blocked .sth .v{color:var(--r700)}
+.sth .rt{display:block;flex:0 0 auto;padding-top:1px}
+.stb{padding:12px;border-top:1px solid var(--border)}
+.st:not(.open) .stb{display:none}
+.card{border:1px solid var(--border);border-radius:8px;margin-bottom:9px;overflow:hidden}
+.card:last-child{margin-bottom:0}
+.card h4{margin:0;padding:7px 11px;background:var(--g50);border-bottom:1px solid var(--border);
+  font:400 10.5px/16px var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--g600)}
+.rw{display:flex;justify-content:space-between;gap:12px;padding:7px 11px;border-bottom:1px solid var(--border);font:400 12.5px/19px var(--font)}
+.rw:last-child{border-bottom:none}
+.rw .k{color:var(--tt)}
+.rw .v{text-align:right}
+.vd{padding:9px 11px;border-radius:8px;font:400 12.5px/19px var(--font);margin-bottom:10px}
+.vd b{font-weight:500}
+.vd.ok{background:var(--gr50);color:var(--gr700)}
+.vd.warn{background:var(--o50);color:var(--o700)}
+.vd.err{background:var(--r50);color:var(--r700)}
+.vd.info{background:var(--b50);color:var(--b800)}
+.accr{display:flex;align-items:center;gap:9px;padding:8px 11px;border-bottom:1px solid var(--border)}
+.accr:last-child{border-bottom:none}
+.accr .n{flex:1;font:400 12.5px/19px var(--font)}
+.accr .acts{display:flex;gap:5px}
+.sq{width:26px;height:26px;border-radius:6px;border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;color:var(--g500)}
+.sq:hover{background:var(--g50)}
+.sq.no:hover{border-color:var(--r600);color:var(--r700);background:var(--r50)}
+.sq.yes:hover{border-color:var(--gr600);color:var(--gr700);background:var(--gr50)}
+.cmpx{display:flex;align-items:center;gap:9px;padding:11px}
+.cmpx .sd{display:block;flex:1;min-width:0;text-align:center}
+.cmpx .sd .im{display:block;height:86px;border-radius:8px;overflow:hidden;border:2px solid var(--border)}
+.cmpx .sd .im.ok{border-color:var(--gr600)}.cmpx .sd .im.err{border-color:var(--r600)}.cmpx .sd .im.ref{border-color:var(--b600)}
+.cmpx .sd b{display:block;font:500 11.5px/17px var(--font);margin-top:5px}
+.cmpx .sd span{display:block;font:400 10.5px/16px var(--font);color:var(--tt)}
+.cmpx .vs{display:block;flex:0 0 auto;font:500 10px/14px var(--font);color:var(--g400)}
+
+.menu{position:fixed;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shl);padding:5px;z-index:300;min-width:224px}
+.menu button{display:block;width:100%;padding:8px 11px;border-radius:7px;font:400 13px/19px var(--font);color:var(--ts)}
+.menu button:hover{background:var(--g100);color:var(--tp)}
+.menu .sp{height:1px;background:var(--border);margin:4px 0}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--g900);color:#fff;
+  padding:9px 16px;border-radius:9px;font:400 13px/19px var(--font);z-index:400;box-shadow:var(--shl)}
+.empty{padding:26px 14px;text-align:center;color:var(--tt);font:400 12.5px/19px var(--font)}
+</style>
+
+<div class="proto">
+  <span class="ttl">Candidate workspace</span>
+  <span class="hint">Click any enrollment row, stage dot, or flagged item</span>
+</div>
+<div id="root"></div>
+
+<script>
+const I={
+ burger:'<svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+ home:'<svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M3 8.5 10 3l7 5.5V16a1 1 0 0 1-1 1h-3v-5H7v5H4a1 1 0 0 1-1-1V8.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+ clip:'<svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="4.5" y="3.5" width="11" height="14" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 2.5h5v2.4h-5z" fill="currentColor"/><path d="M7.5 9h5M7.5 12.5h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>',
+ help:'<svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.2" stroke="currentColor" stroke-width="1.5"/><path d="M8.2 8a1.9 1.9 0 1 1 2.6 1.8c-.5.2-.8.6-.8 1.1v.4M10 14.2v.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+ chev:'<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3.5 10.5 8 6 12.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ chevL:'<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 3.5 5.5 8 10 12.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ x:'<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+ dots:'<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="3.2" r="1.35" fill="currentColor"/><circle cx="8" cy="8" r="1.35" fill="currentColor"/><circle cx="8" cy="12.8" r="1.35" fill="currentColor"/></svg>',
+ tick:'<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.4 6.3 11.7 13 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ cross:'<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+ excl:'<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1.9 15 14.4H1L8 1.9Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6.4v3.2M8 11.8v.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+ stop:'<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8v3.6M8 10.9v.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+ done:'<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="m5.2 8.2 2 2 3.6-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ circ:'<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3" stroke-dasharray="2.4 2.4"/></svg>',
+ mail:'<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1.6" y="3.4" width="12.8" height="9.2" rx="1.4" stroke="currentColor" stroke-width="1.3"/><path d="m2.4 4.6 5.6 4 5.6-4" stroke="currentColor" stroke-width="1.3"/></svg>',
+ phone:'<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="4.8" y="1.8" width="6.4" height="12.4" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M7.2 12.2h1.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',
+ parent:'<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="5.6" cy="4.4" r="2.3" stroke="currentColor" stroke-width="1.3"/><path d="M1.6 13.4c.4-2.5 2-3.9 4-3.9s3.6 1.4 4 3.9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="11.9" cy="7.4" r="1.6" stroke="currentColor" stroke-width="1.3"/><path d="M9.2 13.4c.3-1.7 1.3-2.7 2.7-2.7s2.4 1 2.7 2.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
+ acTime:'<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="9" r="5.4" stroke="currentColor" stroke-width="1.3"/><path d="M8 6.2V9l2 1.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M3.4 2.6 1.8 4.2M12.6 2.6l1.6 1.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>',
+ acRead:'<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="1.8" y="3.2" width="12.4" height="8.4" rx="1.3" stroke="currentColor" stroke-width="1.3"/><path d="M5.6 14h4.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M4.6 6.2h6.8M4.6 8.6h4.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',
+ doc:'<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3.6 1.8h5.2L12.4 5.4v8.8H3.6z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.6 1.9v3.7h3.7" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+ edit:'<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M11.4 2.4a1.5 1.5 0 0 1 2.2 2.1l-7.4 7.4-2.9.7.7-2.9 7.4-7.3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+ ext:'<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M9.4 2.6h4v4M13.4 2.6 8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 9.6v3.2a.8.8 0 0 1-.8.8H3.2a.8.8 0 0 1-.8-.8V4.8a.8.8 0 0 1 .8-.8h3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>'
+};
+const FACE=(h)=>`<svg viewBox="0 0 260 192" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"><rect width="260" height="192" fill="hsl(${h},18%,86%)"/><circle cx="130" cy="76" r="40" fill="hsl(${h},22%,64%)"/><path d="M42 192c8-44 44-66 88-66s80 22 88 66Z" fill="hsl(${h},22%,64%)"/><rect x="104" y="128" width="52" height="16" rx="3" fill="hsl(${h},18%,52%)"/></svg>`;
+const E=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ===================== data ===================== */
+const ORDER=['registration','consent','identity','accommodations','payment','onboarding','session','outcome','score'];
+const SHORT={registration:'Reg',consent:'Consent',identity:'IDV',accommodations:'Accom',payment:'Payment',onboarding:'Onboarding',session:'Session',outcome:'Outcome',score:'Score'};
+const FULL={registration:'Registration form',consent:'Parental consent',identity:'Identity verification',accommodations:'Accommodations',payment:'Payment',onboarding:'Onboarding check-in',session:'Session',outcome:'Session outcome',score:'Score'};
+const FULLWF=['registration','consent','identity','accommodations','payment','onboarding','session','outcome','score'];
+const LEANWF=['registration','consent','identity','payment','session','outcome','score'];
+
+const EXAMS={
+ ds:{code:'DS0432',name:'Data Science Exam',wf:FULLWF},
+ ml:{code:'ML0119',name:'Machine Learning Fundamentals',wf:LEANWF},
+ py:{code:'PY0287',name:'Python Proficiency',wf:LEANWF}
+};
+const CAND={n:'Ethan Cole',id:'CAN-12345',email:'ethan.cole@example.com',phone:'+1 415 555 0142',
+ dob:'12 Mar 2010',age:16,country:'United States',tz:'America/New_York',first:'8 Jan 2025',
+ ext:'EXT-88120',src:'Pearson Professional invite'};
+const ROSTER=['Ethan Cole','Mia Chen','Noah Smith','Olivia Patel','Liam Johnson','Ava Davis'];
+
+const S=(k,st,chip,sum,blocks)=>({k,st,chip,sum,blocks:blocks||[]});
+const ROWS=(title,items)=>({t:'rows',title,items});
+const VD=(k,html)=>({t:'vd',k,html});
+
+const ENR=[
+ {id:'ds4',ex:'ds',label:'Enrollment 4',period:'2 May – 8 May 2026',latest:true,
+  stages:[
+   S('registration','done',['Submitted','ok'],'Submitted 2 May 2026',[ROWS('Responses',[['Current employer','Northgate Labs'],['Years of experience','4'],['Notice period','30 days']])]),
+   S('consent','done',['Received','ok'],'Guardian Rachel Cole · ID verified',[ROWS('Consent',[['Guardian','Rachel Cole'],['Parent IDV','Verified'],['Received at','2 May 2026, 11:10 AM']])]),
+   S('identity','done',['Passed','ok'],'Face matched base image and ID',[{t:'cmp',a:['Base image','PY0287 · Jan 2025','ref',24],b:['This capture','2 May 2026 · 09:20 AM','ok',24]},ROWS('Document',[['Type','Passport'],['Name on document','Ethan Cole'],['Expiry','14 Aug 2031']])]),
+   S('accommodations','done',['Approved','ok'],'Extended time 1.5× approved',[ROWS('Decision',[['Extended time 1.5×','Approved'],['Reviewed by','Divya K. · 2 May 2026']])]),
+   S('payment','done',['Paid','ok'],'$150.00 · Mastercard',[ROWS('Payment',[['Amount','$150.00'],['Method','Debit card · Mastercard'],['Transaction','txn_5C21RT9088']])]),
+   S('onboarding','up',['Upcoming','mute'],'Opens 30 minutes before the session',[VD('info','Check-in opens <b>8 May 2026, 08:30 AM</b>. Nothing to do yet.')]),
+   S('session','done',['Booked','info'],'8 May 2026, 09:00 AM · Prometric New York',[ROWS('Booking',[['Scheduled for','8 May 2026 · 09:00–12:00'],['Exam centre','Prometric Testing Center, New York'],['Seat','Room 204 / Seat 7B'],['Extended time','+30 min applied']])])
+  ]},
+ {id:'ds3',ex:'ds',label:'Enrollment 3',period:'20 Mar – present 2026',
+  stages:[
+   S('registration','done',['Submitted','ok'],'Submitted 20 Mar 2026',[ROWS('Responses',[['Current employer','Northgate Labs'],['Years of experience','4']])]),
+   S('consent','done',['Received','ok'],'Guardian Rachel Cole · ID verified',[ROWS('Consent',[['Guardian','Rachel Cole'],['Received at','21 Mar 2026, 6:20 PM']])]),
+   S('identity','flag',['Check failed','warn'],'Soft flag — candidate was allowed to proceed',[
+     VD('warn','<b>Check failed.</b> The name on the passport does not match the registered name. Soft flag — the candidate was allowed to proceed.'),
+     {t:'cmp',a:['Registered name','Ethan Cole','ref',24],b:['On document','Ethan A. Cole','err',24]},
+     ROWS('Attempts',[['Attempt 2 · 22 Mar, 10:58 AM','Partial fail — name mismatch'],['Attempt 1 · 22 Mar, 10:51 AM','Could not process — blurry']])]),
+   S('accommodations','attention',['2 pending review','warn'],'Waiting on your decision for 12 days',[
+     VD('warn','<b>2 requests awaiting your decision.</b> The candidate cannot be scheduled until each one is decided.'),
+     {t:'acc'},
+     ROWS('Request',[['Requested at','23 Mar 2026, 11:02 AM'],['Supporting document','Medical-note.pdf']])]),
+   S('payment','blocked',['Failed','err'],'Card declined twice — booking is blocked',[
+     VD('err','<b>Payment failed.</b> The card was declined on both attempts, so the candidate cannot book a slot.'),
+     ROWS('Amount',[['Total due','$150.00'],['Voucher','SPRING26 · −$25 applied']]),
+     ROWS('Attempts',[['Attempt 2 · 4 Apr 2026','Declined — insufficient funds'],['Attempt 1 · 24 Mar 2026','Declined — card expired']])])
+  ]},
+ {id:'ds2',ex:'ds',label:'Enrollment 2',period:'2 Feb – 14 Feb 2026',
+  stages:[
+   S('registration','done',['Submitted','ok'],'Submitted 2 Feb 2026',[]),
+   S('consent','done',['Received','ok'],'Guardian Rachel Cole',[]),
+   S('identity','done',['Passed','ok'],'Face matched base image and ID',[{t:'cmp',a:['Base image','PY0287 · Jan 2025','ref',24],b:['This capture','2 Feb 2026','ok',24]}]),
+   S('accommodations','done',['Approved','ok'],'Extended time 1.5× approved',[]),
+   S('payment','done',['Paid','ok'],'$150.00 · Mastercard',[]),
+   S('onboarding','done',['Passed','ok'],'Checked in 14 Feb 2026, 08:42 AM',[]),
+   S('session','done',['Completed','ok'],'14 Feb 2026 · duration 02:48:11',[ROWS('Session',[['Exam centre','Prometric Testing Center, New York'],['Duration','02:48:11']])]),
+   S('outcome','flag',['3 incidents · cleared','mute'],'Reviewed 16 Feb 2026 — none upheld',[
+     VD('warn','<b>3 incidents raised, none upheld.</b> Reviewed and cleared by Priya Nair on 16 Feb 2026.'),
+     ROWS('Incidents',[['Multiple faces detected','Dismissed — reflection'],['Candidate left frame','Dismissed — approved break'],['Background noise','Dismissed']])]),
+   S('score','done',['62 / 100 · Fail','err'],'Below the 70 pass mark',[ROWS('Result',[['Score','62 / 100'],['Pass mark','70'],['Result','Fail'],['Released','16 Feb 2026']])])
+  ]},
+ {id:'ds1',ex:'ds',label:'Enrollment 1',period:'24 Apr – 2 May 2025',
+  stages:[
+   S('registration','done',['Submitted','ok'],'Submitted 25 Apr 2025',[]),
+   S('consent','done',['Received','ok'],'Guardian Rachel Cole',[]),
+   S('identity','done',['Passed','ok'],'Face matched base image and ID',[{t:'cmp',a:['Base image','PY0287 · Jan 2025','ref',24],b:['This capture','25 Apr 2025','ok',24]}]),
+   S('accommodations','done',['None requested','mute'],'No requests on this enrollment',[]),
+   S('payment','done',['Refunded','mute'],'$150.00 refunded 3 May 2025',[ROWS('Refund',[['Refunded','$150.00'],['Reason','Enrollment cancelled by candidate'],['Processed','3 May 2025']])]),
+   S('session','done',['Cancelled','mute'],'Cancelled by candidate 2 May 2025',[VD('info','Cancelled by the candidate before the session. Payment was refunded in full.')])
+  ]},
+ {id:'ml1',ex:'ml',label:'Enrollment 1',period:'12 Sep – 30 Nov 2025',
+  stages:[
+   S('registration','done',['Submitted','ok'],'Submitted 13 Sep 2025',[]),
+   S('consent','done',['Received','ok'],'Guardian Rachel Cole',[]),
+   S('identity','done',['Passed','ok'],'Face matched base image and ID',[{t:'cmp',a:['Base image','PY0287 · Jan 2025','ref',24],b:['This capture','14 Oct 2025','ok',24]}]),
+   S('payment','done',['Paid','ok'],'$120.00 · Mastercard',[]),
+   S('session','done',['Completed','ok'],'28 Nov 2025 · duration 01:52:40',[]),
+   S('outcome','done',['Clean','ok'],'No incidents raised',[]),
+   S('score','done',['78 / 100 · Pass','ok'],'Above the 70 pass mark',[ROWS('Result',[['Score','78 / 100'],['Result','Pass'],['Released','30 Nov 2025']])])
+  ]},
+ {id:'py1',ex:'py',label:'Enrollment 1',period:'8 Jan – 12 Feb 2025',
+  stages:[
+   S('registration','done',['Submitted','ok'],'Submitted 8 Jan 2025',[]),
+   S('consent','done',['Received','ok'],'Guardian Rachel Cole',[]),
+   S('identity','done',['Passed','ok'],'First capture on file — this is the base image',[
+     VD('info','This is the <b>base image</b>. Every later face check on this candidate is compared against it.'),
+     {t:'cmp',a:['Base image','8 Jan 2025 · 10:04 AM','ref',24],b:null}]),
+   S('payment','done',['Paid','ok'],'$90.00 · voucher EDU-2025-PY',[]),
+   S('session','done',['Completed','ok'],'12 Feb 2025 · duration 00:55:03',[]),
+   S('outcome','done',['Clean','ok'],'No incidents raised',[]),
+   S('score','done',['91 / 100 · Pass','ok'],'Certificate issued 12 Feb 2025',[ROWS('Result',[['Score','91 / 100'],['Result','Pass'],['Certificate','CERT-PY-99120']])])
+  ]}
+];
+
+const LINEUP=[
+ {e:'py1',cap:'Base image',when:'8 Jan 2025',tag:['Base','ref'],hue:24,base:true},
+ {e:'ds1',cap:'DS0432 · Enr 1',when:'25 Apr 2025',tag:['Match','ok'],hue:24},
+ {e:'ml1',cap:'ML0119 · Enr 1',when:'14 Oct 2025',tag:['Match','ok'],hue:24},
+ {e:'ds2',cap:'DS0432 · Enr 2',when:'2 Feb 2026',tag:['Match','ok'],hue:24},
+ {e:'ds3',cap:'DS0432 · Enr 3',when:'22 Mar 2026',tag:['Name mismatch','err'],hue:24},
+ {e:'ds4',cap:'DS0432 · Enr 4',when:'2 May 2026',tag:['Match','ok'],hue:24}
+];
+
+const LOG=[
+ ['ds','r','Payment failed — attempt 2','4 Apr 2026, 9:12 AM','$150 · insufficient funds','ds3'],
+ ['ds','a','Accommodation requested','23 Mar 2026, 11:02 AM','Extended time 1.5×, Screen reader','ds3'],
+ ['ds','r','IDV attempt 2 — partial fail','22 Mar 2026, 10:58 AM','Name did not match the ID document','ds3'],
+ ['ds','g','Parental consent received','21 Mar 2026, 6:20 PM','Guardian Rachel Cole','ds3'],
+ ['ds','g','Enrollment started','20 Mar 2026, 10:40 AM','via invitation','ds3'],
+ ['ds','g','Score released','16 Feb 2026, 9:00 AM','62 / 100 · Fail','ds2'],
+ ['ds','a','3 incidents reviewed','16 Feb 2026, 8:20 AM','None upheld · by Priya Nair','ds2'],
+ ['ds','g','Exam completed','14 Feb 2026, 11:30 AM','duration 02:48:11','ds2'],
+ ['ml','g','Certificate issued','30 Nov 2025, 12:00 PM','78 / 100 · Pass','ml1'],
+ ['ml','g','Exam completed','28 Nov 2025, 10:40 AM','duration 01:52:40','ml1'],
+ ['ds','g','Refund processed','3 May 2025, 2:10 PM','$150.00 · full refund','ds1'],
+ ['ds','a','Enrollment cancelled','2 May 2025, 9:30 AM','by candidate','ds1'],
+ ['py','g','Certificate issued','12 Feb 2025, 12:00 PM','91 / 100 · Pass','py1'],
+ ['py','g','Base image captured','8 Jan 2025, 10:04 AM','first face capture on file','py1']
+];
+
+/* ===================== state ===================== */
+let sel=null, selStage=null, candIdx=0, logEx='all', toast=null;
+const openStage={};
+let ACC=[{n:'Extended time 1.5×',ic:'acTime',s:null},{n:'Screen reader',ic:'acRead',s:null}];
+
+const exOf=e=>EXAMS[e.ex];
+const byId=id=>ENR.find(e=>e.id===id);
+const stageOf=(e,k)=>e.stages.find(s=>s.k===k);
+function cellState(e,k){const s=stageOf(e,k);if(s)return s.st;return exOf(e).wf.includes(k)?'up':'na';}
+
+function accState(){ // enrollment 3's accommodations stage follows the live decisions
+ const pend=ACC.filter(a=>!a.s).length;
+ const st=byId('ds3').stages.find(s=>s.k==='accommodations');
+ if(pend){st.st='attention';st.chip=[pend+' pending review','warn'];st.sum='Waiting on your decision for 12 days';
+   st.blocks[0]=VD('warn','<b>'+pend+' request'+(pend>1?'s':'')+' awaiting your decision.</b> The candidate cannot be scheduled until each one is decided.');}
+ else{const app=ACC.filter(a=>a.s==='y');
+   st.st='done';st.chip=[app.length?'Approved':'Declined',app.length?'ok':'mute'];
+   st.sum=app.length?app.map(a=>a.n).join(', ')+' approved':'Both requests declined';
+   st.blocks[0]=VD(app.length?'ok':'info',app.length
+     ? '<b>Decided.</b> '+app.map(a=>a.n).join(' and ')+' will be applied to every session on this enrollment.'
+     : '<b>Decided.</b> Both requests were declined — the candidate sits under standard conditions.');}
+}
+function derived(e){
+ accState();
+ const st=e.stages;
+ if(st.some(s=>s.k==='session'&&s.chip[0]==='Cancelled')) return ['Cancelled','mute'];
+ if(st.some(s=>s.k==='score')) return ['Completed','teal'];
+ if(st.some(s=>s.st==='blocked')) return ['Pending Approval','warn'];
+ if(st.some(s=>s.st==='attention')) return ['Pending Approval','warn'];
+ if(st.some(s=>s.k==='session'&&s.st==='done')) return ['Enrolled','ok'];
+ return ['In Progress','info'];
+}
+function attention(){
+ accState();
+ const out=[];
+ ENR.forEach(e=>e.stages.forEach(s=>{
+   if(s.st==='attention'||s.st==='blocked') out.push({e,s,k:s.st==='blocked'?'e':'w'});
+ }));
+ return out.sort((a,b)=>(a.k==='e'?-1:1)-(b.k==='e'?-1:1));
+}
+function flags(){
+ const out=[]; ENR.forEach(e=>e.stages.forEach(s=>{if(s.st==='flag')out.push({e,s});}));
+ return out;
+}
+function approvedAcc(){return ACC.filter(a=>a.s==='y');}
+
+/* ===================== render ===================== */
+function av(n){return `<span class="av">${E(n.split(' ').map(w=>w[0]).slice(0,2).join(''))}</span>`;}
+function pill(p){return `<span class="pill ${p[1]}"><i></i>${E(p[0])}</span>`;}
+
+function flagLine(fl){
+ if(!fl.length) return '';
+ return `<div class="flagline"><b>${fl.length} flagged, no action needed</b>
+   ${fl.map(x=>`<button data-attn="${E(x.e.id)}|${E(x.s.k)}">${E(x.s.chip[0])}
+     <span>${E(exOf(x.e).code)} &middot; ${E(x.e.label)}</span></button>`).join('')}</div>`;
+}
+function bandH(){
+ const at=attention(), fl=flags(), ap=approvedAcc();
+ return `<div class="band">
+  <div class="idcard">${av(CAND.n)}
+    <div class="idb">
+      <div class="nm">${E(CAND.n)}
+        <span class="mini parent" title="Minor — parental consent on file">${I.parent}</span>
+        ${ap.map(a=>`<span class="mini acc" title="${E(a.n)} approved">${I[a.ic]}</span>`).join('')}</div>
+      <div class="sub">${E(CAND.id)} &middot; ${CAND.age} years old &middot; ${E(CAND.country)}</div>
+      <div class="ct">
+        <a href="#" data-noop="1">${I.mail}${E(CAND.email)}</a>
+        <a href="#" data-noop="1">${I.phone}${E(CAND.phone)}</a>
+      </div>
+    </div>
+  </div>
+  ${at.length?`<div class="attn">
+    <h3>${I.excl} ${at.length} ${at.length===1?'decision is':'decisions are'} waiting on you</h3>
+    <div class="note">Each one is holding up a candidate who is otherwise ready to sit.</div>
+    <div class="list">${at.map(x=>`<button class="arow ${x.k==='e'?'e':''}" data-attn="${E(x.e.id)}|${E(x.s.k)}">
+      <span class="mk">${x.k==='e'?I.stop:I.excl}</span>
+      <span class="bd"><span class="t">${E(FULL[x.s.k])} — ${E(x.s.chip[0])}</span>
+        <span class="s">${E(exOf(x.e).code)} &middot; ${E(x.e.label)} &middot; ${E(x.s.sum)}</span></span>
+      <span class="go">${I.chev}</span></button>`).join('')}</div>
+    ${flagLine(fl)}
+  </div>`:`<div class="attn clear">
+    <h3>${I.done} Nothing needs a decision</h3>
+    <div class="note">All ${ENR.length} enrollments are either progressing on their own or finished. The next thing that could need you is the check-in on 8 May.</div>
+    ${flagLine(fl)}
+  </div>`}
+ </div>`;
+}
+
+function matrixH(){
+ const groups=[];
+ ENR.forEach(e=>{const g=groups.find(x=>x.ex===e.ex);g?g.items.push(e):groups.push({ex:e.ex,items:[e]});});
+ const head=`<tr><th class="lbl">Enrollment</th>
+   ${ORDER.map(k=>`<th title="${E(FULL[k])}">${E(SHORT[k])}</th>`).join('')}
+   <th class="st">Status</th></tr>`;
+ const body=groups.map(g=>{
+  const x=EXAMS[g.ex];
+  return `<tr class="exrow"><td colspan="${ORDER.length+2}">
+     <span class="code">${E(x.code)}</span> <span class="nm2">${E(x.name)}</span>
+     <span class="ct2">${g.items.length} enrollment${g.items.length>1?'s':''} &middot; ${x.wf.length} stages configured</span></td></tr>`
+   + g.items.map(e=>{
+     const d=derived(e);
+     return `<tr class="enr ${sel===e.id?'on':''}" data-enr="${E(e.id)}">
+      <td class="lbl"><b>${E(e.label)}${e.latest?' &middot; latest':''}</b><span>${E(e.period)}</span></td>
+      ${ORDER.map(k=>{const cs=cellState(e,k);const s=stageOf(e,k);
+        const tip=cs==='na'?FULL[k]+' — not in this workflow':FULL[k]+(s?' — '+s.chip[0]:' — not started');
+        return `<td class="cell"><span class="cellb" data-cell="${E(e.id)}|${E(k)}" title="${E(tip)}"><i class="dot ${cs}"></i></span></td>`;}).join('')}
+      <td class="st">${pill(d)}</td></tr>`;
+   }).join('');
+ }).join('');
+ return `<div class="sec">
+   <div class="sech"><h2>Enrollments</h2>
+     <span class="ct">${ENR.length} across ${Object.keys(EXAMS).length} exams</span>
+     <span class="rt"><span class="leg">
+       <span><i class="dot done"></i>Done</span>
+       <span><i class="dot attention"></i>Needs a decision</span>
+       <span><i class="dot blocked"></i>Blocked</span>
+       <span><i class="dot flag"></i>Flagged, no action</span>
+       <span><i class="dot up"></i>Not started</span>
+       <span><i class="dot na"></i>Not in this workflow</span>
+     </span></span></div>
+   <div class="mx"><div class="mxs"><table class="mxt"><thead>${head}</thead><tbody>${body}</tbody></table></div></div>
+ </div>`;
+}
+
+function lineupH(){
+ return `<div class="sec">
+  <div class="sech"><h2>Identity across exams</h2>
+    <span class="ct">${LINEUP.length} captures &middot; ${LINEUP.filter(c=>c.tag[1]==='err').length} flagged</span></div>
+  <div class="lineup">${LINEUP.map(c=>`<button class="cap ${c.base?'base':''}" data-cap="${E(c.e)}">
+    <span class="im">${FACE(c.hue)}<span class="tag ${c.tag[1]}">${E(c.tag[0])}</span></span>
+    <span class="mt"><b>${E(c.cap)}</b><span>${E(c.when)}</span></span></button>`).join('')}</div>
+ </div>`;
+}
+
+function bottomH(){
+ const rows=LOG.filter(l=>logEx==='all'||l[0]===logEx);
+ const dot={g:'var(--gr600)',a:'var(--o600)',r:'var(--r600)'};
+ return `<div class="b2">
+  <div class="panelx"><h3>Activity across exams
+    <span class="chips">
+      <button data-logex="all" class="${logEx==='all'?'on':''}">All</button>
+      ${Object.keys(EXAMS).map(k=>`<button data-logex="${k}" class="${logEx===k?'on':''}">${E(EXAMS[k].code)}</button>`).join('')}
+    </span></h3>
+   ${rows.length?rows.map(l=>`<button class="lg" data-attn="${E(l[5])}|">
+     <span class="dt"><i style="background:${dot[l[1]]}"></i></span>
+     <span class="bd"><span class="t"><span class="extag">${E(EXAMS[l[0]].code)}</span><b>${E(l[2])}</b></span>
+       <span class="m">${E(l[3])}${l[4]?' &middot; '+E(l[4]):''}</span></span></button>`).join(''):`<div class="empty">No activity for this exam.</div>`}
+  </div>
+  <div>
+   <div class="panelx" style="margin-bottom:16px"><h3>Profile</h3>
+    <div class="kv"><span class="k">Date of birth</span><span class="v">${E(CAND.dob)} &middot; minor</span></div>
+    <div class="kv"><span class="k">External ID</span><span class="v">${E(CAND.ext)}</span></div>
+    <div class="kv"><span class="k">Time zone</span><span class="v">${E(CAND.tz)}</span></div>
+    <div class="kv"><span class="k">Source</span><span class="v">${E(CAND.src)}</span></div>
+    <div class="kv"><span class="k">First enrolled</span><span class="v">${E(CAND.first)}</span></div>
+   </div>
+   <div class="panelx"><h3>Documents on file</h3>
+    <div class="docs">
+     <button class="doc">${I.doc} Passport</button>
+     <button class="doc">${I.doc} Guardian ID</button>
+     <button class="doc">${I.doc} Medical-note.pdf</button>
+     <button class="doc">${I.doc} Certificate PY0287</button>
+    </div>
+   </div>
+  </div>
+ </div>`;
+}
+
+function blockH(b){
+ if(b.t==='vd') return `<div class="vd ${b.k}">${b.html}</div>`;
+ if(b.t==='rows') return `<div class="card"><h4>${E(b.title)}</h4>
+   ${b.items.map(r=>`<div class="rw"><span class="k">${E(r[0])}</span><span class="v">${E(r[1])}</span></div>`).join('')}</div>`;
+ if(b.t==='cmp') return `<div class="card"><h4>Comparison</h4><div class="cmpx">
+   <span class="sd"><span class="im ${b.a[2]}">${FACE(b.a[3])}</span><b>${E(b.a[0])}</b><span>${E(b.a[1])}</span></span>
+   ${b.b?`<span class="vs">VS</span><span class="sd"><span class="im ${b.b[2]}">${FACE(b.b[3])}</span><b>${E(b.b[0])}</b><span>${E(b.b[1])}</span></span>`:''}
+  </div></div>`;
+ if(b.t==='acc') return `<div class="card"><h4>Requested accommodations</h4>
+   ${ACC.map((a,i)=>`<div class="accr"><span class="mini acc" style="background:var(--g100);color:var(--g600)">${I[a.ic]}</span>
+     <span class="n">${E(a.n)}</span>
+     ${a.s?`<span class="pill ${a.s==='y'?'ok':'mute'}">${a.s==='y'?'Approved':'Declined'}</span>
+        <button class="sq" data-accclr="${i}" title="Change decision">${I.edit}</button>`
+       :`<span class="acts"><button class="sq no" data-accset="${i}|n" title="Decline">${I.cross}</button>
+         <button class="sq yes" data-accset="${i}|y" title="Approve">${I.tick}</button></span>`}
+    </div>`).join('')}
+   ${ACC.every(a=>a.s)?`<div class="rw"><span class="k">Reviewed by</span><span class="v">Divya K. &middot; today</span></div>`:''}
+  </div>`;
+ return '';
+}
+
+function peekH(){
+ const e=byId(sel); if(!e) return '';
+ const d=derived(e), x=exOf(e);
+ const mk={done:I.done,attention:I.excl,blocked:I.stop,up:I.circ};
+ return `<div class="peek">
+  <div class="peekh">
+   <div class="bd"><div class="ex">${E(x.code)} &middot; ${E(x.name)}</div>
+     <div class="t">${E(e.label)} ${pill(d)}</div>
+     <div class="ex" style="margin-top:2px">${E(e.period)}</div></div>
+   <button class="ibtn" data-peekclose="1" title="Close">${I.x}</button>
+  </div>
+  <div class="peekb" id="peekb">
+   ${e.stages.slice().reverse().map(s=>{
+     const k=e.id+'|'+s.k, op=openStage[k];
+     return `<div class="st ${s.st} ${op?'open':''}">
+       <button class="sth" data-stage="${E(k)}">
+         <span class="mk">${mk[s.st]||I.circ}</span>
+         <span class="bd"><span class="t">${E(FULL[s.k])}</span><span class="v">${E(s.sum)}</span></span>
+         <span class="rt">${pill(s.chip)}</span></button>
+       <div class="stb">${s.blocks.length?s.blocks.map(blockH).join(''):`<div class="empty" style="padding:10px">Nothing further recorded on this stage.</div>`}</div>
+     </div>`;}).join('')}
+  </div>
+  <div class="peekf">
+   <button class="btn pri" data-open="1">Open enrollment profile ${I.ext}</button>
+   <span style="flex:1"></span>
+   <button class="ibtn" data-menu="enr" title="Enrollment actions">${I.dots}</button>
+  </div>
+ </div>`;
+}
+
+function render(){
+ const sc=document.getElementById('peekb'); const sp=sc?sc.scrollTop:0;
+ const pg=document.querySelector('.page'); const pp=pg?pg.scrollTop:0;
+ document.getElementById('root').innerHTML=`<div class="app">
+  <div class="rail"><span class="ic">${I.burger}</span><span class="ic on">${I.home}</span>
+    <span class="ic">${I.clip}</span><span class="sp"></span><span class="ic">${I.help}</span></div>
+  <div class="main">
+   <div class="crumb">
+     <button class="lk" data-noop="1">Exams</button><span class="sl">/</span>
+     <button class="lk" data-noop="1">Candidates</button><span class="sl">/</span>
+     <b>${E(CAND.n)}</b>
+     <span class="rt">
+       <button class="ibtn" data-cand="-1" title="Previous candidate">${I.chevL}</button>
+       <button class="ibtn" data-cand="1" title="Next candidate">${I.chev}</button>
+       <span class="vdiv"></span>
+       <button class="ibtn" data-menu="cand" title="Candidate actions">${I.dots}</button>
+     </span>
+   </div>
+   <div class="wrap">
+    <div class="page ${sel?'narrow':''}">
+      ${bandH()}${matrixH()}${lineupH()}${bottomH()}
+    </div>
+    ${sel?peekH():''}
+   </div>
+  </div>
+ </div>${toast?`<div class="toast">${E(toast)}</div>`:''}`;
+ const nb=document.getElementById('peekb'); if(nb)nb.scrollTop=sp;
+ const np=document.querySelector('.page'); if(np)np.scrollTop=pp;
+}
+
+/* ===================== interaction ===================== */
+function flash(m){toast=m;render();clearTimeout(flash.t);flash.t=setTimeout(()=>{toast=null;render();},1800);}
+function closeMenu(){document.querySelectorAll('.menu').forEach(m=>m.remove());}
+function showMenu(anchor,items){
+ closeMenu();
+ const r=anchor.getBoundingClientRect(), d=document.createElement('div');
+ d.className='menu';
+ d.innerHTML=items.map(i=>i==='-'?'<div class="sp"></div>':`<button data-mi="${E(i)}">${E(i)}</button>`).join('');
+ document.body.appendChild(d);
+ d.style.top=Math.min(r.bottom+6,innerHeight-d.offsetHeight-10)+'px';
+ d.style.left=Math.max(10,r.right-d.offsetWidth)+'px';
+}
+function selectStage(id,k){
+ sel=id;
+ if(k){openStage[id+'|'+k]=true;selStage=k;}
+ render();
+ if(k)requestAnimationFrame(()=>{
+   const el=[...document.querySelectorAll('[data-stage]')].find(b=>b.dataset.stage===id+'|'+k);
+   if(el)el.scrollIntoView({block:'center'});
+ });
+}
+document.addEventListener('click',e=>{
+ const mi=e.target.closest('[data-mi]');
+ if(mi){const t=mi.dataset.mi;closeMenu();flash(t+' — prototype stub');return;}
+ if(!e.target.closest('.menu'))closeMenu();
+ if(e.target.closest('[data-noop]')){e.preventDefault();return;}
+
+ const mn=e.target.closest('[data-menu]');
+ if(mn){showMenu(mn, mn.dataset.menu==='cand'
+   ? ['Email candidate','Call candidate','-','Enroll in another exam','Export candidate record','-','Merge duplicate profile','Suspend candidate']
+   : ['Manage accommodations','Reschedule session','Re-enroll candidate','-','Cancel enrollment']);
+  return;}
+
+ const cn=e.target.closest('[data-cand]');
+ if(cn){candIdx=(candIdx+parseInt(cn.dataset.cand)+ROSTER.length)%ROSTER.length;flash('Showing '+ROSTER[candIdx]);return;}
+
+ const at=e.target.closest('[data-attn]');
+ if(at){const [id,k]=at.dataset.attn.split('|');selectStage(id,k||null);return;}
+ const cl=e.target.closest('[data-cell]');
+ if(cl){const [id,k]=cl.dataset.cell.split('|');
+   const st=stageOf(byId(id),k);
+   if(!st){flash(FULL[k]+' — '+(exOf(byId(id)).wf.includes(k)?'not started yet':'not part of this workflow'));return;}
+   selectStage(id,k);return;}
+ const er=e.target.closest('[data-enr]');
+ if(er){sel=er.dataset.enr;render();return;}
+ const cp=e.target.closest('[data-cap]');
+ if(cp){selectStage(cp.dataset.cap,'identity');return;}
+
+ if(e.target.closest('[data-peekclose]')){sel=null;render();return;}
+ const sg=e.target.closest('[data-stage]');
+ if(sg){openStage[sg.dataset.stage]=!openStage[sg.dataset.stage];render();return;}
+
+ const lx=e.target.closest('[data-logex]');
+ if(lx){logEx=lx.dataset.logex;render();return;}
+
+ const as=e.target.closest('[data-accset]');
+ if(as){const [i,v]=as.dataset.accset.split('|');ACC[+i].s=v;
+   render();flash(ACC[+i].n+(v==='y'?' approved':' declined'));return;}
+ const ac=e.target.closest('[data-accclr]');
+ if(ac){ACC[+ac.dataset.accclr].s=null;render();flash('Decision cleared');return;}
+
+ if(e.target.closest('[data-open]')){flash('Opening the full enrollment profile');return;}
+});
+addEventListener('resize',closeMenu,true);
+render();
+</script>
+
+</body></html>
