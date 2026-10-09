@@ -15,8 +15,8 @@ python3 -m http.server 8000
 
 | Path | What it is |
 |---|---|
+| `prototypes/candidate-profile-v2.html` | Candidate profile v2 — workflow steps (Enrollment, Verity, Scoring, Credentials) with the bar graph score card. |
 | `prototypes/enrollment-profile.html` | Enrollment-scoped profile. Two variants behind a switcher: **Timeline** and **Cards**. |
-| `prototypes/candidate-workspace.html` | Candidate-scoped workspace — every enrollment across every exam as one comparable matrix. |
 | `deck/review-deck.html` | 13-slide review deck. Arrow keys to move. |
 | `docs/design-notes.md` | The reasoning: problem, principles, patterns borrowed, open questions. |
 
