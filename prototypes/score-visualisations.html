@@ -1218,15 +1218,15 @@ input.edt{height:34px}
 .rows{display:flex;flex-direction:column;margin-top:4px}
 .rx{border-top:1px solid var(--g100)}
 .rx:first-child{border-top:none}
-.rw{display:grid;grid-template-columns:minmax(0,1fr) 84px 92px;gap:12px;align-items:center;padding:7px 0;font:400 12.5px/18px var(--font)}
-.rw .nm{font-weight:500;color:var(--ts);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.rw .lv{font-weight:500;color:var(--tp)}
-.rw.sub{padding:5px 0 5px 14px}
-.rw.sub .nm{font-weight:400}
+.rrw{display:grid;grid-template-columns:minmax(0,1fr) 84px 92px;gap:12px;align-items:center;padding:7px 0;font:400 12.5px/18px var(--font)}
+.rrw .nm{font-weight:500;color:var(--ts);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rrw .lv{font-weight:500;color:var(--tp)}
+.rrw.sub{padding:5px 0 5px 14px}
+.rrw.sub .nm{font-weight:400}
 .rows.live details>summary{display:block;position:relative;cursor:pointer;list-style:none;border-radius:6px;margin:0 -6px;padding:0 6px 0 24px}
 .rows.live details>summary::-webkit-details-marker{display:none}
 .rows.live summary:hover{background:var(--g50)}
-.rows.live .rx>.rw{padding-left:18px}
+.rows.live .rx>.rrw{padding-left:18px}
 .rows.live .cv{position:absolute;left:6px;top:50%;display:flex;color:var(--g500);transform:translateY(-50%);transition:transform .15s}
 .rows.live .cv svg{width:12px;height:12px}
 .rows.live details[open] .cv{transform:translateY(-50%) rotate(90deg)}
@@ -1405,12 +1405,12 @@ input.edt{height:34px}
 .lvb{display:inline-flex}
 /* rows: chevron in its own column */
 .rows.live details>summary{display:block;padding:0 6px}
-.rows.live .rw{grid-template-columns:16px minmax(0,1fr) 84px 92px}
-.rows.live .rx>.rw{padding-left:0}
+.rows.live .rrw{grid-template-columns:16px minmax(0,1fr) 84px 92px}
+.rows.live .rx>.rrw{padding-left:0}
 .rows.live .cv{position:static;display:flex;align-items:center;justify-content:center;width:16px;height:16px;transform:none;transition:transform .18s ease}
 .rows.live details[open]>summary .cv{transform:rotate(90deg)}
 .rsub{margin:0 0 6px 7px;padding-left:0}
-.rows.live .rw.sub .nm{padding-left:12px}
+.rows.live .rrw.sub .nm{padding-left:12px}
 @media (prefers-reduced-motion:reduce){.sp2 .sx,.sp2 .sbase,.sp2 .sl0{transition:none}}
 
 /* card: the overall, smaller */
@@ -1428,9 +1428,46 @@ input.edt{height:34px}
 /* spider: hover only hints; click opens */
 .spx.live .sg:hover .sl0 .t1{fill:#7C3AED}
 .spx[data-sopen] .sg .swh{fill:transparent}
+
+.sp2 .t2.tt{text-decoration:underline dotted;text-underline-offset:3px;cursor:help;pointer-events:all}
+/* standard credential card: badge and certificate tiles, meta in a footer line */
+.ctiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin:12px 0 2px}
+.ctile{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--surface);text-align:left;color:var(--tp)}
+.ctile:hover{border-color:var(--bd2);background:var(--g50)}
+.ctile .cti{flex:0 0 40px;width:40px;height:40px;display:grid;place-items:center}
+.ctile .cti svg{width:100%;height:100%}
+.ctile .cti.cert{height:30px}
+.ctile .bd{flex:1;min-width:0;display:flex;flex-direction:column}
+.ctile b{font:500 13px/19px var(--font)}
+.ctile .bd span{font:400 11.5px/17px var(--font);color:var(--tt)}
+.ctile>svg{width:15px;height:15px;color:var(--g500);flex:0 0 auto}
+.cnone{margin:10px 0 2px;font:400 12.5px/19px var(--font);color:var(--tt)}
+.tcard .sfoot.cid{margin-top:12px}
+.bslot.ph.neutral{background:var(--g200);color:var(--g500);box-shadow:0 0 0 4px var(--g100)}
+.ccard.cs-review{border-color:var(--border)}
+.ccard.cs-review .kick{color:var(--g600)}
+.ccard.none.cs-disqualified .kick,.ccard.none.cs-revoked .kick{color:var(--r700)}
+/* overall result: a placeholder until the format is agreed */
+.ovres .ovof{font-size:15px;font-weight:400;color:var(--tt)}
+.ovres.ph{color:var(--tt);font-weight:500;border-bottom:1.5px dashed var(--g300);align-self:flex-start}
+.ovp.ph{color:var(--tt)}
+/* results are shown as returned: one neutral colour, depth carries the value */
+.cn .steps i.on,.nbar.cn i{background:var(--accent)}.spd.cn{fill:var(--accent)}
+.cns .steps i.on,.nbar.cns i{background:#93C5FD}.sxd.cns{fill:#93C5FD}
+
+.cwhy{display:flex;flex-direction:column;gap:1px;margin:10px 0 2px;padding:9px 11px;border-radius:8px;background:var(--nested);font:400 12.5px/19px var(--font);color:var(--ts)}
+.cwhy span{font:500 12px/18px var(--font);color:var(--tp)}
+/* PDF modal: smaller */
+.vmbox{width:min(720px,100%)!important;height:min(78vh,820px)!important}
+/* result footer: published, exam, provider */
+.sfoot.rf{gap:4px 8px;color:var(--tt)}
+/* an adjustment, right under the section it changed */
+.radj{display:flex;gap:7px;align-items:flex-start;margin:0 0 6px 22px;padding:6px 9px;border-radius:7px;background:var(--o50);color:var(--o700);font:400 12px/18px var(--font)}
+.radj svg{width:12px;height:12px;flex:0 0 auto;margin-top:3px}
+.radj b{font-weight:500}.radj s{color:var(--tt)}
 </style>
 <div class="proto"><span class="ttl">Candidate profile · v2 · Coordinator Console</span>
-  <span class="hint">Open Mason, James and Amelia to compare the score views</span></div>
+  <span class="hint">Click any candidate row — each one is a different use case</span></div>
 <div id="root"></div>
 <script>
 const I={
@@ -1547,7 +1584,7 @@ const SRC={
 const BOOK={
  ethan:{c:'Prometric Testing Center',p:'New York',room:'Room 204 · Seat 7B',d:'14 Sep 2026',tz:'EDT',ref:'BK-208841',on:'3 Sep 2026'},
  liam:{c:'ProctorU',virt:1,d:'18 Jul 2026',tz:'EDT',ref:'BK-207311',on:'5 Jul 2026'},
- isabella:{c:'Pearson Professional Centre',p:'Los Angeles',room:'Room 3 · Seat 11A',d:'23 Sep 2026',tz:'PDT',ref:'BK-209120',on:'18 Aug 2026'},
+ isabella:{resched:{from:'16 Sep 2026',on:'10 Sep 2026',fee:'$50.00',total:'$245.00'},c:'Pearson Professional Centre',p:'Los Angeles',room:'Room 3 · Seat 11A',d:'23 Sep 2026',tz:'PDT',ref:'BK-209120',on:'18 Aug 2026'},
  mason:{c:'Talview',virt:1,d:'5 Aug 2026',tz:'EDT',ref:'BK-207902',on:'26 Jul 2026'},
  lucas:{c:'Prometric Testing Center',p:'New York',room:'Room 112 · Seat 4C',d:'20 Jun 2026',tz:'EDT',cancelled:1,ref:'BK-206514',on:'2 Jun 2026',cx:'9 Jun 2026'},
  james:{c:'ProctorU',virt:1,d:'28 Aug 2026',tz:'EDT',ref:'BK-208213',on:'13 Aug 2026'},
@@ -1689,7 +1726,7 @@ const PAY_DUE=()=>CHK('bank','Payment',['Not due','pending'],'The fee is taken a
     ['Refund policy',CFG.policy]])],'—');
 const PAY_FAIL=(d)=>CHK('bank','Payment',['Failed','blocked'],'The card was declined on both attempts, so the candidate cannot book a slot.','Attempt 2 · '+d,
   [ROWS('What is owed',[['Fee per seat · '+CFG.sku,CFG.fee],['Outstanding',CFG.fee],
-     ['Method on file','Mastercard ···· 4412'],['Booking','Locked until the fee clears']]),
+     ['Method on file','Mastercard'],['Booking','Locked until the fee clears']]),
    ATTS([['Attempt 2 · '+d,'Declined — insufficient funds','err'],['Attempt 1 · 24 Mar 2026','Declined — card expired','err']])],d+' · 09:12');
 const PAY_WAIVED=(d)=>CHK('bank','Payment',['Waived','pending'],'The card was declined twice. The fee was waived in full so the candidate could book.','Manual waiver · Divya K. · '+d,
   [ROWS('Waiver',[['Original fee','$195.00'],['Reason','Repeated gateway failure']]),
@@ -1853,7 +1890,7 @@ const DONE=o=>{const sc=o.s;
 const CANDS=[
  {id:'ethan',n:'Ethan Cole',em:'ethan.cole@example.com',cid:'CAN-12345',ext:'EXT-88213',minor:true,acc:true,
   status:['Completed','done'],period:'2 Sep – 16 Sep 2026',
-  row:{step:['Certificate Issued','Validity 16 Sep, 2028'],pay:['$195','Paid','grn'],idv:'ok',ec:['Prometric Testing Center','New York, NY'],src:'usr',en:'02 Sep, 2026',chn:['phone','mon']},
+  row:{step:['Credential - Credentialed','Valid till 16 Sep, 2028'],pay:['$195','Paid','grn'],idv:'ok',ec:['Prometric Testing Center','New York, NY'],src:'usr',en:'02 Sep, 2026',chn:['phone','mon']},
   ctx:'Finished cleanly. Every Verity area passed, the weighted total of <b>74.0</b> falls in <b>Gold</b> and the <b>Gold credential is issued</b>.',
   steps:{
    enrollment:ST('clear',['Complete','clear'],'Approved by Divya K. after review.','2 Sep 2026, 11:21',
@@ -1919,7 +1956,7 @@ const CANDS=[
   verity:null},
 
  DONE({id:'liam',n:'Liam Johnson',em:'liam.johnson@example.com',cid:'CAN-12611',ext:'EXT-87720',period:'4 Jul – 20 Jul 2026',
-  row:{step:['Credential Pending','Sent to Credly · 20 Jul, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'usr',en:'04 Jul, 2026',chn:['kbd']},
+  row:{step:['Credential - Expired','20 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'usr',en:'04 Jul, 2026',chn:['kbd']},
   en:'4 Jul 2026',sat:'18 Jul 2026',pub:'20 Jul 2026',ver:'VER-000318',h:28,
   ctx:'Every Verity area passed. The vendor rated Liam <b>Expert</b>. His Credly badge was sent on 20 Jul and <b>he hasn\u2019t accepted it yet</b>.',
   sline:'Rated Expert.',
@@ -1961,7 +1998,7 @@ const CANDS=[
 
  {id:'isabella',n:'Isabella Taylor',em:'isabella.taylor@example.com',cid:'CAN-12207',ext:'EXT-88617',minor:false,acc:false,
   status:['In Progress','info'],period:'20 Jul 2026 – present',
-  row:{step:['Assessment - In Progress','23 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['Pearson Professional C...','Los Angeles, CA'],src:'bldg',en:'20 Jul, 2026',chn:['kbd']},
+  row:{step:['Assessment - In Progress','23 Sep, 2026'],pay:['$245','Paid','grn'],idv:'ok',ec:['Pearson Professional C...','Los Angeles, CA'],src:'bldg',en:'20 Jul, 2026',chn:['kbd']},
   ctx:'<b>Sitting the exam now.</b> Verity is checking as the session runs, and nothing is marked until it finishes.',
   steps:{
    enrollment:ST('clear',['Complete','clear'],'Approved by Divya K. after review.','20 Jul 2026, 09:40',
@@ -1978,41 +2015,41 @@ const CANDS=[
   verity:VRUN('VER-000502','23 Sep 2026',96,'20 Jul 2026')},
 
  DONE({id:'mason',n:'Mason Brown',em:'mason.brown@example.com',cid:'CAN-12345',ext:'EXT-88702',period:'25 Jul – 12 Aug 2026',
-  row:{step:['Credential Claimed','On Credly · 08 Aug, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['Talview','Virtual'],src:'usr',en:'25 Jul, 2026',chn:['kbd']},
+  row:{step:['Credential - Revoked','12 Aug, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['Talview','Virtual'],src:'usr',en:'25 Jul, 2026',chn:['kbd']},
   en:'25 Jul 2026',sat:'5 Aug 2026',pub:'7 Aug 2026',ver:'VER-000611',h:30,
   ctx:'Every Verity area passed. The vendor rated Mason <b>Expert</b> and he <b>claimed the credential on Credly</b>.',
   sline:'Rated Expert.',
   schk:CHK('list','Assessment result',['Expert','clear'],'Rated by section.','Returned by Acme Assessments \u00b7 5 Aug 2026',
-    [Object.assign(CRES('Expert',[3,3,2,3]),{viz:'spider',sub:[[3,3,2],[3,2,3],[2,2,1],[3,3,3]]})]),
+    [Object.assign(CRES('Professional',[2,1,2,2]),{viz:'rows',sub:[[2,2,3],[1,2,1],[2,3,2],[2,2,1]],adj:{sec:3,from:1,to:2,why:'Question 14 now accepts an alternative answer.',by:'Divya K.',on:'12 Aug 2026'}})]),
   mark:'Vendor result received: Expert.',
   cchk:Object.assign(CHK('award','Certificate',['Claimed','done'],'Sent to Credly and claimed by Mason.','Credly \u00b7 8 Aug 2026'),{pub:'7 Aug 2026'}),
   cline:'Sent to Credly and claimed by Mason on 8 Aug.',issueNote:'Badge sent to Credly.'}),
  DONE({id:'james',n:'James Lee',em:'james.lee@example.com',cid:'CAN-13018',ext:'EXT-88804',period:'12 Aug – 31 Aug 2026',
-  row:{step:['Credential Claimed','On Credly · 31 Aug, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'bldg',en:'12 Aug, 2026'},
+  row:{step:['Credential - Withheld','30 Aug, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'bldg',en:'12 Aug, 2026'},
   en:'12 Aug 2026',sat:'28 Aug 2026',pub:'30 Aug 2026',ver:'VER-000588',h:26,
   ctx:'Every Verity area passed. The vendor rated James <b>Professional</b>, section by section, with no numeric score, and he <b>accepted the credential on Credly</b>.',
   sline:'Rated Professional.',
-  schk:CHK('list','Assessment result',['Professional','clear'],'Rated by section. No numeric score was returned.','Returned by Acme Assessments \u00b7 28 Aug 2026',[Object.assign(CRES('Professional',[0,3,0,2]),{viz:'rows',vals:[{m:[21,25]},{lv:3},{m:[15,25]},{lv:2}],sub:[[[8,9],[7,8],[6,8]],[3,3,2],[[6,9],[5,8],[4,8]],[2,2,3]]})]),
+  schk:CHK('list','Assessment result',['Professional','clear'],'Rated by section. No numeric score was returned.','Returned by Acme Assessments \u00b7 28 Aug 2026',[Object.assign(CRES('Professional',[0,3,0,2]),{viz:'spider',vals:[{m:[21,25]},{lv:3},{m:[15,25]},{lv:2}],sub:[[[8,9],[7,8],[6,8]],[3,3,2],[[6,9],[5,8],[4,8]],[2,2,3]]})]),
   mark:'Vendor result received: Professional.',
   cchk:Object.assign(CHK('award','Certificate',['Claimed','done'],'Sent to Credly and claimed by James.','Credly \u00b7 31 Aug 2026'),{pub:'30 Aug 2026'}),
   cline:'Sent to Credly and accepted by James on 31 Aug.',issueNote:'Badge sent to Credly.'}),
  DONE({id:'amelia',n:'Amelia Wilson',em:'amelia.wilson@example.com',cid:'CAN-13207',ext:'EXT-88920',period:'20 Aug – 2 Sep 2026',
-  row:{step:['Credential Claimed','On Credly · 03 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['Prometric Testing Center','San Antonio, TX'],src:'mail',en:'20 Aug, 2026'},
+  row:{step:['Credential - Yet to review','Result received · 02 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['Prometric Testing Center','San Antonio, TX'],src:'mail',en:'20 Aug, 2026'},
   en:'20 Aug 2026',sat:'31 Aug 2026',pub:'2 Sep 2026',ver:'VER-000603',h:28,
   ctx:'Every Verity area passed. The vendor rated Amelia <b>Expert</b> and she <b>claimed the credential on Credly</b>.',
   sline:'Rated Expert.',
   schk:CHK('list','Assessment result',['Expert','clear'],'Rated by section.','Returned by Acme Assessments \u00b7 2 Sep 2026',
-    [Object.assign(CRES('Expert',[0,0,2,0]),{viz:'donut',vals:[{m:[22,25]},{m:[19,25]},{lv:2},{m:[17,25]}],sub:[[[8,9],[7,8],[7,8]],[[7,9],[6,8],[6,8]],[2,3,2],[[6,9],[6,8],[5,8]]]})]),
+    [Object.assign(CRES('Expert',[0,0,2,0]),{viz:'donut',att:[{kind:'pdf',file:'Amelia_Wilson_DS0432_report.pdf',pages:4,size:'1.2 MB',verdict:'—'}],vals:[{m:[22,25]},{m:[19,25]},{lv:2},{m:[17,25]}],sub:[[[8,9],[7,8],[7,8]],[[7,9],[6,8],[6,8]],[2,3,2],[[6,9],[6,8],[5,8]]]})]),
   mark:'Vendor result received: Expert.',
   cchk:Object.assign(CHK('award','Certificate',['Claimed','done'],'Sent to Credly and claimed by Amelia.','Credly \u00b7 3 Sep 2026'),{pub:'2 Sep 2026'}),
   cline:'Sent to Credly and claimed by Amelia on 3 Sep.',issueNote:'Badge sent to Credly.'}),
  DONE({id:'charlotte',n:'Charlotte White',em:'charlotte.white@example.com',cid:'CAN-13251',ext:'EXT-88977',period:'25 Aug – 9 Sep 2026',
-  row:{step:['Credential Claimed','On Credly · 10 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['UNITY Grand Island Cen...','Jacksonville, FL'],src:'mail',en:'25 Aug, 2026',chn:['kbd']},
+  row:{step:['Credential - Disqualified','10 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['UNITY Grand Island Cen...','Jacksonville, FL'],src:'mail',en:'25 Aug, 2026',chn:['kbd']},
   en:'25 Aug 2026',sat:'7 Sep 2026',pub:'9 Sep 2026',ver:'VER-000617',h:31,
   ctx:'Every Verity area passed. Full marks in every section, rated <b>Expert</b>, and she <b>claimed the credential on Credly</b>.',
   sline:'Full marks. Rated Expert.',
   schk:CHK('list','Assessment result',['Expert','clear'],'Rated by section.','Returned by Acme Assessments \u00b7 9 Sep 2026',
-    [Object.assign(CRES('Expert',[3,3,3,3]),{viz:'donut',vals:[{m:[25,25]},{m:[25,25]},{lv:3},{m:[25,25]}],sub:[[[9,9],[8,8],[8,8]],[[9,9],[8,8],[8,8]],[3,3,3],[[9,9],[8,8],[8,8]]]})]),
+    [Object.assign(CRES('Expert',[3,3,3,3]),{viz:'donut',att:[{kind:'link',t:'Candidate report',url:'reports.acmeassess.com/r/CW-4471'}],vals:[{m:[25,25]},{m:[25,25]},{lv:3},{m:[25,25]}],sub:[[[9,9],[8,8],[8,8]],[[9,9],[8,8],[8,8]],[3,3,3],[[9,9],[8,8],[8,8]]]})]),
   mark:'Vendor result received: Expert.',
   cchk:Object.assign(CHK('award','Certificate',['Claimed','done'],'Sent to Credly and claimed by Charlotte.','Credly \u00b7 10 Sep 2026'),{pub:'9 Sep 2026'}),
   cline:'Sent to Credly and claimed by Charlotte on 10 Sep.',issueNote:'Badge sent to Credly.'})
@@ -2027,7 +2064,7 @@ const ST4={
  ethan:{enrollment:['clear',null,'Approved by Divya K. after review.','2 Sep 2026, 11:21'],
   assessment:['clear',null,'Sat 14 Sep. Every Verity area passed.','14 Sep 2026, 16:02'],
   scoring:['clear',['Gold','t-gd'],'Returned by TAE on 14 Sep. 74.0 falls in Gold.','14 Sep 2026, 15:50'],
-  credentialing:['clear',['Issued','done'],'Gold credential CERT-DS-44207 is issued and emailed.','16 Sep 2026, 06:02']},
+  credentialing:['clear',['Credentialed','done'],'Credentialed on 16 Sep. CERT-DS-44207 is valid till 16 Sep 2028.','16 Sep 2026, 06:02']},
  mia:{enrollment:['pending',['Submitted','pending'],'Submitted on 20 Mar and waiting on a decision.','20 Mar 2026, 10:45'],
   assessment:['pending',['Not started','pending'],'Nothing runs until the enrolment is approved.','\u2014'],
   scoring:['pending',['Not reached','pending'],'Nothing has been sat, so nothing has been marked.','\u2014'],
@@ -2043,7 +2080,7 @@ const ST4={
  liam:{enrollment:['clear',null,'Approved by Divya K. after review.','4 Jul 2026, 08:21'],
   assessment:['clear',null,'Sat 18 Jul. Every Verity area passed.','18 Jul 2026, 12:20'],
   scoring:['clear',['Expert','clear'],'Acme Assessments rated Liam by section on 18 Jul. No numeric score.','18 Jul 2026, 12:05'],
-  credentialing:['pending',['Pending acceptance','pending'],'Sent to Credly on 20 Jul. Liam hasn\u2019t accepted it yet.','20 Jul 2026, 06:01']},
+  credentialing:['pending',['Expired','pending'],'The Credly badge expired on 20 Sep.','20 Sep 2026']},
  ava:{enrollment:['clear',null,'Approved by Divya K. The fee is still outstanding, so booking is locked.','10 Sep 2026, 11:16'],
   assessment:['pending',['Not booked','pending'],'Booking opens once the fee clears or is waived.','\u2014'],
   scoring:['pending',['Not reached','pending'],'Nothing has been sat, so nothing has been marked.','\u2014'],
@@ -2055,19 +2092,19 @@ const ST4={
  mason:{enrollment:['clear',null,'Approved by Divya K. after review.','25 Jul 2026, 10:12'],
   assessment:['clear',null,'Sat 5 Aug. Every Verity area passed.','5 Aug 2026, 12:20'],
   scoring:['clear',['Expert','clear'],'Acme Assessments rated Mason by section on 5 Aug.','5 Aug 2026, 12:05'],
-  credentialing:['clear',['Claimed','done'],'Claimed on Credly on 8 Aug.','8 Aug 2026, 09:20']},
+  credentialing:['blocked',['Credential revoked','blocked'],'Revoked on 12 Aug. It was issued before the dispute closed.','12 Aug 2026, 11:30']},
  james:{enrollment:['clear',null,'Approved by Divya K. after review.','12 Aug 2026, 10:12'],
   assessment:['clear',null,'Sat 28 Aug. Every Verity area passed.','28 Aug 2026, 12:20'],
   scoring:['clear',['Professional','clear'],'Acme Assessments rated James by section on 28 Aug.','28 Aug 2026, 12:05'],
-  credentialing:['clear',['Claimed','done'],'Claimed on Credly on 31 Aug.','31 Aug 2026, 14:10']},
+  credentialing:['review',['Withheld','review'],'Held on 30 Aug for an identity re-check.','30 Aug 2026']},
  amelia:{enrollment:['clear',null,'Approved by Divya K. after review.','20 Aug 2026, 10:12'],
   assessment:['clear',null,'Sat 31 Aug. Every Verity area passed.','31 Aug 2026, 12:20'],
   scoring:['clear',['Expert','clear'],'Acme Assessments rated Amelia by section on 2 Sep.','2 Sep 2026, 08:15'],
-  credentialing:['clear',['Claimed','done'],'Claimed on Credly on 3 Sep.','3 Sep 2026, 10:40']},
+  credentialing:['pending',['Yet to review','pending'],'Result received on 2 Sep. Awaiting review.','2 Sep 2026']},
  charlotte:{enrollment:['clear',null,'Approved by Divya K. after review.','25 Aug 2026, 10:12'],
   assessment:['clear',null,'Sat 7 Sep. Every Verity area passed.','7 Sep 2026, 12:20'],
   scoring:['clear',['Expert','clear'],'Acme Assessments rated Charlotte by section on 9 Sep. Full marks.','9 Sep 2026, 08:40'],
-  credentialing:['clear',['Claimed','done'],'Claimed on Credly on 10 Sep.','10 Sep 2026, 11:05']},
+  credentialing:['blocked',['Disqualified','blocked'],'Disqualified on 10 Sep after misconduct was found.','10 Sep 2026']},
  isabella:{enrollment:['clear',null,'Approved by Divya K. after review.','20 Jul 2026, 09:40'],
   assessment:['info',['In progress','info'],'Sitting now. Verity checks are running.','23 Sep 2026, 09:00'],
   scoring:['pending',['Not reached','pending'],'Nothing is marked until the session finishes.','\u2014'],
@@ -2187,7 +2224,7 @@ const VCHK={
   if(rg&&c.src) rg.ev=[ROWS('How it came in',[['Source',c.src[0]],['Reference',c.src[1]]])].concat(rg.ev);
   const pz=ns.enrollment.checks.find(x=>BASE(x.t)==='Payment');
   if(pz&&c.vou) pz.ev=[ROWS('What was charged',[['List price',CFG.fee],['Voucher',c.vou[0]+' '+c.vou[1]],
-    ['Taken',c.vou[2]],['Method','Mastercard \u00b7\u00b7\u00b7\u00b7 4412']])].concat(pz.ev);
+    ['Taken',c.vou[2]],['Method','Mastercard']])].concat(pz.ev);
  });
 })();
 let ci=0, open=false, stack=[], toast=null, pendGrp=null;
@@ -2467,7 +2504,7 @@ function payBits(c,pay){
  const st=pay.chip[0];
  if(st==='Paid'||st==='Refunded') return {lab:st==='Refunded'?'Refunded':'Paid',
    amt:c.vou?c.vou[2]:CFG.fee,
-   sub:(c.vou?'of '+CFG.fee+' after '+c.vou[0]:'of '+CFG.fee)+' · Mastercard ···· 4412',chip:pay.chip};
+   sub:(c.vou?'of '+CFG.fee+' after '+c.vou[0]:'of '+CFG.fee)+' · Mastercard',chip:pay.chip};
  if(st==='Waived') return {lab:'Waived',amt:'$0.00',sub:'of '+CFG.fee+' · waived by Divya K.',chip:pay.chip};
  if(st==='Failed') return {lab:'Outstanding',amt:CFG.fee,sub:'Declined twice · booking is locked',chip:pay.chip};
  if(st==='Not due') return {lab:'Fee',amt:null,sub:'Taken once the enrolment is approved',chip:pay.chip};
@@ -2502,8 +2539,7 @@ function needsYou(c,ch){
 /* the form's own fields, each named */
 const whoPairs=c=>{
  const w=c.who||[c.n,null];
- return `<span class="pr2"><span class="k3">Name</span><span class="v">${E(w[0])}</span></span>`
-  +(w[1]?`<span class="pr2"><span class="k3">Age</span><span class="v">${E(w[1])}</span></span>`:'');
+ return (w[1]?`<span class="pr2"><span class="k3">Age</span><span class="v">${E(w[1])}</span></span>`:'');
 };
 const eTicks=(k,ch)=>{
  const idd=ch.find(x=>BASE(x.t)==='Identity documents'), con=ch.find(x=>BASE(x.t)==='Guardian consent');
@@ -2526,10 +2562,10 @@ function enrollL(k,s,ch){
    ${pb.amt?`<span class="amt">${E(pb.amt)}</span>`:`<span class="v">${E(pb.v||pb.chip[0])}</span>`}
    <span class="sub">${E(pb.sub)}</span></button>`);
  const bk=BOOK[c.id];
- if(bk) cells.push(`<button class="ecell" data-goscr="booking"><span class="lab">${bk.cancelled?'Booking · cancelled':'Booking'}</span>
+ if(bk) cells.push(`<button class="ecell" data-goscr="booking"><span class="lab">${bk.cancelled?'Booking · cancelled':bk.resched?'Booking · rescheduled':'Booking'}</span>
    <span class="v">${bk.virt?'Virtual · ':''}${E(bk.c)}</span>
    <span class="sub">${E(WHEN(bk.d,'09:00 AM','10:30 AM',bk.tz))}</span>
-   ${bk.virt?'':`<span class="sub">${E(bk.p)}${bk.room?' · '+E(bk.room):''}</span>`}</button>`);
+   ${bk.virt?'':`<span class="sub">${E(bk.p)}${bk.room?' · '+E(bk.room):''}</span>`}${bk.resched?`<span class="sub">Moved from ${E(bk.resched.from)}</span>`:''}</button>`);
  else if(c.window) cells.push(`<button class="ecell" data-goscr="booking"><span class="lab">Booking</span>
    <span class="v">Not booked yet</span><span class="sub">Open until ${E(CFG.window)}</span></button>`);
  if(reg) cells.push(`<div class="ecell cand" role="button" tabindex="0" data-edet="${E(k)}|${E(reg.t)}">
@@ -2580,7 +2616,7 @@ function cardTitle(b){
 }
 const actFor=c=>{
  const sb=scoreBlk(c); if(sb) return scoreActs(sb);
- if(BASE(c.t)==='Certificate'&&c.chip[1]==='review')
+ if(BASE(c.t)==='Certificate'&&c.chip[1]==='review'&&!credX(C()))
   return `<button class="btn pri" data-goscr="relbypass">Publish score</button>`;
  if(BASE(c.t)==='Certificate'&&credX(C())) return credActs(credX(C()));
  if(BASE(c.t)==='Payment'&&c.chip[1]==='blocked')
@@ -2604,8 +2640,9 @@ function billH(c){
  const rows=t=>((c.ev.find(b=>b.t==='rows'&&b.title===t)||{}).items||[]);
  const v=(t,k)=>(rows(t).find(r=>r[0]===k)||[])[1];
  const atts=(c.ev.find(b=>b.t==='atts')||{items:[]}).items;
- const paid=cd.vou?cd.vou[2]:CFG.fee, when=String(c.when||'');
+ const rs=(BOOK[cd.id]||{}).resched, paid=rs?rs.total:cd.vou?cd.vou[2]:CFG.fee, when=String(c.when||'');
  const L=[['Exam fee',EXAM.code+' '+EXAM.name+' · '+CFG.sku,CFG.fee,'']];
+ if(rs) L.push(['Reschedule fee','Moved from '+rs.from+' · paid '+rs.on,rs.fee,'']);
  if(cd.vou) L.push(['Voucher '+cd.vou[0],'Applied at checkout',cd.vou[1],'disc']);
  const vch=v('Voucher','Voucher'); if(vch) L.push(['Voucher '+vch,'Issued by Divya K.','−'+CFG.fee,'disc']);
  if(rows('Waiver').length&&!vch) L.push(['Fee waived',v('Waiver','Reason')||'Waived by a coordinator','−'+CFG.fee,'disc']);
@@ -2625,7 +2662,7 @@ function billH(c){
    ${L.map(l=>`<div class="bl ${l[3]}"><span class="d"><span class="t">${E(l[0])}</span>${l[1]?`<span class="s">${E(l[1])}</span>`:''}</span>
      <span class="a">${E(l[2])}</span></div>`).join('')}
    <div class="btot"><span>${tl}</span><span>${E(tv)}</span></div>
-   ${st!=='Not due'?`<div class="bpay"><span class="m">${I.mc} Mastercard ···· 4412${settled?' · debit':' · declined'}</span>
+   ${st!=='Not due'?`<div class="bpay"><span class="m">${I.mc} Mastercard${settled?' · debit':' · declined'}</span>
      <span>${settled?'Paid '+E(when.split(' · ')[0]):''}</span></div>`:''}
   </div>
   ${link}
@@ -2729,6 +2766,7 @@ function bookingScreen(){
  return `<div class="screen">${hdr(st)}<div class="sbody"><div class="sin">
    ${card('Slot',[['Date and time',E(WHEN(bk.d,'09:00 AM','10:30 AM',bk.tz))],['Length','90 minutes']].concat(where))}
    ${card('Booking record',[['Reference',E(bk.ref||'—')],['Booked on',E(bk.on||'—')],['Booked by',E(first)+', from the candidate portal']]
+     .concat(bk.resched?[['Rescheduled on',E(bk.resched.on)],['Originally',E(WHEN(bk.resched.from,'09:00 AM','10:30 AM',bk.tz))],['Reschedule fee',E(bk.resched.fee)+' · paid '+E(bk.resched.on)]]:[])
      .concat(bk.cancelled?[['Cancelled on',E(bk.cx||'—')],['Cancelled by',E(first)],['Refund','Full fee returned to the original card']]:[]))}
    ${bk.cancelled?'':ss?card('Session',(ci?[[bk.virt?'Joined':'Checked in',E(ci[2])+(bk.virt?' · from the '+E(bk.c)+' link':'')]]:[]).concat(sr.map(r=>[r[0],E(r[1])]))
        .concat([['Conduct',E(ss.find)]])):''}
@@ -2850,7 +2888,7 @@ function secsOf(b){const S=b.t==='stot'?b.s:b;
 const barH=v=>v.m?`<span class="nbar"><i style="width:${Math.round(nv(v)*100)}%"></i></span>`:LVSTEPS(v.lv);
 /* rows: a collapsible tree, section then topics */
 function rowsH(S,live){
- const row=(x,sub)=>`<span class="rw ${sub?'sub':''}"><span class="nm">${E(x.n)}</span>${barH(x.v)}<span class="lv">${vH(x.v)}</span></span>`;
+ const row=(x,sub)=>`<span class="rrw ${sub?'sub':''}"><span class="nm">${E(x.n)}</span>${barH(x.v)}<span class="lv">${vH(x.v)}</span></span>`;
  return `<div class="rows ${live?'live':''}">${S.map(x=>live&&x.subs.length
    ?`<details class="rx"><summary><span class="cv">${I.chev}</span>${row(x)}</summary><div class="rsub">${x.subs.map(y=>row(y,1)).join('')}</div></details>`
    :`<div class="rx">${row(x)}</div>`).join('')}</div>`;}
@@ -2899,12 +2937,12 @@ function donutHvH(S,b,live){const cx=180, cy=170, r0=52, r1=92, r2=99, r3=128, n
    return `M${f1(p0[0])} ${f1(p0[1])}A${rb} ${rb} 0 ${L} 1 ${f1(p1[0])} ${f1(p1[1])}L${f1(p2[0])} ${f1(p2[1])}A${ra} ${ra} 0 ${L} 0 ${f1(p3[0])} ${f1(p3[1])}Z`;};
  const txt=(a,r,l1,l2,cls)=>{const [x,y]=P(a,r), an=x>cx+6?'start':x<cx-6?'end':'middle', dy=y<cy-r*.6?-8:y>cy+r*.6?10:0;
    return `<text class="${cls}" x="${f1(x)}" y="${f1(y+dy)}" text-anchor="${an}"><tspan class="t1">${E(l1)}</tspan><tspan class="t2" x="${f1(x)}" dy="13">${E(l2)}</tspan></text>`;};
- const c0=b.t==='stot'?[F1(b.s.n),'of '+b.s.of]:[b.ov,'Overall'];
- const secs=S.map((x,i)=>{const a0=i*sp+g/2, a1=(i+1)*sp-g/2, hue=LVCOL[vb(x.v)], m=x.subs.length, ss=(a1-a0)/Math.max(m,1);
+ const c0=['Overall','—'];
+ const secs=S.map((x,i)=>{const a0=i*sp+g/2, a1=(i+1)*sp-g/2, hue=DHUE[i%DHUE.length], m=x.subs.length, ss=(a1-a0)/Math.max(m,1);
   const sg=x.subs.map((y,j)=>[a0+j*ss+(j?gs/2:0),a0+(j+1)*ss-(j<m-1?gs/2:0)]);
   const divs=sg.slice(1).map(([s0])=>{const a=s0-gs/2, p=P(a,r0-1), q=P(a,r1+1);return `<line x1="${f1(p[0])}" y1="${f1(p[1])}" x2="${f1(q[0])}" y2="${f1(q[1])}" class="ddiv"/>`;}).join('');
   const subs=x.subs.map((y,j)=>{const [s0,s1]=sg[j];
-    return `<path d="${arc(s0,s1,r2,r3)}" class="dst"/><path d="${arc(s0,s1,r2,r2+(r3-r2)*nv(y.v))}" class="dsf" style="fill:${SUBCOL[vb(y.v,1)]}"/>${txt((s0+s1)/2,r3+11,y.n,vT(y.v),'dsl')}`;}).join('');
+    return `<path d="${arc(s0,s1,r2,r3)}" class="dst"/><path d="${arc(s0,s1,r2,r2+(r3-r2)*nv(y.v))}" class="dsf" style="fill:var(--h);fill-opacity:.55"/>${txt((s0+s1)/2,r3+11,y.n,vT(y.v),'dsl')}`;}).join('');
   if(!live) return `<g class="dsec st" style="--h:${hue}"><g class="din"><path d="${arc(a0,a1,r0,r1)}" class="dtr2"/><path d="${arc(a0,a1,r0,r0+(r1-r0)*nv(x.v))}" class="dfl2"/></g>${txt((a0+a1)/2,r1+14,x.sh,vT(x.v),'dlab')}</g>`;
   return `<g class="dsec" style="--h:${hue}" tabindex="0" role="button" aria-label="${E(x.n+', '+vT(x.v)+'. Topics: '+x.subs.map(y=>y.n+' '+vT(y.v)).join(', '))}">
     <path d="${arc(a0,a1,r0,r3+2)}" class="dhit"/>
@@ -2921,17 +2959,17 @@ function radarExpH(S,big,live){const n=S.length, R=big?84:70, cx=150, cy=big?122
  const ang=i=>-90+i*sp;
  const pts=arr=>arr.map(p=>f1(p[0])+','+f1(p[1])).join(' ');
  const base=S.map((x,i)=>P(ang(i),R*nv(x.v)));
- const lab=(a,r,l1,l2,cls)=>{const [x,y]=P(a,r), an=x>cx+6?'start':x<cx-6?'end':'middle', dy=y<cy-r*.6?-10:y>cy+r*.6?8:-2;
-   return `<text class="${cls}" x="${f1(x)}" y="${f1(y+dy)}" text-anchor="${an}"><tspan class="t1">${E(l1)}</tspan><tspan class="t2" x="${f1(x)}" dy="13">${E(l2)}</tspan></text>`;};
+ const lab=(a,r,l1,l2,cls,v)=>{const [x,y]=P(a,r), an=x>cx+6?'start':x<cx-6?'end':'middle', dy=y<cy-r*.6?-10:y>cy+r*.6?8:-2, tt=v&&v.lv?LVD[CFG.card.lv[v.lv-1]]:'';
+   return `<text class="${cls}" x="${f1(x)}" y="${f1(y+dy)}" text-anchor="${an}"><tspan class="t1">${E(l1)}</tspan><tspan class="t2 ${tt?'tt':''}" x="${f1(x)}" dy="13" ${tt?`data-tt="${E(tt)}"`:''}>${E(l2)}</tspan></text>`;};
  const rings=[1,2,3].map(j=>`<polygon points="${pts(S.map((x,i)=>P(ang(i),R*j/3)))}" class="spr ${j===3?'o':''}"/>`).join('');
  const axes=S.map((x,i)=>{const [X,Y]=P(ang(i),R);return `<line x1="${cx}" y1="${cy}" x2="${f1(X)}" y2="${f1(Y)}" class="spa"/>`;}).join('');
- const statics=S.map((x,i)=>lab(ang(i),R*1.13,x.sh,vT(x.v),'sl0')).join('');
+ const statics=S.map((x,i)=>lab(ang(i),R*1.13,x.sh,vT(x.v),'sl0',x.v)).join('');
  const groups=!live?'':S.map((x,i)=>{const m=x.subs.length, sa=x.subs.map((y,j)=>ang(i)+(m>1?(j-(m-1)/2)*(2*fan/(m-1)):0));
   const expd=[].concat(...S.map((z,k)=>k===i?x.subs.map((y,j)=>P(sa[j],R*nv(y.v))):[base[k]]));
   const wedge=(()=>{const a0=ang(i)-sp/2, a1=ang(i)+sp/2, r=R*1.5, p0=P(a0,r), p1=P(a1,r);return `M${cx} ${cy}L${f1(p0[0])} ${f1(p0[1])}A${r} ${r} 0 0 1 ${f1(p1[0])} ${f1(p1[1])}Z`;})();
   return `<g class="sg" data-i="${i}" tabindex="0" role="button" aria-label="${E(x.n+', '+vT(x.v)+'. Topics: '+x.subs.map(y=>y.n+' '+vT(y.v)).join(', '))}">
    <path d="${wedge}" class="swh"/>
-   ${lab(ang(i),R*1.13,x.sh,vT(x.v),'sl0')}
+   ${lab(ang(i),R*1.13,x.sh,vT(x.v),'sl0',x.v)}
    <g class="sx">
     ${sa.map(a=>{const [X,Y]=P(a,R);return `<line x1="${cx}" y1="${cy}" x2="${f1(X)}" y2="${f1(Y)}" class="sxa"/>`;}).join('')}
     <polygon points="${pts(expd)}" class="sxp"/>
@@ -2943,25 +2981,23 @@ function radarExpH(S,big,live){const n=S.length, R=big?84:70, cx=150, cy=big?122
  return `<div class="spx ${live?'live':''}"><svg class="sp2" viewBox="-30 ${big?2:6} 360 ${big?250:212}" role="img" aria-label="${E(S.map(x=>x.sh+' '+vT(x.v)).join(', '))}">
    ${rings}${axes}${live?'':statics}<g class="sbase"><polygon points="${pts(base)}" class="spp"/>${base.map((p,k)=>`<circle cx="${f1(p[0])}" cy="${f1(p[1])}" r="3.6" class="spd ${vb(S[k].v)}"/>`).join('')}</g>${groups}</svg>
    ${live?`<div class="slegs">${legs}</div>`:''}</div>`;}
-/* the overall: the spider keeps its meter on the left; the others are text only */
-function ovBlockH(b,oi,cmp){const L=CFG.card.ov;
- const text=`<div class="ovt"><span class="k">Overall</span><b class="ovres">${E(b.ov)}</b><p class="ovp">${E(OVD[b.ov]||'')}</p></div>`;
- const vis=`<div class="ovv mtw">${meterC(oi,L)}${mlegH(oi,L)}</div>`;
- return `<div class="ovs ${vis?'':'solo'} ${cmp?'cmp':''}">${vis}${text}</div>`;}
+/* the overall: a placeholder until it's agreed whether it's a total, a grade, or nothing */
+function ovBlockH(b,oi,cmp){
+ return `<div class="ovs solo ${cmp?'cmp':''}"><div class="ovt"><span class="k">Overall</span><b class="ovres ph">Total score or grade</b><p class="ovp ph">Shown as returned by the provider.</p></div></div>`;}
 /* the overall as a small ring: one arc per level, filled up to the result */
 function miniRingH(oi,L){const n=L.length, cx=40, cy=40, r0=26, r1=36, sp=360/n, g=6, P=(a,r)=>[cx+r*Math.cos((a-90)*Math.PI/180),cy+r*Math.sin((a-90)*Math.PI/180)].map(v=>v.toFixed(1));
  const arc=(a0,a1)=>{const p0=P(a0,r1),p1=P(a1,r1),p2=P(a1,r0),p3=P(a0,r0);return `M${p0[0]} ${p0[1]}A${r1} ${r1} 0 0 1 ${p1[0]} ${p1[1]}L${p2[0]} ${p2[1]}A${r0} ${r0} 0 0 0 ${p3[0]} ${p3[1]}Z`;};
  return `<svg class="mring ${vb({lv:oi+1})}" viewBox="0 0 80 80" role="img" aria-label="${E(L[oi])}, level ${oi+1} of ${n}">${L.map((x,k)=>`<path d="${arc(k*sp+g/2,(k+1)*sp-g/2)}" class="${k<=oi?'on':''}"><title>${E(x)}</title></path>`).join('')}</svg>${mlegH(oi,L)}`;}
 /* colour carries the value: lighter for lower, deeper for higher; topics a shade lighter than their section */
 /* three bands, the same for marks and levels: under 50% Developing (orange), 50–79% Competent (yellow), 80%+ Strong (green) */
-const vb=(v,sub)=>{const f=nv(v), k=f<.5?1:f<.8?2:4;return 'c'+k+(sub?'s':'');};
+const vb=(v,sub)=>sub?'cns':'cn';
 const barH2=(v,sub)=>v.m?`<span class="nbar ${vb(v,sub)}"><i style="width:${Math.round(nv(v)*100)}%"></i></span>`:`<span class="lvb ${vb(v,sub)}">${LVSTEPS(v.lv)}</span>`;
 /* rows: a collapsible tree; the chevron has its own column so nothing moves when a section opens */
 function rowsH(S,live){
- const row=(x,sub,cv)=>`<span class="rw ${sub?'sub':''}">${live?(cv?`<span class="cv">${I.chev}</span>`:'<span></span>'):''}<span class="nm">${E(x.n)}</span>${barH2(x.v,sub)}<span class="lv">${vH(x.v)}</span></span>`;
+ const row=(x,sub,cv)=>`<span class="rrw ${sub?'sub':''}">${live?(cv?`<span class="cv">${I.chev}</span>`:'<span></span>'):''}<span class="nm">${E(x.n)}</span>${barH2(x.v,sub)}<span class="lv">${vH(x.v)}</span></span>`;
  return `<div class="rows ${live?'live':''}">${S.map(x=>live&&x.subs.length
-   ?`<details class="rx"><summary>${row(x,0,1)}</summary><div class="rsub">${x.subs.map(y=>row(y,1)).join('')}</div></details>`
-   :`<div class="rx">${row(x)}</div>`).join('')}</div>`;}
+   ?`<details class="rx"><summary>${row(x,0,1)}</summary><div class="rsub">${x.subs.map(y=>row(y,1)).join('')}</div></details>${x.adj?radjH(x.adj):''}`
+   :`<div class="rx">${row(x)}</div>${live&&x.adj?radjH(x.adj):''}`).join('')}</div>`;}
 
 /* level colours: sections, then a lighter shade for topics; the overall's certification levels get their own */
 const LVCOL={c1:'#F97316',c2:'#EAB308',c3:'#3B82F6',c4:'#16A34A'}, SUBCOL={c1s:'#FDBA74',c2s:'#FDE047',c3s:'#93C5FD',c4s:'#86EFAC'};
@@ -2974,7 +3010,8 @@ function meterC(i,L){const n=L.length, cx=100, cy=96, R=88, w=20, sp=180/n, g=1.
  const a=180-(i+0.5)*sp, tip=pt(a,R-w*0.35), b1=pt(a+90,4), b2=pt(a-90,4);
  return `<svg class="mtr" viewBox="0 0 200 104" role="img" aria-label="${E(L[i]||'')} on a scale of ${E(L.join(', '))}">${L.map((x,j)=>band(j)).join('')}
   <path d="M${b1[0]} ${b1[1]}L${tip[0]} ${tip[1]}L${b2[0]} ${b2[1]}Z" class="nd"/><circle cx="${cx}" cy="${cy}" r="7" class="nd"/></svg>`;}
-const ttlOf=t=>t==='Assessment result'?'Result':t;
+const ttlOf=t=>t==='Assessment result'||t==='Total score'?'Result':t==='Certificate'?CFG.cred:t;
+const rfootH=(x,s)=>`<p class="sfoot rf"><span>${E(x.pub)}</span><span>${E(EXAM.code)} · ${E(EXAM.name)}</span><span>Provider: ${E(s.by)}</span></p>`;
 
 const secVizH=(b,big,live)=>{const S=secsOf(b);return b.viz==='spider'?radarExpH(S,big,live):b.viz==='donut'?donutHvH(S,b,live):rowsH(S,live);};
 /* ---- attachments: a result can carry a PDF, a link, or both; PDFs open in a viewer, never as a thumbnail ---- */
@@ -3017,9 +3054,8 @@ function stotH(s){const g=GR(s);
 const attsOf=b=>b.t==='rep'?b.items:b.att||(b.t==='stot'&&b.s.att)||[];
 /* the card on the profile */
 function scoreCardBody(c,x){const b=scoreBlk(c), s=srcOf(c), L=CFG.card.lv, at=attsOf(b);
- const ft=l=>`<p class="sfoot"><span class="pub">${I.send} ${l}</span><span>${E(s.by)}</span></p>`, cid=`<p class="sfoot cid"><span>${E(CFG.cred)}</span><span>${E((credX(C())||{}).id||'')}</span></p>`;
- if(b.t==='stot') return `<div class="srail"><div class="top"><span class="n">${F1(b.s.n)}</span><span class="d">/ ${b.s.of}</span><span class="rule">Weighted total</span></div>
-   ${secVizH(b,0,0)}${attsH(at,x,1)}<p class="sfoot"><span class="pub">${I.send} ${E(x.pub)}</span><span>${E(CFG.paper)} · ${b.s.parts.length} sections · ${E(CFG.src)}</span></p></div>`;
+ const ft=l=>`<p class="sfoot"><span class="pub">${I.send} ${l}</span><span>${E(s.by)}</span></p>`, cid=rfootH(x,s);
+ if(b.t==='stot') return `<div class="srail">${ovNumH(b.s,1)}${secVizH(b,0,0)}${attsH(at,x,1)}${cid}</div>`;
  if(b.t==='scard') return `<div class="srail">${ovBlockH(b,CFG.card.ov.indexOf(b.ov),1)}${secVizH(b,0,0)}
    ${b.adj?`<p class="sadj">${I.edit}<span>${E(SHORT(CFG.secs[b.adj.sec][0]))} re-marked · <s>${E(L[b.adj.from-1])}</s> → ${E(L[b.adj.to-1])} · ${E(b.adj.on)}</span></p>`:''}${attsH(at,x,1)}${cid}</div>`;
  if(b.t==='rep') return `${attsH(at,x,0)}${ft('Received '+E(b.on))}`;
@@ -3030,16 +3066,16 @@ function scoreDetailH(c,x){const b=scoreBlk(c), s=srcOf(c), L=CFG.card.lv, at=at
  const exam=['Assessment',E(EXAM.code)+' · '+E(EXAM.name)], got=[['Returned by',E(s.by)],['Received',E(s.on)],exam];
  const bys=()=>`<span class="fxlab">By section <span class="fxh">${b.viz==='donut'?'· hover a section to see its topics':b.viz==='spider'?'· select a section to see its topics':'· open one to see its topics'}</span></span>${secVizH(b,1,1)}`;
  const rep=at.length?T('Report',attsH(at,x,0)):'';
- if(b.t==='stot') return T('Total score',stotH(b.s)+bys())+rep+T('Details',R(got));
+ if(b.t==='stot') return T('Result',ovNumH(b.s)+bys()+rfootH(x,s))+rep;
  if(b.t==='scard'){const oi=CFG.card.ov.indexOf(b.ov), A=b.adj;
-  return T('Result',`${ovBlockH(b,oi)}${bys()}<p class="sfoot cid"><span>${E(CFG.cred)}</span><span>${E((credX(C())||{}).id||'')}</span></p>`)
-   +(A?T('Changed',R([['Section',E(CFG.secs[A.sec][0])],['Level',`<s>${E(L[A.from-1])}</s> → <b>${E(L[A.to-1])}</b>`],['Why',E(A.why)],['Changed by',E(A.by)+' · '+E(A.on)]])):'')
+  return T('Result',`${ovBlockH(b,oi)}${bys()}${rfootH(x,s)}`)
+
    +rep;}
  if(b.t==='rep') return rep+T('Details',R([['Sent by',E(s.by)],['Received',E(b.on)],exam]));
  return T('Result',emptyH(b))+T('Details',R(b.t==='wait'
    ?[['Sent to',E(s.by)],['Sent',E(b.sent)],['Expected by',E(b.exp)],['Last checked',E(b.checked)]]
    :[['Sent to',E(s.by)],['Sent',E(b.sent)],['Last tried',E(b.tried)+' · '+b.tries+' tries'],['Candidate ID',E(b.cid)]]));}
-const hdChip=c=>{const b=scoreBlk(c); if(b&&b.t==='stot') return scoreChipH(b.s); if(b&&b.t==='scard') return '';
+const hdChip=c=>{const b=scoreBlk(c); if(b&&b.t==='stot') return ''; if(b&&b.t==='scard') return '';
  if(BASE(c.t)==='Certificate'){const X=credX(C()); if(X){const st=credStatus(X,ctxOf(C()));return chip([st.k,st.chip]);}}
  const q=subChip(c); return q?chip(q):'';};
 const scoreActs=b=>b.t==='wait'?`<button class="btn" data-act3="Check for the result now">Check now</button>`
@@ -3166,6 +3202,7 @@ function subChip(c){
 /* has the result reached the candidate yet — the question a coordinator is usually asked */
 const pubOf=cd=>{const ce=chkOf(cd.steps.credentialing,'Certificate');
  if(cd.cert) return 'Published '+cd.cert.pub;
+ if(cd.xcred&&cd.xcred.pub) return 'Published '+cd.xcred.pub;
  if(ce&&ce.pub) return 'Published '+ce.pub;
  if(ce&&ce.chip[1]==='review') return 'Not published · held for the Verity review';
  return 'Not published yet · releases to all candidates at once';};
@@ -3198,7 +3235,7 @@ function subCard(k,c){
  const ch=st||cr?null:subChip(c), acc=BASE(c.t)==='Accommodations';
  return `<section class="scard" ${acc?'data-accopen="1"':`data-edet="${E(k)}|${E(c.t)}"`}>
   <div class="hd"><span class="ic">${I[c.ic]||I.doc}</span>
-   <h5>${E(ttlOf(c.t))}</h5>${st?scoreChipH(st.s):cr?'':(ch?chip(ch):'')}</div>
+   <h5>${E(ttlOf(c.t))}</h5>${st||cr?'':(ch?chip(ch):'')}</div>
   <div class="sb">${subBody(k,c)}</div></section>`;
 }
 function eCard(k,c){
@@ -4027,10 +4064,119 @@ function vScroll(el){const ps=el.querySelectorAll('.vpw');let i=0;ps.forEach((p,
   if(g&&(e.key==='Enter'||e.key===' ')){e.preventDefault();set(g.closest('.spx'),g.dataset.i);return;}
   if(e.key==='Escape')document.querySelectorAll('.spx[data-sopen]').forEach(x=>delete x.dataset.sopen);});
 })();
-/* peer review: only the three completed candidates under review, at the top of the list */
-(function(){const keep=['mason','james','amelia'], drop=['ethan','liam','charlotte'];
- const top=keep.map(id=>CANDS.find(c=>c.id===id)), rest=CANDS.filter(c=>keep.indexOf(c.id)<0&&drop.indexOf(c.id)<0);
- CANDS.splice(0,CANDS.length,...top,...rest); ci=0;})();
+
+/* a numeric total is shown as returned; the working stays behind "View breakdown" */
+function ovNumH(s,cmp){
+ const fx=s.parts.map(p=>`<span class="fxp">(</span><span class="fxc">${E(SHORT(p[0]))}</span><span class="fxo">×</span><span class="fxn">${p[4]}</span><span class="fxp">)</span>`).join('<span class="fxo">+</span>');
+ const head=`<div class="ovs solo ${cmp?'cmp':''}"><div class="ovt"><span class="k">Overall</span><b class="ovres ph">Total score or grade</b><p class="ovp ph">Shown as returned by the provider.</p></div></div>`;
+ if(cmp) return head;
+ return head+`<details class="bkd" style="margin:-4px 0 12px"><summary>${I.chevD} View breakdown</summary>
+   <div class="fxline"><span class="fxt">Total =</span>${fx}</div>
+   <table class="fxw"><thead><tr><th>Section</th><th class="r">Marks</th><th class="r">Weight</th><th class="r">Points</th></tr></thead>
+    <tbody>${s.parts.map(p=>`<tr><td>${E(p[0])}</td><td class="r m">${p[1]} / ${p[2]}</td><td class="r m">× ${p[4]}</td><td class="r b">${F1(p[5])}</td></tr>`).join('')}
+    <tr class="tot"><td>Total</td><td></td><td></td><td class="r b">${F1(s.n)} / ${s.of}</td></tr></tbody></table></details>`;}
+/* ---- credentials, standard: one card and one detail for every issuer; statuses are ours, mapped from each client's partner ---- */
+const CSTAT={review:['Yet to review','pending',''],withheld:['Withheld','review','wait'],credentialed:['Credentialed','done',''],
+ disqualified:['Disqualified','blocked','none'],revoked:['Credential revoked','blocked','none'],expired:['Expired','pending','none']};
+function credStatus(X,x){const s=CSTAT[X.cs]||CSTAT.review;
+ const sub={review:'Result received '+E(X.recv||'')+' · awaiting review',withheld:'Held '+E(X.on||'')+(X.why?' · '+E(X.why):''),
+  credentialed:'Issued to '+E(x.first)+' · '+E(X.issued||''),disqualified:'Disqualified '+E(X.on||'')+(X.why?' · '+E(X.why):''),
+  revoked:'Revoked '+E(X.on||'')+(X.why?' · '+E(X.why):''),expired:'Expired '+E(X.expires||'')}[X.cs]||'';
+ return {k:s[0],chip:s[1],cls:s[2],sub};}
+function bslotH(X,st,big){return X.badge?`<span class="bslot img ${big?'lg':''}" title="Badge image from ${E(X.issuer)}">${BADGE_ART}</span>`
+ :`<span class="bslot ph ${X.cs==='credentialed'?'':(st.cls||'neutral')} ${big?'lg':''}" title="Badge placeholder">${I.award}</span>`;}
+const ISSUED={credentialed:1,revoked:1,expired:1};
+const credLinkStd=X=>!ISSUED[X.cs]?null:[X.where||('View on '+X.issuer),X.where||('View on '+X.issuer)];
+function credCardH(X,x,attr){const st=credStatus(X,x), lk=credLinkStd(X), issued=!!ISSUED[X.cs];
+ const iss=`<span class="iss">${ilogoH(X.issuer)}${E(X.issuer)}</span>`;
+ const cells=[['Issued by',iss],['Credential ID',issued?E(X.id):'—'],[X.cs==='expired'?'Expired':'Expires',issued?E(X.expires):'—']];
+ return `<section class="ccard ${st.cls} cs-${X.cs}" ${attr||''}><div class="ctop">${bslotH(X,st)}<span class="bd"><span class="kick">${st.k}</span><span class="t">${E(CFG.cred)}</span><span class="s">${st.sub}</span></span>
+   ${lk?`<button class="clink ctr" data-act3="${E(lk[1])}">${E(lk[0])} ${IV.ext}</button>`:''}</div>
+  <div class="cgrid">${cells.map(([a,b])=>`<span><span class="k3">${a}</span><span class="v">${b}</span></span>`).join('')}</div></section>`;}
+function credDetailH(X,x){const st=credStatus(X,x), T=(h,i)=>`<div class="tcard"><h4>${h}</h4><div class="in">${i}</div></div>`;
+ const why=X.why&&(X.cs==='withheld'||X.cs==='revoked'||X.cs==='disqualified')?`<p class="cwhy"><span>${E(st.k)} ${E(X.on||'')}</span>${E(X.why)}</p>`:'';
+ const tiles=[];
+ if(X.badge) tiles.push(`<button class="ctile" data-act3="${E(X.where||'View badge')}"><span class="cti">${BADGE_ART}</span><span class="bd"><b>Badge</b><span>View on ${E(X.issuer)}</span></span>${IV.ext}</button>`);
+ if(X.cert){const k='pdf'+(ZK++);tiles.push(`<button class="ctile" data-pdfopen="${k}"><span class="cti cert">${CERT_ART}</span><span class="bd"><b>Certificate</b><span>PDF · 1 page</span></span>${IV.ext}</button>${pdfModalH({kind:'pdf',file:'Certificate_'+X.id+'.pdf',pages:1,html:`<span class="pk">${E(X.issuer)}</span><b class="ph">${E(CFG.cred)}</b><span class="pm">Awarded to ${E(x.name)} · ${E(X.issued)}</span><span class="pm">Credential ID ${E(X.id)}</span>`},x,k)}`);}
+ const none=!ISSUED[X.cs]?`<p class="cnone">${X.cs==='disqualified'?'Nothing was issued.':'The badge and certificate appear here once the credential is issued.'}</p>`:'';
+ const meta=!ISSUED[X.cs]?[`Issued by ${E(X.issuer)}`,'Not issued']:[`Issued by ${E(X.issuer)}`,E(X.id),`Issued ${E(X.issued)}`,(X.cs==='expired'?'Expired ':'Expires ')+E(X.expires)];
+ return T('Credential',why+(tiles.length?`<div class="ctiles">${tiles.join('')}</div>`:none)+`<p class="sfoot cid">${meta.map(m=>`<span>${m}</span>`).join('')}</p>`)
+  +(X.attrs&&X.attrs.length&&ISSUED[X.cs]?T('From '+E(X.issuer),blockH(ROWS('',X.attrs.map(r=>[E(r[0]),E(r[1])])))):'');}
+function credActs(X){const b=(t,cls,at)=>`<button class="btn ${cls||''}" ${at}>${E(t)}</button>`;
+ return {review:b('Withhold','',`data-act3="Withhold the credential"`)+b('Issue credential','pri',`data-act3="Issue the credential"`),
+  withheld:b('Release','pri',`data-act3="Release the credential"`),credentialed:b('Revoke','dtx','data-goscr="cred:revoke"'),
+  disqualified:'',revoked:b('Reissue','',`data-act3="Reissue the credential"`),expired:b('Renew','pri',`data-act3="Renew the credential"`)}[X.cs]||'';}
+/* the three candidates' credentials, in the standard model */
+(function(){const S=(id,o)=>{const c=CANDS.find(z=>z.id===id); if(c) c.xcred=Object.assign({mode:'std',issuer:'Credly',attrs:[['Skills','Statistics, Machine learning, SQL, Python'],['Earning criteria','Pass DS0432 Data Science Exam']]},o);};
+ S('ethan',{cs:'credentialed',pub:'16 Sep 2026',issuer:'Talview',badge:1,cert:1,id:'CERT-DS-44207',issued:'16 Sep 2026',expires:'16 Sep 2028',where:'Open public page',attrs:[]});
+ S('liam',{cs:'expired',badge:1,cert:0,id:'CR-54872',issued:'20 Jul 2026',expires:'20 Sep 2026',where:'View on Credly'});
+ S('mason',{cs:'revoked',badge:1,cert:1,id:'CR-53310',issued:'8 Aug 2026',expires:'8 Aug 2028',on:'12 Aug 2026',why:'Issued before the dispute closed',where:'View on Credly'});
+ S('james',{cs:'withheld',on:'30 Aug 2026',why:'Held by Divya K. for an identity re-check'});
+ S('amelia',{cs:'review',recv:'2 Sep 2026'});
+ S('charlotte',{cs:'disqualified',on:'10 Sep 2026',why:'Misconduct found after the session'});
+ {const e=CANDS.find(z=>z.id==='ethan'); if(e) e.cert=null;}
+})();
+/* sections carry their own adjustment, so the detail shows it where it happened */
+function secsOf(b){const S=b.t==='stot'?b.s:b;
+ const sub=i=>(S.sub&&S.sub[i]||[]).map((x,j)=>({n:SUBS[CFG.secs[i][0]][j],v:Array.isArray(x)?{m:x}:{lv:x}}));
+ const out=b.t==='stot'?b.s.parts.map((p,i)=>({n:p[0],sh:SHORT(p[0]),v:{m:[p[1],p[2]]},subs:sub(i)}))
+  :CFG.secs.map((s,i)=>({n:s[0],sh:s[3],v:b.vals?b.vals[i]:{lv:b.lv[i]},subs:sub(i)}));
+ if(b.adj&&out[b.adj.sec]) out[b.adj.sec].adj=b.adj;
+ return out;}
+const radjH=A=>{const L=CFG.card.lv;return `<div class="radj">${I.edit}<span><b>Re-marked ${E(A.on)}</b> · <s>${E(L[A.from-1])}</s> → ${E(L[A.to-1])} · ${E(A.why)} · ${E(A.by)}</span></div>`;};
+/* credential actions: withhold and revoke ask for a reason; issue, release and reissue act at once */
+CREDRSN.withhold=[['Identity re-check','Verity or the ID needs another look.'],['Dispute open','The candidate has raised a dispute about the result.'],
+ ['Payment issue','A payment is outstanding or was reversed.'],['Other','Explain in the note.']];
+function credActScreen(kind){const c=C(), xc=c.xcred||{}, first=c.n.split(' ')[0];
+ const T={withhold:'Withhold the credential',revoke:'Revoke the credential'}[kind]||'Credential';
+ const opts=CREDRSN[kind]||[];
+ const radio=`<span class="flab">Reason</span><div class="rsn">${opts.map((o,i)=>`<button class="rr ${rsnSel===i?'on':''}" data-rsn="${i}">
+   <span class="rd"></span><span class="bd2"><span class="nm2">${E(o[0])}</span>${o[1]?`<span class="ds">${E(o[1])}</span>`:''}</span></button>`).join('')}</div>`;
+ const lead={withhold:`Nothing is issued while the credential is withheld. ${E(first)} isn’t notified until you release it.`,
+  revoke:`${E(xc.issuer||'The issuer')} is asked to revoke it. The badge stops verifying and ${E(first)} is emailed the reason.`}[kind]||'';
+ const btn={withhold:['pri','Withhold credential'],revoke:['dgr','Revoke credential']}[kind]||['pri','Apply'];
+ return `<div class="screen"><div class="shead"><button class="bk" data-back="1"><span class="ar">${I.back}</span><span>${T}</span></button></div>
+  <div class="sbody"><div class="sin">
+   <div class="tflag ${kind==='revoke'?'blocked':''}"><span class="ic">${kind==='revoke'?I.warnc:I.award}</span><span>${lead}</span></div>
+   ${radio}
+   <span class="flab">Note (optional)</span><textarea class="ta" data-rnote="1" placeholder="Anything the next person should know">${E(rsnNote)}</textarea>
+  </div></div>
+  <div class="ftr"><span class="sp"></span><button class="btn" data-back="1">Cancel</button>
+   <button class="btn ${btn[0]}" ${rsnSel!=null?'':'disabled'} data-credapply="${kind}">${btn[1]}</button></div></div>`;}
+const credMove=(cs,stageK,chipC,sum,row)=>{const c=C(), cr=c.steps.credentialing, ce=chkOf(cr,'Certificate');
+ c.xcred.cs=cs; if(ce) ce.chip=[CSTAT[cs][0],chipC]; setStage(cr,stageK,[CSTAT[cs][0],chipC],sum); c.row.step=['Credential - '+row,TODAY];};
+function credApply(kind){const c=C(), xc=c.xcred, first=c.n.split(' ')[0];
+ const why=rsnSel==null?'':(CREDRSN[kind]||[])[rsnSel][0], note=rsnNote.trim();
+ if(kind==='withhold'){xc.on=TODAY; xc.why=why+(note?': '+note:''); credMove('withheld','review','review','Withheld by Divya K. — '+why+'.','Withheld');
+  return 'Credential withheld · nothing has been sent to '+first;}
+ if(kind==='revoke'){xc.on=TODAY; xc.why=why+(note?': '+note:''); credMove('revoked','blocked','blocked','Revoked by Divya K. — '+why+'.','Revoked');
+  return 'Credential revoked · '+first+' has been emailed';}
+ return null;}
+function credSet(k){const c=C(), xc=c.xcred, first=c.n.split(' ')[0];
+ if(k==='issue'){Object.assign(xc,{badge:1,cert:1,id:xc.id||'CR-'+(55400+(c.cid||'').length*7),issued:TODAY,expires:YEARS(TODAY,2),where:'View on '+xc.issuer});delete xc.why;
+  credMove('credentialed','clear','done','Credentialed by Divya K. on '+TODAY+'.','Credentialed'); return 'Credential issued · '+first+' has been emailed';}
+ if(k==='release'){delete xc.why; xc.recv=xc.recv||TODAY; credMove('review','pending','pending','Released by Divya K. on '+TODAY+'. Awaiting review.','Yet to review'); return 'Released · back to review';}
+ if(k==='reissue'){Object.assign(xc,{id:String(xc.id||'CR-0').replace(/-R\d+$/,'')+'-R1',issued:TODAY,expires:YEARS(TODAY,2)});delete xc.why;
+  credMove('credentialed','clear','done','Reissued by Divya K. on '+TODAY+'.','Credentialed'); return 'Reissued as '+xc.id+' · '+first+' has been emailed';}
+ return '';}
+function credActs(X){const b=(t,cls,at)=>`<button class="btn ${cls||''}" ${at}>${E(t)}</button>`;
+ return {review:b('Withhold','','data-goscr="cred:withhold"')+b('Issue credential','pri','data-credset="issue"'),
+  withheld:b('Release','pri','data-credset="release"'),credentialed:b('Revoke','dtx','data-goscr="cred:revoke"'),
+  disqualified:'',revoked:b('Reissue','','data-credset="reissue"'),expired:''}[X.cs]||'';}
+document.addEventListener('click',e=>{const s=e.target.closest&&e.target.closest('[data-credset]'); if(!s) return;
+ const m=credSet(s.dataset.credset); render(); if(m) flash(m);});
+/* payment: the card brand only, never its digits; a reschedule fee shows with the exam fee */
+function payBits(c,pay){
+ if(!pay) return null;
+ const st=pay.chip[0], rs=(BOOK[c.id]||{}).resched;
+ if(st==='Paid'||st==='Refunded') return {lab:st==='Refunded'?'Refunded':'Paid',
+   amt:rs?rs.total:c.vou?c.vou[2]:CFG.fee,
+   sub:(rs?'Exam fee '+CFG.fee+' + reschedule fee '+rs.fee:c.vou?'of '+CFG.fee+' after '+c.vou[0]:'of '+CFG.fee)+' · Mastercard',chip:pay.chip};
+ if(st==='Waived') return {lab:'Waived',amt:'$0.00',sub:'of '+CFG.fee+' · waived by Divya K.',chip:pay.chip};
+ if(st==='Failed') return {lab:'Outstanding',amt:CFG.fee,sub:'Declined twice · booking is locked',chip:pay.chip};
+ if(st==='Not due') return {lab:'Fee',amt:null,sub:'Taken once the enrolment is approved',chip:pay.chip};
+ if(st==='Awaiting payment') return {lab:'Payment',amt:null,v:'Not paid yet',sub:CFG.fee+' due · payable until '+CFG.window,chip:pay.chip};
+ return {lab:'Fee',amt:null,sub:'Nothing is charged to the candidate',chip:pay.chip};}
 render();
 </script>
 

@@ -15,7 +15,7 @@ python3 -m http.server 8000
 
 | Path | What it is |
 |---|---|
-| `prototypes/score-visualisations.html` | Score visualisations — three completed candidates, each with a different result view: spider, level rows and donut, with section-to-topic drill-down. |
+| `prototypes/score-visualisations.html` | Score visualisations — the full candidate list. Completed candidates use one of three result views (spider, level rows, donut) with topic drill-down and a placeholder overall, and the standard credential card with the six statuses: Yet to review, Withheld, Credentialed, Disqualified, Credential revoked, Expired. |
 | `prototypes/candidate-profile-v2.html` | Candidate profile v2 — workflow steps (Enrollment, Verity, Scoring, Credentials) with the bar graph score card. |
 | `prototypes/enrollment-profile.html` | Enrollment-scoped profile. Two variants behind a switcher: **Timeline** and **Cards**. |
 | `deck/review-deck.html` | 13-slide review deck. Arrow keys to move. |
