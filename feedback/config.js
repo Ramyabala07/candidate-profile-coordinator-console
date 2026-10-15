@@ -1,11 +1,10 @@
-/* Where responses go: a Google Form (see SETUP.md). Until formAction is set, the flow runs in preview mode
-   and keeps answers only in the browser that gave them. */
+/* Where responses go: the "Score views study" Google Form and its linked Sheet (see SETUP.md). */
 window.FEEDBACK_CONFIG = {
-  formAction: '',          // https://docs.google.com/forms/d/e/<form id>/formResponse
-  fields: {                // the entry.<number> ids from the form's pre-filled link
-    choice: '',
-    why: '',
-    details: ''
+  formAction: 'https://docs.google.com/forms/d/e/1FAIpQLSdXJsthQ4sk8NxQgfPqAVo2kUBrfV3Zwyud3WpMhOvNIMNLCw/formResponse',
+  fields: {
+    choice: 'entry.731283202',
+    why: 'entry.1585389199',
+    details: 'entry.1689311046'
   },
-  resultsCsv: ''           // the linked Sheet, published to the web as CSV
+  resultsCsv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT9sI3h0Ef72Ejsp8rfY9nTeTxixTNyVFdWQqiWJ-8ILrazVYB2yhM4-cgVBOTvkp--P8b8z8Jk38xU/pub?gid=1369835205&single=true&output=csv'
 };
