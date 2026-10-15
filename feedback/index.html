@@ -74,7 +74,7 @@ main.tasking{padding:0}
 .use svg{flex:0 0 18px;width:18px;height:18px;color:var(--accent);margin-top:2px}
 .use .ut{display:block;font:600 11.5px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
 .use p{margin:0;font:400 14px/21px var(--font);color:var(--tp)}
-.qs{list-style:none;margin:28px 0 0;padding:28px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:26px}
+.qs{list-style:none;margin:24px 0 0;padding:24px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:26px}
 .qs li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px}
 .qs .n{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--tp);color:#fff;font:600 12px/1 var(--font)}
 .qs .qt{display:block;font:500 15px/22px var(--font);color:var(--tp);margin:1px 0 10px}
@@ -181,7 +181,6 @@ main.tasking{padding:0}
     <span class="vn">View ${n+1} of 3</span>
     <h2>${esc(v.name)}</h2>
     <p class="who">${esc(v.person)}’s result</p>
-    <div class="use">${I[v.ic]}<div><span class="ut">How to use it</span><p>${v.how}</p></div></div>
     <ol class="qs">
      <li><span class="n">1</span><div><span class="qt">Which section scored lowest?</span><div class="chips" data-q="sec">${chipsH('s'+n,Object.keys(SECS))}</div></div></li>
      <li><span class="n">2</span><div><span class="qt">Open that section. Which of its topics scored lowest?</span><div class="chips" data-q="topic"><p class="hint">Answer question 1 first.</p></div></div></li>
