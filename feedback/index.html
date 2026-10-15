@@ -6,11 +6,11 @@
 <title>Which Score View Reads Best</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap">
 <style>
-/* a short guided study: brief, context, three tasks in random order, then a vote with a reason. Tessera tones, light. */
+/* a short guided study: one intro, three views with one task each (shuffled), then a pick with chip reasons. Tessera tones, light. */
 :root{
  --font:'Roboto',system-ui,-apple-system,'Segoe UI',sans-serif;
  --bg:#F3F4F6;--surface:#FFFFFF;--nested:#F9FAFB;--line:#E5E7EB;--line2:#D1D5DB;
- --tp:#111827;--ts:#374151;--tt:#6B7280;--accent:#1D4ED8;--accent-h:#1E40AF;--accentbg:#EFF6FF;
+ --tp:#111827;--ts:#374151;--tt:#6B7280;--accent:#1D4ED8;--accent-h:#1E40AF;--accentbg:#EFF6FF;--accentln:#BFDBFE;
  --ok:#15803D;--okbg:#F0FDF4;--warn:#B45309;--warnbg:#FFFBEB;
  color-scheme:light}
 *{box-sizing:border-box}
@@ -23,60 +23,60 @@ button,input,select,textarea{font:inherit;color:inherit}
 .bar .sp{flex:1}
 .prog{display:flex;gap:4px}
 .prog i{width:28px;height:4px;border-radius:2px;background:var(--line)}
-.prog i.on{background:var(--accent)}
-.prog i.done{background:#93C5FD}
+.prog i.on{background:var(--accent)}.prog i.done{background:#93C5FD}
 .bar .stp{font:400 12.5px/18px var(--font);color:var(--tt);white-space:nowrap}
 .notice{display:none;margin:0;padding:8px 20px;background:var(--warnbg);color:var(--warn);font:400 13px/19px var(--font);border-bottom:1px solid #FDE68A}
 .notice.on{display:block}
-main{padding:32px 16px 64px}
+main{padding:28px 16px 56px}
 .step{display:none}
 .step.on{display:block;animation:in .25s ease}
 @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.step.on{animation:none}}
-.narrow{max-width:640px;margin:0 auto}
+.narrow{max-width:600px;margin:0 auto}
 .eyebrow{font:500 12px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-h1{font:600 30px/38px var(--font);margin:8px 0 12px;text-wrap:balance;letter-spacing:-.01em}
-h2{font:600 22px/30px var(--font);margin:8px 0 10px;text-wrap:balance}
+h1{font:600 30px/38px var(--font);margin:8px 0 10px;text-wrap:balance;letter-spacing:-.01em}
+h2{font:600 20px/28px var(--font);margin:6px 0 8px;text-wrap:balance}
 p{margin:0 0 14px;color:var(--ts)}
 .lead{font-size:17px;line-height:27px;color:var(--tp)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:18px 0}
-.plan{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
-.plan li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;color:var(--ts)}
-.plan li span{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accentbg);color:var(--accent);font:600 13px/1 var(--font)}
-.plan b{display:block;color:var(--tp);font-weight:500}
-.meta{display:flex;flex-wrap:wrap;gap:6px 18px;font:400 13px/20px var(--font);color:var(--tt);margin:4px 0 22px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 20px;border-radius:8px;border:1px solid var(--line2);background:var(--surface);font:500 15px/20px var(--font);cursor:pointer}
+.how3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:18px 0}
+.how3 div{padding:12px;border-radius:10px;background:var(--surface);border:1px solid var(--line);font:400 13px/19px var(--font);color:var(--ts)}
+.how3 b{display:block;font:500 14px/20px var(--font);color:var(--tp)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;font:400 13px/20px var(--font);color:var(--tt);margin:4px 0 18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 20px;border-radius:8px;border:1px solid var(--line2);background:var(--surface);font:500 15px/20px var(--font);cursor:pointer;text-decoration:none;color:var(--tp)}
 .btn:hover{background:var(--nested)}
 .btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.pri:hover{background:var(--accent-h)}
 .btn[disabled]{opacity:.45;cursor:not-allowed}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0 4px}
-.fact{padding:12px 14px;border-radius:10px;background:var(--nested);border:1px solid var(--line)}
-.fact b{display:block;font:500 13.5px/20px var(--font)}
-.fact span{font:400 13px/19px var(--font);color:var(--tt)}
-label.f{display:block;font:500 13px/18px var(--font);margin:16px 0 6px}
-label.f em{font-style:normal;font-weight:400;color:var(--tt)}
-select,textarea,input[type=text]{width:100%;padding:9px 11px;border:1px solid var(--line2);border-radius:8px;background:var(--surface)}
-textarea{min-height:92px;resize:vertical;line-height:21px}
-/* task step: prototype + task panel */
-.task{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;max-width:1400px;margin:0 auto;align-items:start}
-.frame{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;height:min(78vh,760px);min-height:560px}
+.q{display:block;font:500 14px/20px var(--font);margin:18px 0 8px}
+.q em{font-style:normal;font-weight:400;color:var(--tt)}
+.q .n{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:8px;border-radius:50%;background:var(--accentbg);color:var(--accent);font:600 11px/1 var(--font);vertical-align:1px}
+/* chips: single (radio) or multi (checkbox) */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{position:relative;display:inline-flex;align-items:center;padding:7px 12px;border:1px solid var(--line2);border-radius:99px;background:var(--surface);font:400 13.5px/18px var(--font);cursor:pointer;user-select:none}
+.chip:hover{border-color:#9CA3AF}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip:has(input:checked){border-color:var(--accent);background:var(--accentbg);color:var(--accent);font-weight:500}
+.chip:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.chips.scale .chip{min-width:44px;justify-content:center}
+.ends{display:flex;justify-content:space-between;max-width:268px;font:400 11.5px/16px var(--font);color:var(--tt);margin-top:4px}
+textarea,select{width:100%;padding:9px 11px;border:1px solid var(--line2);border-radius:8px;background:var(--surface)}
+textarea{min-height:64px;resize:vertical;line-height:21px}
+/* task: the result panel beside the questions */
+.task{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;max-width:1240px;margin:0 auto;align-items:start}
+.frame{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;height:calc(100vh - 140px);min-height:560px;max-height:860px}
 .frame iframe{display:block;width:100%;height:100%;border:0}
 .panel{position:sticky;top:72px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
-.panel h2{font-size:18px;line-height:26px;margin-top:4px}
-.ask{padding:12px 14px;border-radius:10px;background:var(--accentbg);color:var(--tp);font:500 14px/21px var(--font);margin:6px 0 4px}
-.tip{font:400 12.5px/19px var(--font);color:var(--tt);margin:8px 0 0}
-.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
-.scale label{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px;border:1px solid var(--line2);border-radius:8px;cursor:pointer;font:500 14px/18px var(--font)}
-.scale label small{font:400 10.5px/13px var(--font);color:var(--tt);text-align:center}
-.scale input{position:absolute;opacity:0;pointer-events:none}
-.scale label:has(input:checked){border-color:var(--accent);background:var(--accentbg);color:var(--accent)}
-.scale label:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
-.panel .btn{width:100%;margin-top:18px}
-@media (max-width:980px){.task{grid-template-columns:1fr}.panel{position:static}}
+.use{display:flex;gap:10px;align-items:flex-start;margin:8px 0 2px;padding:10px 12px;border-radius:10px;background:var(--accentbg);border:1px solid var(--accentln);font:400 13.5px/20px var(--font);color:var(--tp)}
+.use svg{flex:0 0 18px;width:18px;height:18px;color:var(--accent);margin-top:1px}
+.use b{font-weight:500}
+.panel .btn.pri{width:100%;margin-top:20px}
+.panel .back{display:block;margin:10px auto 0;background:none;border:none;color:var(--tt);font:500 13px/18px var(--font);cursor:pointer}
+.hint{font:400 12.5px/18px var(--font);color:var(--tt);margin:6px 0 0}
+@media (max-width:980px){.task{grid-template-columns:1fr}.panel{position:static}.frame{height:70vh}}
 /* vote */
-.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0 4px}
+.wide{max-width:880px;margin:0 auto}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 4px}
 .opt{position:relative;display:flex;flex-direction:column;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;overflow:hidden}
 .opt img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 62%;background:var(--nested);border-bottom:1px solid var(--line)}
 .opt .t{padding:10px 12px}
@@ -87,94 +87,58 @@ textarea{min-height:92px;resize:vertical;line-height:21px}
 .opt:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
 .opt .chk{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:var(--surface);border:1.5px solid var(--line2)}
 .opt:has(input:checked) .chk{background:var(--accent);border-color:var(--accent);box-shadow:inset 0 0 0 4px var(--surface)}
-.wide{max-width:900px;margin:0 auto}
-@media (max-width:700px){.opts{grid-template-columns:1fr}.facts{grid-template-columns:1fr}h1{font-size:26px;line-height:34px}}
-.err{color:#B91C1C;font:400 13px/19px var(--font);margin:8px 0 0;min-height:19px}
+.more{margin-top:8px}
+@media (max-width:700px){.opts,.how3{grid-template-columns:1fr}h1{font-size:26px;line-height:34px}}
+.err{color:#B91C1C;font:400 13px/19px var(--font);margin:10px 0 0;min-height:19px}
 .done{text-align:center}
 .done .mark{width:56px;height:56px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:var(--okbg);color:var(--ok)}
 .done .mark svg{width:28px;height:28px}
 </style>
 </head>
 <body>
-<header class="bar">
- <b>Score views study</b>
- <span class="sp"></span>
- <span class="prog" id="prog" aria-hidden="true"></span>
- <span class="stp" id="stp"></span>
-</header>
+<header class="bar"><b>Score views study</b><span class="sp"></span><span class="prog" id="prog" aria-hidden="true"></span><span class="stp" id="stp"></span></header>
 <p class="notice" id="notice">Preview mode: responses aren't being collected yet. They're only kept in this browser.</p>
 <main>
 
-<!-- 1 · welcome -->
 <section class="step on" data-step="welcome">
  <div class="narrow">
-  <span class="eyebrow">Coordinator Console · Candidate profile</span>
+  <span class="eyebrow">Coordinator Console</span>
   <h1>Which score view reads best?</h1>
-  <p class="lead">We're redesigning how exam coordinators see a candidate's result. We have three ways to show it, and we'd like to know which one helps you read a result fastest, and why.</p>
-  <div class="card">
-   <ol class="plan">
-    <li><span>1</span><div><b>A short brief</b>What a coordinator is looking at, in under a minute.</div></li>
-    <li><span>2</span><div><b>Three views, one small task each</b>Find a candidate's weakest topic in each view. The order is shuffled for everyone.</div></li>
-    <li><span>3</span><div><b>Pick one and tell us why</b>Your reason matters more than your vote.</div></li>
-   </ol>
-  </div>
-  <div class="meta"><span>About 5 minutes</span><span>Anonymous</span><span>Best on a laptop or desktop</span></div>
-  <button class="btn pri" data-next>Start</button>
+  <p class="lead">We have three ways to show a candidate's exam result. Help us pick the one that's quickest to read.</p>
+  <div class="how3"><div><b>3 views</b>Each shows one candidate's result</div><div><b>1 task each</b>Find their lowest section and topic</div><div><b>Pick one</b>Tell us why, with a tap</div></div>
+  <div class="meta"><span>About 4 minutes</span><span>Anonymous</span><span>Use a laptop or desktop</span></div>
+  <label class="q" for="role">Your role <em>(optional)</em></label>
+  <select id="role" style="max-width:280px"><option value="">Prefer not to say</option><option>Exam coordinator</option><option>Designer</option><option>Product</option><option>Engineering</option><option>Customer success</option><option>Other</option></select>
+  <div style="margin-top:22px"><button class="btn pri" data-next>Start</button></div>
  </div>
 </section>
 
-<!-- 2 · context -->
-<section class="step" data-step="context">
- <div class="narrow">
-  <span class="eyebrow">The brief</span>
-  <h2>A coordinator checking one candidate's result</h2>
-  <p>Coordinators answer candidates all day: "How did I do?", "Where did I lose marks?". To answer, they open the candidate's profile and look at the <b>Result</b> card.</p>
-  <div class="facts">
-   <div class="fact"><b>4 sections</b><span>Statistics, Machine learning, Data wrangling &amp; SQL, Python</span></div>
-   <div class="fact"><b>3 topics in each</b><span>For example, Statistics has Descriptive statistics, Probability and Hypothesis testing</span></div>
-   <div class="fact"><b>Scores as marks</b><span>Each section is out of 25, each topic out of 8 or 9</span></div>
-   <div class="fact"><b>Topics on demand</b><span>Each view shows sections first; you open a section to see its topics</span></div>
-  </div>
-  <p style="margin-top:14px">In the next three steps you'll see the same kind of result shown three different ways. Explore freely: hover, click and open sections. There are no wrong answers about the design, only about the data.</p>
-  <label class="f" for="role">Your role <em>(optional)</em></label>
-  <select id="role">
-   <option value="">Prefer not to say</option>
-   <option>Exam coordinator</option><option>Designer</option><option>Product</option><option>Engineering</option><option>Customer success</option><option>Other</option>
-  </select>
-  <div class="row" style="margin-top:22px"><button class="btn" data-back>Back</button><button class="btn pri" data-next>Begin the first view</button></div>
- </div>
-</section>
-
-<!-- 3–5 · the three views (filled by script, in shuffled order) -->
 <section class="step" data-step="task" data-n="0"></section>
 <section class="step" data-step="task" data-n="1"></section>
 <section class="step" data-step="task" data-n="2"></section>
 
-<!-- 6 · vote -->
 <section class="step" data-step="vote">
  <div class="wide">
   <span class="eyebrow">Your pick</span>
   <h2>Which view would you want on every candidate's profile?</h2>
   <div class="opts" id="opts" role="radiogroup" aria-label="Score views"></div>
-  <label class="f" for="why">Why this one? <em>(required)</em></label>
-  <textarea id="why" placeholder="What made it easier to read than the others?"></textarea>
-  <label class="f" for="confused">Anything confusing in any of the views? <em>(optional)</em></label>
-  <textarea id="confused" placeholder="A label you didn't understand, an interaction you missed, anything"></textarea>
+  <span class="q">Why this one? <em>(pick any)</em></span>
+  <div class="chips" id="whyc"></div>
+  <textarea class="more" id="why" placeholder="Anything to add? (optional)"></textarea>
+  <span class="q">What got in the way in the others? <em>(pick any)</em></span>
+  <div class="chips" id="badc"></div>
+  <textarea class="more" id="confused" placeholder="Anything else? (optional)"></textarea>
   <p class="err" id="err" role="alert"></p>
   <div class="row"><button class="btn" data-back>Back</button><button class="btn pri" id="send">Send feedback</button></div>
  </div>
 </section>
 
-<!-- 7 · thanks -->
 <section class="step" data-step="thanks">
  <div class="narrow done">
   <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5 10 17l9-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   <h2>Thank you, that's everything</h2>
   <p id="thx">Your feedback is in. It goes straight to the design team.</p>
-  <div class="row" style="justify-content:center;margin-top:18px">
-   <a class="btn" href="results.html">See results so far</a>
-   <a class="btn" href="prototype.html" target="_blank" rel="noopener">Open the prototype</a>
-  </div>
+  <div class="row" style="justify-content:center;margin-top:18px"><a class="btn" href="results.html">See results so far</a></div>
  </div>
 </section>
 </main>
@@ -184,42 +148,51 @@ textarea{min-height:92px;resize:vertical;line-height:21px}
 (function(){
  const CFG=window.FEEDBACK_CONFIG||{}, LIVE=!!(CFG.formAction&&CFG.fields&&CFG.fields.choice);
  if(!LIVE) document.getElementById('notice').classList.add('on');
- /* the three views; each candidate's weakest topic is the task's answer */
+ const SECS={'Statistics':['Descriptive statistics','Probability','Hypothesis testing'],'Machine learning':['Supervised learning','Model evaluation','Feature engineering'],
+  'Data wrangling':['SQL queries','Data cleaning','Joins & aggregation'],'Python':['pandas','NumPy','Visualisation']};
+ const I={click:'<svg viewBox="0 0 24 24" fill="none"><path d="M9 3.5v8.2l-1.6-1.6a1.6 1.6 0 1 0-2.3 2.3l5 5.1c.9.9 2 1.5 3.3 1.5h1.4a4.7 4.7 0 0 0 4.7-4.7v-3.6a1.6 1.6 0 0 0-3.2 0v-.6a1.6 1.6 0 0 0-3.2 0v-.5a1.6 1.6 0 0 0-3.2 0V3.5a1.6 1.6 0 0 0-3.2 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  hover:'<svg viewBox="0 0 24 24" fill="none"><path d="M5 3.5 18.5 10l-6 1.6-2.4 5.9L5 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>'};
+ /* the three views; each candidate's lowest section and topic are the answers */
  const VIEWS=[
-  {key:'spider',name:'Spider',blurb:'Sections as spokes; select one to split it into its topics',who:'mason',person:'Mason Brown',answer:'Joins & aggregation',img:'img/spider.png'},
-  {key:'rows',name:'Level rows',blurb:'One row per section; open a row to see its topics',who:'james',person:'James Lee',answer:'Hypothesis testing',img:'img/rows.png'},
-  {key:'donut',name:'Donut',blurb:'Sections on a ring; hover one to grow its topics outward',who:'amelia',person:'Amelia Wilson',answer:'Feature engineering',img:'img/donut.png'}];
- const TOPICS=['Descriptive statistics','Probability','Hypothesis testing','Supervised learning','Model evaluation','Feature engineering','SQL queries','Data cleaning','Joins & aggregation','pandas','NumPy','Visualisation'];
+  {key:'spider',name:'Spider',who:'mason',person:'Mason Brown',sec:'Data wrangling',topic:'Joins & aggregation',img:'img/spider.png',ic:'click',
+   how:'<b>Click a section name</b> on the chart to open its topics. They appear as numbered spokes, listed under the chart. Click it again to close.'},
+  {key:'rows',name:'Level rows',who:'james',person:'James Lee',sec:'Statistics',topic:'Hypothesis testing',img:'img/rows.png',ic:'click',
+   how:'<b>Click a section row</b> to expand it and see its three topics. Click it again to collapse.'},
+  {key:'donut',name:'Donut',who:'amelia',person:'Amelia Wilson',sec:'Machine learning',topic:'Feature engineering',img:'img/donut.png',ic:'hover',
+   how:'<b>Hover over a section of the ring.</b> Its three topics grow out around it, with their scores. Move off to close.'}];
  const order=VIEWS.map(v=>v.key).sort(()=>Math.random()-.5);
- const res={}; let started={};
- const byKey=k=>VIEWS.find(v=>v.key===k);
+ const byKey=k=>VIEWS.find(v=>v.key===k), res={}, started={};
  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
- /* build the task steps */
- document.querySelectorAll('[data-step="task"]').forEach(sec=>{const n=+sec.dataset.n, v=byKey(order[n]);
+ const chipsH=(name,opts,multi)=>opts.map(o=>`<label class="chip"><input type="${multi?'checkbox':'radio'}" name="${name}" value="${esc(o)}">${esc(o)}</label>`).join('');
+ document.querySelectorAll('[data-step="task"]').forEach(sec=>{const n=+sec.dataset.n, v=byKey(order[n]), first=v.person.split(' ')[0];
   sec.innerHTML=`<div class="task">
-   <div class="frame"><iframe title="Prototype: ${esc(v.person)}'s result" data-src="prototype.html?open=${v.who}" loading="lazy"></iframe></div>
+   <div class="frame"><iframe title="${esc(first)}'s result, ${esc(v.name)} view" data-src="prototype.html?open=${v.who}&solo=1"></iframe></div>
    <aside class="panel">
-    <span class="eyebrow">View ${n+1} of 3</span>
+    <span class="eyebrow">View ${n+1} of 3 · ${esc(v.name)}</span>
     <h2>${esc(v.person)}'s result</h2>
-    <div class="ask">Find the topic where ${esc(v.person.split(' ')[0])} scored lowest.</div>
-    <p class="tip">${esc(v.blurb)}. You can also close the panel and reopen ${esc(v.person.split(' ')[0])} from the list.</p>
-    <label class="f" for="a${n}">Lowest topic</label>
-    <select id="a${n}"><option value="">Choose a topic</option>${TOPICS.map(t=>`<option>${esc(t)}</option>`).join('')}<option value="?">I couldn't find it</option></select>
-    <label class="f">How easy was that to find?</label>
-    <div class="scale" role="radiogroup" aria-label="Ease">${[1,2,3,4,5].map(x=>`<label><input type="radio" name="e${n}" value="${x}">${x}<small>${x===1?'Very hard':x===5?'Very easy':''}</small></label>`).join('')}</div>
-    <button class="btn pri" data-task="${n}" disabled>${n<2?'Next view':'Choose your favourite'}</button>
-    <button class="btn" data-back style="margin-top:8px">Back</button>
+    <div class="use">${I[v.ic]}<span>${v.how}</span></div>
+    <span class="q"><span class="n">1</span>Which <b>section</b> scored lowest?</span>
+    <div class="chips" data-q="sec">${chipsH('s'+n,Object.keys(SECS))}</div>
+    <span class="q"><span class="n">2</span>Open that section. Which of its <b>topics</b> scored lowest?</span>
+    <div class="chips" data-q="topic"><span class="hint">Pick a section first.</span></div>
+    <span class="q"><span class="n">3</span>How easy was that?</span>
+    <div class="chips scale" data-q="ease">${chipsH('e'+n,['1','2','3','4','5'])}</div>
+    <div class="ends"><span>Very hard</span><span>Very easy</span></div>
+    <button class="btn pri" data-task disabled>${n<2?'Next view':'Pick your favourite'}</button>
+    <button class="back" data-back>Back</button>
    </aside></div>`;
-  const btn=sec.querySelector('[data-task]'), sel=sec.querySelector('select');
-  const ok=()=>{btn.disabled=!(sel.value&&sec.querySelector('input[type=radio]:checked'));};
-  sec.addEventListener('change',ok);
-  btn.addEventListener('click',()=>{const e=+sec.querySelector('input[type=radio]:checked').value;
-   res[v.key]={answer:sel.value,correct:sel.value===v.answer,ease:e,ms:Math.round(performance.now()-(started[v.key]||performance.now()))};go(+1);});
+  const val=q=>{const i=sec.querySelector(`[data-q="${q}"] input:checked`);return i?i.value:'';};
+  const btn=sec.querySelector('[data-task]');
+  sec.addEventListener('change',e=>{
+   if(e.target.closest('[data-q="sec"]')){const s=val('sec');sec.querySelector('[data-q="topic"]').innerHTML=chipsH('t'+n,SECS[s].concat(['Couldn’t find it']));}
+   btn.disabled=!(val('sec')&&val('topic')&&val('ease'));});
+  btn.addEventListener('click',()=>{res[v.key]={section:val('sec'),topic:val('topic'),correctSection:val('sec')===v.sec,correct:val('sec')===v.sec&&val('topic')===v.topic,
+   ease:+val('ease'),ms:Math.round(performance.now()-(started[v.key]||performance.now()))};go(+1);});
  });
- /* vote options, in the order they were seen */
- document.getElementById('opts').innerHTML=order.map((k,i)=>{const v=byKey(k);return `<label class="opt"><input type="radio" name="pick" value="${v.key}">
-   <span class="chk"></span><img src="${v.img}" alt="${esc(v.name)} view, as seen on ${esc(v.person)}'s result"><span class="t"><b>${esc(v.name)}</b><small>View ${i+1} · ${esc(v.person)}</small></span></label>`;}).join('');
- /* steps */
+ document.getElementById('opts').innerHTML=order.map((k,i)=>{const v=byKey(k);return `<label class="opt"><input type="radio" name="pick" value="${v.key}"><span class="chk"></span>
+   <img src="${v.img}" alt="${esc(v.name)} view on ${esc(v.person)}'s result"><span class="t"><b>${esc(v.name)}</b><small>View ${i+1} · ${esc(v.person)}</small></span></label>`;}).join('');
+ document.getElementById('whyc').innerHTML=chipsH('why',['Fastest to read','Easy to compare sections','Easy to find the topics','Exact scores are clear','Least cluttered','Opening a section felt natural','Familiar kind of chart','Looks good'],1);
+ document.getElementById('badc').innerHTML=chipsH('bad',['Didn’t know how to open the topics','Hard to compare sections','Labels too small','Too much on screen','Hover was hard to control','Hard to read exact scores','Nothing got in the way'],1);
  const steps=[...document.querySelectorAll('.step')]; let at=0;
  const prog=document.getElementById('prog'), stp=document.getElementById('stp');
  prog.innerHTML=steps.slice(0,-1).map(()=>'<i></i>').join('');
@@ -231,17 +204,18 @@ textarea{min-height:92px;resize:vertical;line-height:21px}
  function go(d){at=Math.max(0,Math.min(steps.length-1,at+d));show();}
  document.addEventListener('click',e=>{if(e.target.closest('[data-next]'))go(+1);if(e.target.closest('[data-back]'))go(-1);});
  show();
- /* send */
+ const picked=n=>[...document.querySelectorAll(`input[name="${n}"]:checked`)].map(i=>i.value);
  document.getElementById('send').addEventListener('click',async()=>{
-  const pick=document.querySelector('input[name=pick]:checked'), why=document.getElementById('why').value.trim(), err=document.getElementById('err');
+  const pick=document.querySelector('input[name=pick]:checked'), why=picked('why'), whyTxt=document.getElementById('why').value.trim(), err=document.getElementById('err');
   if(!pick){err.textContent='Pick one of the three views.';return;}
-  if(why.length<5){err.textContent='Tell us in a few words why you picked it.';document.getElementById('why').focus();return;}
+  if(!why.length&&!whyTxt){err.textContent='Pick at least one reason, or write one.';return;}
   err.textContent='';
-  const details={role:document.getElementById('role').value,order,tasks:res,confused:document.getElementById('confused').value.trim(),
-   screen:innerWidth+'x'+innerHeight,at:new Date().toISOString()};
-  const choice=byKey(pick.value).name, btn=document.getElementById('send'); btn.disabled=true; btn.textContent='Sending…';
-  try{const k='score-views-responses';const all=JSON.parse(localStorage.getItem(k)||'[]');all.push({choice,why,details});localStorage.setItem(k,JSON.stringify(all));}catch(e){}
-  if(LIVE){const body=new URLSearchParams();body.append(CFG.fields.choice,choice);body.append(CFG.fields.why,why);body.append(CFG.fields.details,JSON.stringify(details));
+  const choice=byKey(pick.value).name, whyAll=why.join('; ')+(whyTxt?(why.length?' — ':'')+whyTxt:'');
+  const details={role:document.getElementById('role').value,order,tasks:res,whyChips:why,whyText:whyTxt,gotInWay:picked('bad'),
+   confused:document.getElementById('confused').value.trim(),screen:innerWidth+'x'+innerHeight,at:new Date().toISOString()};
+  const btn=document.getElementById('send'); btn.disabled=true; btn.textContent='Sending…';
+  try{const k='score-views-responses';const all=JSON.parse(localStorage.getItem(k)||'[]');all.push({choice,why:whyAll,details});localStorage.setItem(k,JSON.stringify(all));}catch(e){}
+  if(LIVE){const body=new URLSearchParams();body.append(CFG.fields.choice,choice);body.append(CFG.fields.why,whyAll);body.append(CFG.fields.details,JSON.stringify(details));
    try{await fetch(CFG.formAction,{method:'POST',mode:'no-cors',body});}
    catch(e){btn.disabled=false;btn.textContent='Send feedback';err.textContent='That didn’t go through. Check your connection and send again.';return;}}
   else document.getElementById('thx').textContent='Preview mode: your answers were kept in this browser only, so nothing has reached the team yet.';

@@ -81,6 +81,9 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
  const pct=(a,b)=>b?Math.round(a/b*100):0;
  const median=a=>{if(!a.length)return null;const s=a.slice().sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2;};
  let filter='all';
+ /* count each chip, split by the view the person picked */
+ function tally(rows,field){const m={};rows.forEach(r=>((r.details||{})[field]||[]).forEach(k=>{m[k]=m[k]||{};m[k][r.choice]=(m[k][r.choice]||0)+1;}));
+  return Object.entries(m).sort((a,b)=>Object.values(b[1]).reduce((x,y)=>x+y,0)-Object.values(a[1]).reduce((x,y)=>x+y,0));}
  function render(rows,src){
   document.getElementById('upd').textContent=src==='live'?'Updated '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}):'';
   const out=document.getElementById('out'), N=rows.length;
@@ -91,7 +94,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
   const top=Math.max(...votes.map(x=>x.n));
   const perf=VIEWS.map(v=>{const t=rows.map(r=>(r.details.tasks||{})[v.key]).filter(Boolean);
    const ease=t.map(x=>+x.ease).filter(Boolean), ms=t.map(x=>+x.ms).filter(Boolean);
-   return {v,n:t.length,ease:ease.length?(ease.reduce((a,b)=>a+b,0)/ease.length).toFixed(1):'—',ok:t.length?pct(t.filter(x=>x.correct).length,t.length)+'%':'—',
+   return {v,n:t.length,ease:ease.length?(ease.reduce((a,b)=>a+b,0)/ease.length).toFixed(1):'—',sok:t.length?pct(t.filter(x=>x.correctSection).length,t.length)+'%':'—',ok:t.length?pct(t.filter(x=>x.correct).length,t.length)+'%':'—',
     med:median(ms)!=null?Math.round(median(ms)/1000)+'s':'—'};});
   const list=rows.filter(r=>filter==='all'||r.choice===filter).slice().reverse();
   out.innerHTML=warn+`
@@ -100,14 +103,18 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
       <span class="track"><i style="width:${pct(x.n,N)}%;background:var(--${x.v.key})"></i></span><span class="n">${x.n} <small>· ${pct(x.n,N)}%${x.n===top&&top>0?' · most':''}</small></span></div>`).join('')}
    </div></div>
    <div class="card"><h2>How each view did on the task</h2><div class="tw"><table>
-    <thead><tr><th>View</th><th class="r">Found the lowest topic</th><th class="r">Ease (1–5)</th><th class="r">Median time</th><th class="r">Tried by</th></tr></thead>
-    <tbody>${perf.map(p=>`<tr><td><span class="dot" style="background:var(--${p.v.key})"></span>${esc(p.v.name)}</td><td class="r">${p.ok}</td><td class="r">${p.ease}</td><td class="r">${p.med}</td><td class="r">${p.n}</td></tr>`).join('')}</tbody>
+    <thead><tr><th>View</th><th class="r">Found the lowest section</th><th class="r">…and its lowest topic</th><th class="r">Ease (1–5)</th><th class="r">Median time</th><th class="r">Tried by</th></tr></thead>
+    <tbody>${perf.map(p=>`<tr><td><span class="dot" style="background:var(--${p.v.key})"></span>${esc(p.v.name)}</td><td class="r">${p.sok}</td><td class="r">${p.ok}</td><td class="r">${p.ease}</td><td class="r">${p.med}</td><td class="r">${p.n}</td></tr>`).join('')}</tbody>
    </table></div></div>
+   <div class="card"><h2>Reasons, by view picked</h2><div class="tw"><table><thead><tr><th>Reason</th>${VIEWS.map(v=>`<th class="r">${esc(v.name)}</th>`).join('')}</tr></thead>
+    <tbody>${tally(rows,'whyChips').map(([k,c])=>`<tr><td>${esc(k)}</td>${VIEWS.map(v=>`<td class="r">${c[v.name]||''}</td>`).join('')}</tr>`).join('')||'<tr><td class="empty" colspan="4">No reasons yet.</td></tr>'}</tbody></table></div></div>
+   <div class="card"><h2>What got in the way in the other views</h2><div class="tw"><table><thead><tr><th>Issue</th><th class="r">Mentions</th></tr></thead>
+    <tbody>${tally(rows,'gotInWay').map(([k,c])=>`<tr><td>${esc(k)}</td><td class="r">${Object.values(c).reduce((a,b)=>a+b,0)}</td></tr>`).join('')||'<tr><td class="empty" colspan="2">Nothing yet.</td></tr>'}</tbody></table></div></div>
    <div class="card"><h2>Why they picked it</h2>
     <div class="tabs">${['all',...VIEWS.map(v=>v.name)].map(f=>`<button class="${filter===f?'on':''}" data-f="${esc(f)}">${f==='all'?'All':esc(f)}</button>`).join('')}</div>
     <div class="why">${list.length?list.map(r=>`<div class="wi"><p>${esc(r.why)}</p>
       <div class="m">${esc(r.choice)}${r.details.role?' · '+esc(r.details.role):''}${r.at?' · '+esc(r.at):''}</div>
-      ${r.details.confused?`<div class="c">Confusing: ${esc(r.details.confused)}</div>`:''}</div>`).join(''):'<p class="empty">No reasons for this view yet.</p>'}</div>
+      ${(r.details.gotInWay||[]).length||r.details.confused?`<div class="c">Got in the way: ${esc([].concat(r.details.gotInWay||[],r.details.confused?[r.details.confused]:[]).join('; '))}</div>`:''}</div>`).join(''):'<p class="empty">No reasons for this view yet.</p>'}</div>
    </div>`;
   out.querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.f;render(rows,src);}));}
  document.getElementById('refresh').addEventListener('click',load);
