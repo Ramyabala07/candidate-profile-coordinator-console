@@ -15,6 +15,7 @@ python3 -m http.server 8000
 
 | Path | What it is |
 |---|---|
+| `prototypes/score-visualisations.html` | Score visualisations — three completed candidates, each with a different result view: spider, level rows and donut, with section-to-topic drill-down. |
 | `prototypes/candidate-profile-v2.html` | Candidate profile v2 — workflow steps (Enrollment, Verity, Scoring, Credentials) with the bar graph score card. |
 | `prototypes/enrollment-profile.html` | Enrollment-scoped profile. Two variants behind a switcher: **Timeline** and **Cards**. |
 | `deck/review-deck.html` | 13-slide review deck. Arrow keys to move. |
