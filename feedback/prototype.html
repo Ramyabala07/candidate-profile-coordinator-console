@@ -1466,11 +1466,13 @@ input.edt{height:34px}
 .radj svg{width:12px;height:12px;flex:0 0 auto;margin-top:3px}
 .radj b{font-weight:500}.radj s{color:var(--tt)}
 /* study mode: only the result panel, full width, scrolling normally */
-.solo .proto,.solo .rail,.solo .main,.solo .dcbtn,.solo .hact .hnav,.solo .shead .bk .ar{display:none!important}
+.solo .proto,.solo .rail,.solo .main,.solo .dcbtn,.solo .phead,.solo .screen>.shead{display:none!important}
+.solo body,.solo .app,.solo .scrim,.solo .drawer,.solo .screen,.solo .sbody{background:#F3F4F6!important}
 .solo .app{height:100vh;min-height:0}
-.solo .scrim{position:static;inset:auto;background:var(--surface);display:block;height:100%}
-.solo .drawer{width:100%;max-width:680px;margin:0 auto;height:100%;box-shadow:none}
-.solo .shead .bk{pointer-events:none}
+.solo .scrim{position:static;inset:auto;display:block;height:100%}
+.solo .drawer{width:100%;max-width:none;height:100%;box-shadow:none}
+.solo .sin{padding:2px 4px 28px}
+.solo .tcard{margin-top:0}
 </style>
 <div class="proto"><span class="ttl">Candidate profile · v2 · Coordinator Console</span>
   <span class="hint">Feedback prototype · three candidates, one score view each</span></div>

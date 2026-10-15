@@ -62,18 +62,31 @@ p{margin:0 0 14px;color:var(--ts)}
 .ends{display:flex;justify-content:space-between;max-width:268px;font:400 11.5px/16px var(--font);color:var(--tt);margin-top:4px}
 textarea,select{width:100%;padding:9px 11px;border:1px solid var(--line2);border-radius:8px;background:var(--surface)}
 textarea{min-height:64px;resize:vertical;line-height:21px}
-/* task: the result panel beside the questions */
-.task{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;max-width:1240px;margin:0 auto;align-items:start}
-.frame{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;height:calc(100vh - 140px);min-height:560px;max-height:860px}
-.frame iframe{display:block;width:100%;height:100%;border:0}
-.panel{position:sticky;top:72px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
-.use{display:flex;gap:10px;align-items:flex-start;margin:8px 0 2px;padding:10px 12px;border-radius:10px;background:var(--accentbg);border:1px solid var(--accentln);font:400 13.5px/20px var(--font);color:var(--tp)}
-.use svg{flex:0 0 18px;width:18px;height:18px;color:var(--accent);margin-top:1px}
-.use b{font-weight:500}
-.panel .btn.pri{width:100%;margin-top:20px}
-.panel .back{display:block;margin:10px auto 0;background:none;border:none;color:var(--tt);font:500 13px/18px var(--font);cursor:pointer}
-.hint{font:400 12.5px/18px var(--font);color:var(--tt);margin:6px 0 0}
-@media (max-width:980px){.task{grid-template-columns:1fr}.panel{position:static}.frame{height:70vh}}
+/* task: instructions on the left, the candidate's result on the right, no frame around it */
+main.tasking{padding:0}
+.task{display:grid;grid-template-columns:400px minmax(0,1fr);min-height:calc(100vh - 52px)}
+.panel{position:sticky;top:52px;align-self:start;height:calc(100vh - 52px);overflow:auto;display:flex;flex-direction:column;
+ padding:28px 28px 24px;background:var(--surface);border-right:1px solid var(--line)}
+.panel .vn{font:400 12.5px/18px var(--font);color:var(--tt)}
+.panel h2{font:600 22px/30px var(--font);margin:4px 0 2px}
+.panel .who{font:400 14px/20px var(--font);color:var(--ts);margin:0}
+.use{display:flex;gap:12px;align-items:flex-start;margin:20px 0 0;padding:14px 16px;border-radius:10px;background:var(--accentbg);border:1px solid var(--accentln)}
+.use svg{flex:0 0 18px;width:18px;height:18px;color:var(--accent);margin-top:2px}
+.use .ut{display:block;font:600 11.5px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+.use p{margin:0;font:400 14px/21px var(--font);color:var(--tp)}
+.qs{list-style:none;margin:28px 0 0;padding:28px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:26px}
+.qs li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px}
+.qs .n{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--tp);color:#fff;font:600 12px/1 var(--font)}
+.qs .qt{display:block;font:500 15px/22px var(--font);color:var(--tp);margin:1px 0 10px}
+.qs .chips{gap:8px}
+.hint{font:400 13px/19px var(--font);color:var(--tt);margin:0}
+.panel .act{margin-top:auto;padding-top:28px;display:flex;flex-direction:column;gap:8px}
+.panel .act .btn.pri{width:100%}
+.panel .back{align-self:center;background:none;border:none;color:var(--tt);font:500 13px/18px var(--font);cursor:pointer;padding:6px}
+.pv .panel{height:calc(100vh - 89px);top:52px}
+.view{min-width:0;padding:24px 28px 0}
+.view iframe{display:block;width:100%;max-width:720px;margin:0 auto;height:calc(100vh - 76px);border:0;background:transparent}
+@media (max-width:980px){.task{grid-template-columns:1fr}.panel{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}.view{padding:16px}.view iframe{height:80vh}}
 /* vote */
 .wide{max-width:880px;margin:0 auto}
 .opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 4px}
@@ -107,8 +120,6 @@ textarea{min-height:64px;resize:vertical;line-height:21px}
   <p class="lead">We have three ways to show a candidate's exam result. Help us pick the one that's quickest to read.</p>
   <div class="how3"><div><b>3 views</b>Each shows one candidate's result</div><div><b>1 task each</b>Find their lowest section and topic</div><div><b>Pick one</b>Tell us why, with a tap</div></div>
   <div class="meta"><span>About 4 minutes</span><span>Anonymous</span><span>Use a laptop or desktop</span></div>
-  <label class="q" for="role">Your role <em>(optional)</em></label>
-  <select id="role" style="max-width:280px"><option value="">Prefer not to say</option><option>Exam coordinator</option><option>Designer</option><option>Product</option><option>Engineering</option><option>Customer success</option><option>Other</option></select>
   <div style="margin-top:22px"><button class="btn pri" data-next>Start</button></div>
  </div>
 </section>
@@ -147,7 +158,7 @@ textarea{min-height:64px;resize:vertical;line-height:21px}
 <script>
 (function(){
  const CFG=window.FEEDBACK_CONFIG||{}, LIVE=!!(CFG.formAction&&CFG.fields&&CFG.fields.choice);
- if(!LIVE) document.getElementById('notice').classList.add('on');
+ if(!LIVE){document.getElementById('notice').classList.add('on');document.body.classList.add('pv');}
  const SECS={'Statistics':['Descriptive statistics','Probability','Hypothesis testing'],'Machine learning':['Supervised learning','Model evaluation','Feature engineering'],
   'Data wrangling':['SQL queries','Data cleaning','Joins & aggregation'],'Python':['pandas','NumPy','Visualisation']};
  const I={click:'<svg viewBox="0 0 24 24" fill="none"><path d="M9 3.5v8.2l-1.6-1.6a1.6 1.6 0 1 0-2.3 2.3l5 5.1c.9.9 2 1.5 3.3 1.5h1.4a4.7 4.7 0 0 0 4.7-4.7v-3.6a1.6 1.6 0 0 0-3.2 0v-.6a1.6 1.6 0 0 0-3.2 0v-.5a1.6 1.6 0 0 0-3.2 0V3.5a1.6 1.6 0 0 0-3.2 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -155,32 +166,31 @@ textarea{min-height:64px;resize:vertical;line-height:21px}
  /* the three views; each candidate's lowest section and topic are the answers */
  const VIEWS=[
   {key:'spider',name:'Spider',who:'mason',person:'Mason Brown',sec:'Data wrangling',topic:'Joins & aggregation',img:'img/spider.png',ic:'click',
-   how:'<b>Click a section name</b> on the chart to open its topics. They appear as numbered spokes, listed under the chart. Click it again to close.'},
+   how:'Click a section name on the chart. Its topics open as numbered spokes, listed under the chart. Click it again to close.'},
   {key:'rows',name:'Level rows',who:'james',person:'James Lee',sec:'Statistics',topic:'Hypothesis testing',img:'img/rows.png',ic:'click',
-   how:'<b>Click a section row</b> to expand it and see its three topics. Click it again to collapse.'},
+   how:'Click a section row to expand it and see its three topics. Click it again to collapse.'},
   {key:'donut',name:'Donut',who:'amelia',person:'Amelia Wilson',sec:'Machine learning',topic:'Feature engineering',img:'img/donut.png',ic:'hover',
-   how:'<b>Hover over a section of the ring.</b> Its three topics grow out around it, with their scores. Move off to close.'}];
+   how:'Hover over a section of the ring. Its three topics grow out around it, with their scores. Move away to close.'}];
  const order=VIEWS.map(v=>v.key).sort(()=>Math.random()-.5);
  const byKey=k=>VIEWS.find(v=>v.key===k), res={}, started={};
  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
  const chipsH=(name,opts,multi)=>opts.map(o=>`<label class="chip"><input type="${multi?'checkbox':'radio'}" name="${name}" value="${esc(o)}">${esc(o)}</label>`).join('');
  document.querySelectorAll('[data-step="task"]').forEach(sec=>{const n=+sec.dataset.n, v=byKey(order[n]), first=v.person.split(' ')[0];
   sec.innerHTML=`<div class="task">
-   <div class="frame"><iframe title="${esc(first)}'s result, ${esc(v.name)} view" data-src="prototype.html?open=${v.who}&solo=1"></iframe></div>
    <aside class="panel">
-    <span class="eyebrow">View ${n+1} of 3 · ${esc(v.name)}</span>
-    <h2>${esc(v.person)}'s result</h2>
-    <div class="use">${I[v.ic]}<span>${v.how}</span></div>
-    <span class="q"><span class="n">1</span>Which <b>section</b> scored lowest?</span>
-    <div class="chips" data-q="sec">${chipsH('s'+n,Object.keys(SECS))}</div>
-    <span class="q"><span class="n">2</span>Open that section. Which of its <b>topics</b> scored lowest?</span>
-    <div class="chips" data-q="topic"><span class="hint">Pick a section first.</span></div>
-    <span class="q"><span class="n">3</span>How easy was that?</span>
-    <div class="chips scale" data-q="ease">${chipsH('e'+n,['1','2','3','4','5'])}</div>
-    <div class="ends"><span>Very hard</span><span>Very easy</span></div>
-    <button class="btn pri" data-task disabled>${n<2?'Next view':'Pick your favourite'}</button>
-    <button class="back" data-back>Back</button>
-   </aside></div>`;
+    <span class="vn">View ${n+1} of 3</span>
+    <h2>${esc(v.name)}</h2>
+    <p class="who">${esc(v.person)}’s result</p>
+    <div class="use">${I[v.ic]}<div><span class="ut">How to use it</span><p>${v.how}</p></div></div>
+    <ol class="qs">
+     <li><span class="n">1</span><div><span class="qt">Which section scored lowest?</span><div class="chips" data-q="sec">${chipsH('s'+n,Object.keys(SECS))}</div></div></li>
+     <li><span class="n">2</span><div><span class="qt">Open that section. Which of its topics scored lowest?</span><div class="chips" data-q="topic"><p class="hint">Answer question 1 first.</p></div></div></li>
+     <li><span class="n">3</span><div><span class="qt">How easy was that?</span><div class="chips scale" data-q="ease">${chipsH('e'+n,['1','2','3','4','5'])}</div><div class="ends"><span>Very hard</span><span>Very easy</span></div></div></li>
+    </ol>
+    <div class="act"><button class="btn pri" data-task disabled>${n<2?'Next view':'Pick your favourite'}</button><button class="back" data-back>Back</button></div>
+   </aside>
+   <div class="view"><iframe title="${esc(first)}’s result, ${esc(v.name)} view" data-src="prototype.html?open=${v.who}&solo=1"></iframe></div>
+  </div>`;
   const val=q=>{const i=sec.querySelector(`[data-q="${q}"] input:checked`);return i?i.value:'';};
   const btn=sec.querySelector('[data-task]');
   sec.addEventListener('change',e=>{
@@ -199,6 +209,7 @@ textarea{min-height:64px;resize:vertical;line-height:21px}
  function show(){steps.forEach((s,i)=>s.classList.toggle('on',i===at));
   [...prog.children].forEach((b,i)=>{b.className=i<at?'done':i===at?'on':'';});
   stp.textContent=at<steps.length-1?`Step ${at+1} of ${steps.length-1}`:'Done';
+  document.querySelector('main').classList.toggle('tasking',steps[at].dataset.step==='task');
   const s=steps[at]; if(s.dataset.step==='task'){const f=s.querySelector('iframe'); if(!f.src) f.src=f.dataset.src; const k=order[+s.dataset.n]; started[k]=started[k]||performance.now();}
   window.scrollTo({top:0});}
  function go(d){at=Math.max(0,Math.min(steps.length-1,at+d));show();}
@@ -211,7 +222,7 @@ textarea{min-height:64px;resize:vertical;line-height:21px}
   if(!why.length&&!whyTxt){err.textContent='Pick at least one reason, or write one.';return;}
   err.textContent='';
   const choice=byKey(pick.value).name, whyAll=why.join('; ')+(whyTxt?(why.length?' — ':'')+whyTxt:'');
-  const details={role:document.getElementById('role').value,order,tasks:res,whyChips:why,whyText:whyTxt,gotInWay:picked('bad'),
+  const details={order,tasks:res,whyChips:why,whyText:whyTxt,gotInWay:picked('bad'),
    confused:document.getElementById('confused').value.trim(),screen:innerWidth+'x'+innerHeight,at:new Date().toISOString()};
   const btn=document.getElementById('send'); btn.disabled=true; btn.textContent='Sending…';
   try{const k='score-views-responses';const all=JSON.parse(localStorage.getItem(k)||'[]');all.push({choice,why:whyAll,details});localStorage.setItem(k,JSON.stringify(all));}catch(e){}
