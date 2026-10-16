@@ -2,6 +2,8 @@
 window.FEEDBACK_CONFIG = {
   formAction: 'https://docs.google.com/forms/d/e/1FAIpQLSdXJsthQ4sk8NxQgfPqAVo2kUBrfV3Zwyud3WpMhOvNIMNLCw/formResponse',
   fields: {
+    name: '',              // the form's "Name" question — kept out of the public results tab
+    email: '',             // the form's "Email" question — kept out of the public results tab
     choice: 'entry.731283202',
     why: 'entry.1585389199',
     details: 'entry.1689311046'

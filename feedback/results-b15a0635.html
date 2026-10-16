@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
 <title>Score Views Results</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap">
 <style>
@@ -46,15 +47,23 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
 .wi p{margin:0 0 4px;color:var(--tp)}
 .wi .m{font:400 12.5px/18px var(--font);color:var(--tt)}
 .wi .c{margin-top:6px;font:400 13px/19px var(--font);color:var(--ts);padding-left:10px;border-left:2px solid var(--line)}
+.gate{max-width:380px;margin:12vh auto 0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px}
+.gate h1{font-size:22px;line-height:30px}
+.gate input{width:100%;margin:14px 0 10px;padding:9px 11px;border:1px solid var(--line2);border-radius:8px;font:inherit}
+.gate .btn{width:100%;justify-content:center}
+.gate .er{min-height:19px;margin:8px 0 0;font:400 13px/19px var(--font);color:#B91C1C}
 .empty{color:var(--tt);font:400 14px/21px var(--font)}
 @media (max-width:600px){.vr{grid-template-columns:80px minmax(0,1fr) 70px}}
 </style>
 </head>
 <body>
-<main>
+<div class="gate" id="gate" hidden><span class="eyebrow">Score views study</span><h1>Results</h1>
+ <form id="gf"><label for="pc" style="font:500 13px/18px var(--font)">Passcode</label><input id="pc" type="password" autocomplete="current-password">
+ <button class="btn" type="submit">Open results</button><p class="er" id="ger" role="alert"></p></form></div>
+<main id="res" hidden>
  <div class="top">
   <div><span class="eyebrow">Score views study</span><h1>Results so far</h1></div>
-  <div style="display:flex;gap:8px;align-items:center"><span class="upd" id="upd"></span><button class="btn" id="refresh">Refresh</button><a class="btn" href="./">Take the study</a></div>
+  <div style="display:flex;gap:8px;align-items:center"><span class="upd" id="upd"></span><button class="btn" id="refresh">Refresh</button></div>
  </div>
  <div id="out"><p class="empty">Loading responses…</p></div>
 </main>
@@ -118,7 +127,14 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
    </div>`;
   out.querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.f;render(rows,src);}));}
  document.getElementById('refresh').addEventListener('click',load);
- load();
+ const H='f87fbbf6e427a1052e8f51a7d8e11f194423a3ab5880daca6100daec906c7130', K='sv-results-ok';
+ const sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+ const open=()=>{document.getElementById('gate').hidden=true;document.getElementById('res').hidden=false;load();};
+ let ok=false; try{ok=localStorage.getItem(K)===H;}catch(e){}
+ if(ok) open(); else document.getElementById('gate').hidden=false;
+ document.getElementById('gf').addEventListener('submit',async e=>{e.preventDefault();
+  if(await sha(document.getElementById('pc').value.trim())===H){try{localStorage.setItem(K,H);}catch(e){}open();}
+  else document.getElementById('ger').textContent='That passcode isn\u2019t right.';});
 })();
 </script>
 </body>

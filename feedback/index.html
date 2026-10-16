@@ -60,7 +60,11 @@ p{margin:0 0 14px;color:var(--ts)}
 .chip:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
 .chips.scale .chip{min-width:44px;justify-content:center}
 .ends{display:flex;justify-content:space-between;max-width:268px;font:400 11.5px/16px var(--font);color:var(--tt);margin-top:4px}
-textarea,select{width:100%;padding:9px 11px;border:1px solid var(--line2);border-radius:8px;background:var(--surface)}
+textarea,select,input[type=text],input[type=email]{width:100%;padding:9px 11px;border:1px solid var(--line2);border-radius:8px;background:var(--surface)}
+.who2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+.who2 .q{margin-top:6px}
+.priv{font:400 12.5px/18px var(--font);color:var(--tt);margin:8px 0 0}
+@media (max-width:600px){.who2{grid-template-columns:1fr}}
 textarea{min-height:64px;resize:vertical;line-height:21px}
 /* task: instructions on the left, the candidate's result on the right, no frame around it */
 main.tasking{padding:0}
@@ -119,8 +123,14 @@ main.tasking{padding:0}
   <h1>Which score view reads best?</h1>
   <p class="lead">We have three ways to show a candidate's exam result. Help us pick the one that's quickest to read.</p>
   <div class="how3"><div><b>3 views</b>Each shows one candidate's result</div><div><b>1 task each</b>Find their lowest section and topic</div><div><b>Pick one</b>Tell us why, with a tap</div></div>
-  <div class="meta"><span>About 4 minutes</span><span>Anonymous</span><span>Use a laptop or desktop</span></div>
-  <div style="margin-top:22px"><button class="btn pri" data-next>Start</button></div>
+  <div class="meta"><span>About 4 minutes</span><span>Use a laptop or desktop</span></div>
+  <div class="who2">
+   <div><label class="q" for="nm">Your name</label><input id="nm" type="text" autocomplete="name" placeholder="First and last name"></div>
+   <div><label class="q" for="em">Work email</label><input id="em" type="email" autocomplete="email" placeholder="name@company.com"></div>
+  </div>
+  <p class="priv">Only the design team sees your name and email.</p>
+  <p class="err" id="err0" role="alert"></p>
+  <div style="margin-top:6px"><button class="btn pri" id="start">Start</button></div>
  </div>
 </section>
 
@@ -149,7 +159,6 @@ main.tasking{padding:0}
   <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5 10 17l9-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   <h2>Thank you, that's everything</h2>
   <p id="thx">Your feedback is in. It goes straight to the design team.</p>
-  <div class="row" style="justify-content:center;margin-top:18px"><a class="btn" href="results.html">See results so far</a></div>
  </div>
 </section>
 </main>
@@ -213,6 +222,10 @@ main.tasking{padding:0}
   window.scrollTo({top:0});}
  function go(d){at=Math.max(0,Math.min(steps.length-1,at+d));show();}
  document.addEventListener('click',e=>{if(e.target.closest('[data-next]'))go(+1);if(e.target.closest('[data-back]'))go(-1);});
+ document.getElementById('start').addEventListener('click',()=>{const n=document.getElementById('nm').value.trim(), m=document.getElementById('em').value.trim(), er=document.getElementById('err0');
+  if(n.length<2){er.textContent='Add your name to start.';document.getElementById('nm').focus();return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){er.textContent='Add a valid email to start.';document.getElementById('em').focus();return;}
+  er.textContent='';go(+1);});
  show();
  const picked=n=>[...document.querySelectorAll(`input[name="${n}"]:checked`)].map(i=>i.value);
  document.getElementById('send').addEventListener('click',async()=>{
@@ -225,7 +238,7 @@ main.tasking{padding:0}
    confused:document.getElementById('confused').value.trim(),screen:innerWidth+'x'+innerHeight,at:new Date().toISOString()};
   const btn=document.getElementById('send'); btn.disabled=true; btn.textContent='Sending…';
   try{const k='score-views-responses';const all=JSON.parse(localStorage.getItem(k)||'[]');all.push({choice,why:whyAll,details});localStorage.setItem(k,JSON.stringify(all));}catch(e){}
-  if(LIVE){const body=new URLSearchParams();body.append(CFG.fields.choice,choice);body.append(CFG.fields.why,whyAll);body.append(CFG.fields.details,JSON.stringify(details));
+  if(LIVE){const body=new URLSearchParams();if(CFG.fields.name)body.append(CFG.fields.name,document.getElementById('nm').value.trim());if(CFG.fields.email)body.append(CFG.fields.email,document.getElementById('em').value.trim());body.append(CFG.fields.choice,choice);body.append(CFG.fields.why,whyAll);body.append(CFG.fields.details,JSON.stringify(details));
    try{await fetch(CFG.formAction,{method:'POST',mode:'no-cors',body});}
    catch(e){btn.disabled=false;btn.textContent='Send feedback';err.textContent='That didn’t go through. Check your connection and send again.';return;}}
   else document.getElementById('thx').textContent='Preview mode: your answers were kept in this browser only, so nothing has reached the team yet.';

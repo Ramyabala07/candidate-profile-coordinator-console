@@ -35,3 +35,17 @@ window.FEEDBACK_CONFIG = {
 `formAction` is the pre-filled link with `viewform?...` replaced by `formResponse`.
 
 Responses then appear in the Google Form's **Responses** tab, in the Sheet, and on `feedback/results.html`.
+
+## Name and email (private)
+
+Name and email go into their own form questions so they never reach the public results CSV.
+
+1. Add two **Short answer** questions to the form: `Name` and `Email`.
+2. In the Sheet, add a tab called `Public` and put this in cell A1:
+   `={'Form responses 1'!A:D}` (Timestamp, Choice, Why, Details only).
+3. **File → Share → Publish to web**: stop publishing `Form responses 1`, publish the `Public` tab as CSV instead, and put that link in `resultsCsv`.
+4. Make a new pre-filled link and copy the two new `entry.` ids into `fields.name` and `fields.email`.
+
+## Results page
+
+The results page lives at an unlisted address and asks for a passcode. GitHub Pages can't truly restrict a page, so treat this as a light lock: the private data (names, emails) stays in the Google Sheet, shared only with the people who need it.
