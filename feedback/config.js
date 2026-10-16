@@ -8,5 +8,6 @@ window.FEEDBACK_CONFIG = {
     why: 'entry.1585389199',
     details: 'entry.1689311046'
   },
+  sheetUrl: 'https://docs.google.com/spreadsheets/d/1272tGuldMZ_otFHEL04sx1EqCiU3SAgAQwTFHB2rOrQ/edit',  // private: names and emails, for the owner and the PM
   resultsCsv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT9sI3h0Ef72Ejsp8rfY9nTeTxixTNyVFdWQqiWJ-8ILrazVYB2yhM4-cgVBOTvkp--P8b8z8Jk38xU/pub?gid=222214392&single=true&output=csv'
 };

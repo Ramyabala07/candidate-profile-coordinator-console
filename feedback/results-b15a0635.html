@@ -7,125 +7,118 @@
 <title>Score Views Results</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap">
 <style>
-/* results: the vote first, then how each view performed on the task, then every reason */
+/* results at a glance: who's ahead, how each view did, what people said. Written comments sit behind one toggle. */
 :root{
  --font:'Roboto',system-ui,-apple-system,'Segoe UI',sans-serif;
  --bg:#F3F4F6;--surface:#FFFFFF;--nested:#F9FAFB;--line:#E5E7EB;--line2:#D1D5DB;
- --tp:#111827;--ts:#374151;--tt:#6B7280;--accent:#1D4ED8;--accentbg:#EFF6FF;--ok:#15803D;--warn:#B45309;--warnbg:#FFFBEB;
+ --tp:#111827;--ts:#374151;--tt:#6B7280;--accent:#1D4ED8;
  --spider:#2563EB;--rows:#0D9488;--donut:#7C3AED;
  color-scheme:light}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tp);font:400 15px/23px var(--font);-webkit-font-smoothing:antialiased}
-main{max-width:1000px;margin:0 auto;padding:32px 16px 64px}
-.top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
-h1{font:600 28px/36px var(--font);margin:6px 0 0;text-wrap:balance}
-.eyebrow{font:500 12px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-.upd{font:400 13px/19px var(--font);color:var(--tt)}
-.btn{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line2);background:var(--surface);font:500 14px/20px var(--font);color:var(--tp);cursor:pointer;text-decoration:none}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:0 0 16px}
-.card h2{font:500 16px/24px var(--font);margin:0 0 12px}
-.note{padding:14px 16px;border-radius:10px;background:var(--warnbg);color:var(--warn);font:400 14px/21px var(--font)}
-.votes{display:flex;flex-direction:column;gap:12px}
-.vr{display:grid;grid-template-columns:110px minmax(0,1fr) 92px;gap:12px;align-items:center}
-.vr b{font:500 14px/20px var(--font)}
-.track{height:14px;border-radius:7px;background:var(--nested);border:1px solid var(--line);overflow:hidden}
-.track i{display:block;height:100%;border-radius:7px}
-.vr .n{font:500 14px/20px var(--font);text-align:right;font-variant-numeric:tabular-nums}
-.vr .n small{font-weight:400;color:var(--tt)}
-table{width:100%;border-collapse:collapse;font:400 14px/21px var(--font)}
-th,td{text-align:left;padding:9px 10px;border-top:1px solid var(--line)}
-th{font:500 12px/18px var(--font);color:var(--tt);border-top:none}
-td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
-.tw{overflow-x:auto}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:1px}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
-.tabs button{padding:5px 12px;border-radius:99px;border:1px solid var(--line2);background:var(--surface);font:500 13px/19px var(--font);color:var(--ts);cursor:pointer}
-.tabs button.on{background:var(--tp);border-color:var(--tp);color:#fff}
-.why{display:flex;flex-direction:column}
-.wi{padding:12px 0;border-top:1px solid var(--line)}
-.wi:first-child{border-top:none}
-.wi p{margin:0 0 4px;color:var(--tp)}
-.wi .m{font:400 12.5px/18px var(--font);color:var(--tt)}
-.wi .c{margin-top:6px;font:400 13px/19px var(--font);color:var(--ts);padding-left:10px;border-left:2px solid var(--line)}
-.gate{max-width:380px;margin:12vh auto 0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px}
-.gate h1{font-size:22px;line-height:30px}
-.gate input{width:100%;margin:14px 0 10px;padding:9px 11px;border:1px solid var(--line2);border-radius:8px;font:inherit}
+main{max-width:960px;margin:0 auto;padding:28px 16px 56px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.top h1{font:600 24px/32px var(--font);margin:0}
+.top .acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.upd{font:400 12.5px/18px var(--font);color:var(--tt)}
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line2);background:var(--surface);font:500 14px/20px var(--font);color:var(--tp);cursor:pointer;text-decoration:none}
+.btn svg{width:14px;height:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;margin:0 0 14px}
+.lab{display:block;font:500 12px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tt);margin:0 0 10px}
+/* the headline */
+.lead{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.lead .big{font:600 28px/36px var(--font)}
+.lead .sub{font:400 14px/20px var(--font);color:var(--ts)}
+.bars{display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--nested);border:1px solid var(--line);margin:16px 0 8px}
+.bars i{display:block;height:100%}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font:400 13px/18px var(--font);color:var(--ts)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.legend b{font-weight:500;color:var(--tp)}
+/* one column per view */
+.views{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 14px}
+.v{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;border-top:3px solid var(--c)}
+.v h2{display:flex;justify-content:space-between;align-items:baseline;font:600 16px/22px var(--font);margin:0 0 12px}
+.v h2 small{font:500 13px/18px var(--font);color:var(--tt)}
+.stat{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line);font:400 13.5px/20px var(--font);color:var(--ts)}
+.stat b{font-weight:500;color:var(--tp);font-variant-numeric:tabular-nums}
+.v .lab{margin:14px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:var(--nested);border:1px solid var(--line);font:400 12.5px/18px var(--font);color:var(--ts)}
+.chip b{font-weight:600;color:var(--tp)}
+.none{font:400 13px/19px var(--font);color:var(--tt)}
+/* comments, folded */
+details.cm>summary{cursor:pointer;list-style:none;font:500 14px/20px var(--font);color:var(--accent)}
+details.cm>summary::-webkit-details-marker{display:none}
+.c{padding:12px 0;border-top:1px solid var(--line)}
+.c:first-of-type{margin-top:12px}
+.c p{margin:0;color:var(--tp)}
+.c small{display:block;margin-top:2px;font:400 12px/17px var(--font);color:var(--tt)}
+.empty{color:var(--tt);font:400 14px/21px var(--font)}
+@media (max-width:760px){.views{grid-template-columns:1fr}}
+/* passcode */
+.gate{max-width:360px;margin:14vh auto 0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px}
+.gate h1{font:600 22px/30px var(--font);margin:0 0 4px}
+.gate input{width:100%;margin:12px 0 10px;padding:9px 11px;border:1px solid var(--line2);border-radius:8px;font:inherit}
 .gate .btn{width:100%;justify-content:center}
 .gate .er{min-height:19px;margin:8px 0 0;font:400 13px/19px var(--font);color:#B91C1C}
-.empty{color:var(--tt);font:400 14px/21px var(--font)}
-@media (max-width:600px){.vr{grid-template-columns:80px minmax(0,1fr) 70px}}
 </style>
 </head>
 <body>
-<div class="gate" id="gate" hidden><span class="eyebrow">Score views study</span><h1>Results</h1>
- <form id="gf"><label for="pc" style="font:500 13px/18px var(--font)">Passcode</label><input id="pc" type="password" autocomplete="current-password">
+<div class="gate" id="gate" hidden><h1>Results</h1><span class="upd">Score views study</span>
+ <form id="gf"><input id="pc" type="password" placeholder="Passcode" aria-label="Passcode" autocomplete="current-password">
  <button class="btn" type="submit">Open results</button><p class="er" id="ger" role="alert"></p></form></div>
 <main id="res" hidden>
- <div class="top">
-  <div><span class="eyebrow">Score views study</span><h1>Results so far</h1></div>
-  <div style="display:flex;gap:8px;align-items:center"><span class="upd" id="upd"></span><button class="btn" id="refresh">Refresh</button></div>
- </div>
+ <div class="top"><h1>Score views · results</h1>
+  <div class="acts"><span class="upd" id="upd"></span><button class="btn" id="refresh">Refresh</button><a class="btn" id="sheet" target="_blank" rel="noopener" hidden>Names &amp; emails <svg viewBox="0 0 24 24" fill="none"><path d="M13 5h6v6M19 5l-8 8M17 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
  <div id="out"><p class="empty">Loading responses…</p></div>
 </main>
-<script src="config.js"></script>
+<script src="config.js?v=20261016b"></script>
 <script>
 (function(){
  const CFG=window.FEEDBACK_CONFIG||{};
  const VIEWS=[{key:'spider',name:'Spider'},{key:'rows',name:'Level rows'},{key:'donut',name:'Donut'}];
  const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
- /* CSV with quoted fields, commas and line breaks inside quotes */
+ if(CFG.sheetUrl){const a=document.getElementById('sheet');a.href=CFG.sheetUrl;a.hidden=false;}
  function parseCSV(s){const out=[];let row=[],f='',q=false;for(let i=0;i<s.length;i++){const c=s[i];
    if(q){if(c==='"'){if(s[i+1]==='"'){f+='"';i++;}else q=false;}else f+=c;}
    else if(c==='"')q=true;else if(c===','){row.push(f);f='';}else if(c==='\n'||c==='\r'){if(c==='\r'&&s[i+1]==='\n')i++;row.push(f);out.push(row);row=[];f='';}else f+=c;}
   if(f.length||row.length){row.push(f);out.push(row);}return out.filter(r=>r.some(x=>x.trim()));}
  async function load(){
-  let rows=[], src='';
-  if(CFG.resultsCsv){try{const r=await fetch(CFG.resultsCsv+(CFG.resultsCsv.includes('?')?'&':'?')+'t='+Date.now());const csv=parseCSV(await r.text());
-    const h=csv.shift().map(x=>x.toLowerCase()), ix=k=>h.findIndex(x=>x.includes(k));
-    const ic=ix('choice'), iw=ix('why'), id=ix('detail'), it=ix('timestamp');
-    rows=csv.map(r=>{let d={};try{d=JSON.parse(r[id]||'{}');}catch(e){}return {choice:r[ic],why:r[iw],details:d,at:r[it]};});src='live';}
-   catch(e){src='error';}}
-  if(!CFG.resultsCsv||src==='error'){try{rows=JSON.parse(localStorage.getItem('score-views-responses')||'[]');}catch(e){rows=[];}src=src||'local';}
-  render(rows,src);}
+  if(!CFG.resultsCsv){render([]);return;}
+  try{const r=await fetch(CFG.resultsCsv+'&t='+Date.now());const csv=parseCSV(await r.text());
+   const h=csv.shift().map(x=>x.toLowerCase()), ix=k=>h.findIndex(x=>x.includes(k));
+   const ic=ix('choice'), iw=ix('why'), id=ix('detail'), it=ix('timestamp');
+   render(csv.map(r=>{let d={};try{d=JSON.parse(r[id]||'{}');}catch(e){}return {choice:r[ic],why:r[iw],d,at:r[it]};}));}
+  catch(e){document.getElementById('out').innerHTML='<div class="card"><p class="empty">Couldn’t reach the response sheet. Try Refresh.</p></div>';}}
  const pct=(a,b)=>b?Math.round(a/b*100):0;
- const median=a=>{if(!a.length)return null;const s=a.slice().sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2;};
- let filter='all';
- /* count each chip, split by the view the person picked */
- function tally(rows,field){const m={};rows.forEach(r=>((r.details||{})[field]||[]).forEach(k=>{m[k]=m[k]||{};m[k][r.choice]=(m[k][r.choice]||0)+1;}));
-  return Object.entries(m).sort((a,b)=>Object.values(b[1]).reduce((x,y)=>x+y,0)-Object.values(a[1]).reduce((x,y)=>x+y,0));}
- function render(rows,src){
-  document.getElementById('upd').textContent=src==='live'?'Updated '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}):'';
+ const top=(rows,field,n)=>{const m={};rows.forEach(r=>((r.d||{})[field]||[]).forEach(k=>m[k]=(m[k]||0)+1));return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,n);};
+ function render(rows){
+  document.getElementById('upd').textContent='Updated '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
   const out=document.getElementById('out'), N=rows.length;
-  const warn=src==='local'?`<p class="note">Not connected to the response sheet yet, so this only shows answers given in this browser. Add the sheet's CSV link to <code>config.js</code>.</p>`
-   :src==='error'?`<p class="note">Couldn’t reach the response sheet. Showing answers kept in this browser instead.</p>`:'';
-  if(!N){out.innerHTML=warn+`<div class="card"><p class="empty">No responses yet.</p></div>`;return;}
-  const votes=VIEWS.map(v=>({v,n:rows.filter(r=>r.choice===v.name).length}));
-  const top=Math.max(...votes.map(x=>x.n));
-  const perf=VIEWS.map(v=>{const t=rows.map(r=>(r.details.tasks||{})[v.key]).filter(Boolean);
-   const ease=t.map(x=>+x.ease).filter(Boolean), ms=t.map(x=>+x.ms).filter(Boolean);
-   return {v,n:t.length,ease:ease.length?(ease.reduce((a,b)=>a+b,0)/ease.length).toFixed(1):'—',sok:t.length?pct(t.filter(x=>x.correctSection).length,t.length)+'%':'—',ok:t.length?pct(t.filter(x=>x.correct).length,t.length)+'%':'—',
-    med:median(ms)!=null?Math.round(median(ms)/1000)+'s':'—'};});
-  const list=rows.filter(r=>filter==='all'||r.choice===filter).slice().reverse();
-  out.innerHTML=warn+`
-   <div class="card"><h2>Which view people picked <span class="upd">· ${N} response${N>1?'s':''}</span></h2><div class="votes">
-    ${votes.map(x=>`<div class="vr"><b><span class="dot" style="background:var(--${x.v.key})"></span>${esc(x.v.name)}</b>
-      <span class="track"><i style="width:${pct(x.n,N)}%;background:var(--${x.v.key})"></i></span><span class="n">${x.n} <small>· ${pct(x.n,N)}%${x.n===top&&top>0?' · most':''}</small></span></div>`).join('')}
-   </div></div>
-   <div class="card"><h2>How each view did on the task</h2><div class="tw"><table>
-    <thead><tr><th>View</th><th class="r">Found the lowest section</th><th class="r">…and its lowest topic</th><th class="r">Ease (1–5)</th><th class="r">Median time</th><th class="r">Tried by</th></tr></thead>
-    <tbody>${perf.map(p=>`<tr><td><span class="dot" style="background:var(--${p.v.key})"></span>${esc(p.v.name)}</td><td class="r">${p.sok}</td><td class="r">${p.ok}</td><td class="r">${p.ease}</td><td class="r">${p.med}</td><td class="r">${p.n}</td></tr>`).join('')}</tbody>
-   </table></div></div>
-   <div class="card"><h2>Reasons, by view picked</h2><div class="tw"><table><thead><tr><th>Reason</th>${VIEWS.map(v=>`<th class="r">${esc(v.name)}</th>`).join('')}</tr></thead>
-    <tbody>${tally(rows,'whyChips').map(([k,c])=>`<tr><td>${esc(k)}</td>${VIEWS.map(v=>`<td class="r">${c[v.name]||''}</td>`).join('')}</tr>`).join('')||'<tr><td class="empty" colspan="4">No reasons yet.</td></tr>'}</tbody></table></div></div>
-   <div class="card"><h2>What got in the way in the other views</h2><div class="tw"><table><thead><tr><th>Issue</th><th class="r">Mentions</th></tr></thead>
-    <tbody>${tally(rows,'gotInWay').map(([k,c])=>`<tr><td>${esc(k)}</td><td class="r">${Object.values(c).reduce((a,b)=>a+b,0)}</td></tr>`).join('')||'<tr><td class="empty" colspan="2">Nothing yet.</td></tr>'}</tbody></table></div></div>
-   <div class="card"><h2>Why they picked it</h2>
-    <div class="tabs">${['all',...VIEWS.map(v=>v.name)].map(f=>`<button class="${filter===f?'on':''}" data-f="${esc(f)}">${f==='all'?'All':esc(f)}</button>`).join('')}</div>
-    <div class="why">${list.length?list.map(r=>`<div class="wi"><p>${esc(r.why)}</p>
-      <div class="m">${esc(r.choice)}${r.details.role?' · '+esc(r.details.role):''}${r.at?' · '+esc(r.at):''}</div>
-      ${(r.details.gotInWay||[]).length||r.details.confused?`<div class="c">Got in the way: ${esc([].concat(r.details.gotInWay||[],r.details.confused?[r.details.confused]:[]).join('; '))}</div>`:''}</div>`).join(''):'<p class="empty">No reasons for this view yet.</p>'}</div>
-   </div>`;
-  out.querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.f;render(rows,src);}));}
+  if(!N){out.innerHTML='<div class="card"><p class="empty">No responses yet.</p></div>';return;}
+  const S=VIEWS.map(v=>{const mine=rows.filter(r=>r.choice===v.name), t=rows.map(r=>((r.d||{}).tasks||{})[v.key]).filter(Boolean);
+   const ease=t.map(x=>+x.ease).filter(Boolean);
+   return {v,votes:mine.length,found:t.length?pct(t.filter(x=>x.correct).length,t.length)+'%':'—',
+    ease:ease.length?(ease.reduce((a,b)=>a+b,0)/ease.length).toFixed(1):'—',reasons:top(mine,'whyChips',3)};});
+  const max=Math.max(...S.map(s=>s.votes)), leaders=S.filter(s=>s.votes===max);
+  const head=leaders.length>1?leaders.map(s=>s.v.name).join(' and ')+' are tied':leaders[0].v.name+' is ahead';
+  const blockers=top(rows,'gotInWay',6).filter(([k])=>!/^Nothing/.test(k));
+  const comments=rows.map(r=>({t:[(r.d||{}).whyText,(r.d||{}).confused].filter(Boolean).join(' · '),r})).filter(x=>x.t).reverse();
+  out.innerHTML=`
+   <div class="card"><span class="lab">${N} response${N>1?'s':''}</span>
+    <div class="lead"><span class="big">${esc(head)}</span><span class="sub">${max} of ${N} picked ${leaders.length>1?'each':'it'}</span></div>
+    <div class="bars">${S.map(s=>`<i style="width:${pct(s.votes,N)}%;background:var(--${s.v.key})" title="${esc(s.v.name)}: ${s.votes}"></i>`).join('')}</div>
+    <div class="legend">${S.map(s=>`<span><i class="dot" style="background:var(--${s.v.key})"></i>${esc(s.v.name)} <b>${s.votes}</b></span>`).join('')}</div></div>
+   <div class="views">${S.map(s=>`<div class="v" style="--c:var(--${s.v.key})"><h2>${esc(s.v.name)}<small>${s.votes} vote${s.votes===1?'':'s'}</small></h2>
+     <div class="stat"><span>Found the lowest topic</span><b>${s.found}</b></div>
+     <div class="stat"><span>Ease, out of 5</span><b>${s.ease}</b></div>
+     <span class="lab">Why people picked it</span>
+     ${s.reasons.length?`<div class="chips">${s.reasons.map(([k,c])=>`<span class="chip">${esc(k)} <b>${c}</b></span>`).join('')}</div>`:'<p class="none">No votes yet</p>'}</div>`).join('')}</div>
+   <div class="card"><span class="lab">What got in the way</span>
+    ${blockers.length?`<div class="chips">${blockers.map(([k,c])=>`<span class="chip">${esc(k)} <b>${c}</b></span>`).join('')}</div>`:'<p class="none">Nothing reported yet</p>'}</div>
+   <div class="card"><details class="cm"><summary>${comments.length?'Read '+comments.length+' written comment'+(comments.length>1?'s':''):'No written comments yet'}</summary>
+    ${comments.map(x=>`<div class="c"><p>${esc(x.t)}</p><small>${esc(x.r.choice)} · ${esc(x.r.at)}</small></div>`).join('')}</details></div>`;}
  document.getElementById('refresh').addEventListener('click',load);
  const H='f87fbbf6e427a1052e8f51a7d8e11f194423a3ab5880daca6100daec906c7130', K='sv-results-ok';
  const sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -134,7 +127,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
  if(ok) open(); else document.getElementById('gate').hidden=false;
  document.getElementById('gf').addEventListener('submit',async e=>{e.preventDefault();
   if(await sha(document.getElementById('pc').value.trim())===H){try{localStorage.setItem(K,H);}catch(e){}open();}
-  else document.getElementById('ger').textContent='That passcode isn\u2019t right.';});
+  else document.getElementById('ger').textContent='That passcode isn’t right.';});
 })();
 </script>
 </body>
