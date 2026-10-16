@@ -133,7 +133,7 @@ details.cm>summary::-webkit-details-marker{display:none}
     ${comments.map(x=>`<div class="c"><p>${esc(x.t)}</p><small>${esc(x.r.choice)} · ${esc(x.r.at)}</small></div>`).join('')}</details></div>`;}
  document.getElementById('refresh').addEventListener('click',load);
  /* the sheet link is encrypted with the passcode, so the names can't be read from this page's code */
- const ENC={"s": "Xh+4bpwxEL5jb8W8EbPjrQ==", "i": "lwLFJf5UNrBdmdN+", "c": "996FEQHWha8WpnFlJGrE+Tpa4qkVe3GMWsiU96nuhLurnLWfaeAMaHf2jUHbsPH+HnwZ6oCjicYLQE0tVJa2dFRfIHv6cKgoXfGpCoObIZSMCCkViuwgNK6s/gQyqDMpitiAc61qJ5yLn0dmkmdo+tOINPWEQXoyc156Do8F22VGEp15BqK0JcgIsGEvzw47WGkOeQYoGrn/FFF8+17XoWThDW6IaViMyc3+y911lXfcDROW3YWIhg=="}, K='sv-results-url';
+ const ENC={"s": "bRWZpNMeyGQUBu5ncSOONA==", "i": "KiH+23iLJJN+gLDb", "c": "90XmkwlOdxQ4HdWcKO/3OWiMi0vgMFRxIQJ/Hb0nxO7c5UQAKiHzwPDFjjfRrMLEeZeTMIFiEotPRlA0RVIYqeOPLF6dYb8d3oehjkR87PLvsYDPeK/V3jOFVTc1whDL+RrWqYEQVfM+9L9DhAAoKtHlC6dQmvheYbUgCmsNmhkDylf2BBaaY7cvmr15LTaVw4yHXUmHrZv9NgFFmvuwK/eDfDqHXaQYD+nuQ8lr3Q5iWu+C6xFenQ=="}, K='sv-results-url-2';
  const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
  async function unlock(pass){const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass),'PBKDF2',false,['deriveKey']);
   const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(ENC.s),iterations:200000,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
