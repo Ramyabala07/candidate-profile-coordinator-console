@@ -54,6 +54,15 @@ details.cm>summary::-webkit-details-marker{display:none}
 .c:first-of-type{margin-top:12px}
 .c p{margin:0;color:var(--tp)}
 .c small{display:block;margin-top:2px;font:400 12px/17px var(--font);color:var(--tt)}
+.who{width:100%;border-collapse:collapse;font:400 14px/20px var(--font)}
+.who th{text-align:left;font:500 12px/16px var(--font);color:var(--tt);padding:0 10px 8px 0;border-bottom:1px solid var(--line)}
+.who td{padding:10px 10px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.who tr:last-child td{border-bottom:none}
+.who .nm{font-weight:500;color:var(--tp)}
+.who .em{color:var(--ts);word-break:break-all}
+.who .pk{display:inline-flex;align-items:center;gap:6px;font-weight:500;white-space:nowrap}
+.who .rs{color:var(--ts)}
+.tw{overflow-x:auto}
 .empty{color:var(--tt);font:400 14px/21px var(--font)}
 @media (max-width:760px){.views{grid-template-columns:1fr}}
 /* passcode */
@@ -70,7 +79,7 @@ details.cm>summary::-webkit-details-marker{display:none}
  <button class="btn" type="submit">Open results</button><p class="er" id="ger" role="alert"></p></form></div>
 <main id="res" hidden>
  <div class="top"><h1>Score views · results</h1>
-  <div class="acts"><span class="upd" id="upd"></span><button class="btn" id="refresh">Refresh</button><a class="btn" id="sheet" target="_blank" rel="noopener" hidden>Names &amp; emails <svg viewBox="0 0 24 24" fill="none"><path d="M13 5h6v6M19 5l-8 8M17 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
+  <div class="acts"><span class="upd" id="upd"></span><button class="btn" id="refresh">Refresh</button></div></div>
  <div id="out"><p class="empty">Loading responses…</p></div>
 </main>
 <script src="config.js?v=20261016b"></script>
@@ -79,17 +88,16 @@ details.cm>summary::-webkit-details-marker{display:none}
  const CFG=window.FEEDBACK_CONFIG||{};
  const VIEWS=[{key:'spider',name:'Spider'},{key:'rows',name:'Level rows'},{key:'donut',name:'Donut'}];
  const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
- if(CFG.sheetUrl){const a=document.getElementById('sheet');a.href=CFG.sheetUrl;a.hidden=false;}
  function parseCSV(s){const out=[];let row=[],f='',q=false;for(let i=0;i<s.length;i++){const c=s[i];
    if(q){if(c==='"'){if(s[i+1]==='"'){f+='"';i++;}else q=false;}else f+=c;}
    else if(c==='"')q=true;else if(c===','){row.push(f);f='';}else if(c==='\n'||c==='\r'){if(c==='\r'&&s[i+1]==='\n')i++;row.push(f);out.push(row);row=[];f='';}else f+=c;}
   if(f.length||row.length){row.push(f);out.push(row);}return out.filter(r=>r.some(x=>x.trim()));}
  async function load(){
-  if(!CFG.resultsCsv){render([]);return;}
-  try{const r=await fetch(CFG.resultsCsv+'&t='+Date.now());const csv=parseCSV(await r.text());
+  if(!URLX){render([]);return;}
+  try{const r=await fetch(URLX+'&t='+Date.now());const csv=parseCSV(await r.text());
    const h=csv.shift().map(x=>x.toLowerCase()), ix=k=>h.findIndex(x=>x.includes(k));
-   const ic=ix('choice'), iw=ix('why'), id=ix('detail'), it=ix('timestamp');
-   render(csv.map(r=>{let d={};try{d=JSON.parse(r[id]||'{}');}catch(e){}return {choice:r[ic],why:r[iw],d,at:r[it]};}));}
+   const ic=ix('choice'), iw=ix('why'), id=ix('detail'), it=ix('timestamp'), inm=h.findIndex(x=>x==='name'||x.startsWith('name')), iem=ix('email');
+   render(csv.map(r=>{let d={};try{d=JSON.parse(r[id]||'{}');}catch(e){}return {choice:r[ic],why:r[iw],d,at:r[it],name:inm>-1?r[inm]:'',email:iem>-1?r[iem]:''};}));}
   catch(e){document.getElementById('out').innerHTML='<div class="card"><p class="empty">Couldn’t reach the response sheet. Try Refresh.</p></div>';}}
  const pct=(a,b)=>b?Math.round(a/b*100):0;
  const top=(rows,field,n)=>{const m={};rows.forEach(r=>((r.d||{})[field]||[]).forEach(k=>m[k]=(m[k]||0)+1));return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,n);};
@@ -110,6 +118,10 @@ details.cm>summary::-webkit-details-marker{display:none}
     <div class="lead"><span class="big">${esc(head)}</span><span class="sub">${max} of ${N} picked ${leaders.length>1?'each':'it'}</span></div>
     <div class="bars">${S.map(s=>`<i style="width:${pct(s.votes,N)}%;background:var(--${s.v.key})" title="${esc(s.v.name)}: ${s.votes}"></i>`).join('')}</div>
     <div class="legend">${S.map(s=>`<span><i class="dot" style="background:var(--${s.v.key})"></i>${esc(s.v.name)} <b>${s.votes}</b></span>`).join('')}</div></div>
+   <div class="card"><span class="lab">Who picked what</span><div class="tw"><table class="who">
+    <thead><tr><th>Name</th><th>Email</th><th>Picked</th><th>Why</th></tr></thead>
+    <tbody>${rows.slice().reverse().map(r=>{const v=VIEWS.find(x=>x.name===r.choice);return `<tr><td class="nm">${esc(r.name||'\u2014')}</td><td class="em">${esc(r.email||'\u2014')}</td>
+     <td><span class="pk"><i class="dot" style="background:var(--${v?v.key:'spider'})"></i>${esc(r.choice)}</span></td><td class="rs">${esc(r.why)}</td></tr>`;}).join('')}</tbody></table></div></div>
    <div class="views">${S.map(s=>`<div class="v" style="--c:var(--${s.v.key})"><h2>${esc(s.v.name)}<small>${s.votes} vote${s.votes===1?'':'s'}</small></h2>
      <div class="stat"><span>Found the lowest topic</span><b>${s.found}</b></div>
      <div class="stat"><span>Ease, out of 5</span><b>${s.ease}</b></div>
@@ -120,14 +132,19 @@ details.cm>summary::-webkit-details-marker{display:none}
    <div class="card"><details class="cm"><summary>${comments.length?'Read '+comments.length+' written comment'+(comments.length>1?'s':''):'No written comments yet'}</summary>
     ${comments.map(x=>`<div class="c"><p>${esc(x.t)}</p><small>${esc(x.r.choice)} · ${esc(x.r.at)}</small></div>`).join('')}</details></div>`;}
  document.getElementById('refresh').addEventListener('click',load);
- const H='f87fbbf6e427a1052e8f51a7d8e11f194423a3ab5880daca6100daec906c7130', K='sv-results-ok';
- const sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+ /* the sheet link is encrypted with the passcode, so the names can't be read from this page's code */
+ const ENC={"s": "Xh+4bpwxEL5jb8W8EbPjrQ==", "i": "lwLFJf5UNrBdmdN+", "c": "996FEQHWha8WpnFlJGrE+Tpa4qkVe3GMWsiU96nuhLurnLWfaeAMaHf2jUHbsPH+HnwZ6oCjicYLQE0tVJa2dFRfIHv6cKgoXfGpCoObIZSMCCkViuwgNK6s/gQyqDMpitiAc61qJ5yLn0dmkmdo+tOINPWEQXoyc156Do8F22VGEp15BqK0JcgIsGEvzw47WGkOeQYoGrn/FFF8+17XoWThDW6IaViMyc3+y911lXfcDROW3YWIhg=="}, K='sv-results-url';
+ const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+ async function unlock(pass){const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(ENC.s),iterations:200000,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+  return new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(ENC.i)},key,b64(ENC.c)));}
+ let URLX=''; try{URLX=localStorage.getItem(K)||'';}catch(e){}
  const open=()=>{document.getElementById('gate').hidden=true;document.getElementById('res').hidden=false;load();};
- let ok=false; try{ok=localStorage.getItem(K)===H;}catch(e){}
- if(ok) open(); else document.getElementById('gate').hidden=false;
- document.getElementById('gf').addEventListener('submit',async e=>{e.preventDefault();
-  if(await sha(document.getElementById('pc').value.trim())===H){try{localStorage.setItem(K,H);}catch(e){}open();}
-  else document.getElementById('ger').textContent='That passcode isn’t right.';});
+ if(URLX) open(); else document.getElementById('gate').hidden=false;
+ document.getElementById('gf').addEventListener('submit',async e=>{e.preventDefault();const b=e.target.querySelector('button');b.disabled=true;
+  try{URLX=await unlock(document.getElementById('pc').value.trim());try{localStorage.setItem(K,URLX);}catch(e){}open();}
+  catch(err){document.getElementById('ger').textContent='That passcode isn\u2019t right.';}
+  b.disabled=false;});
 })();
 </script>
 </body>
