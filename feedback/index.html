@@ -121,7 +121,7 @@ main.tasking{padding:0}
  <div class="narrow">
   <span class="eyebrow">Coordinator Console</span>
   <h1>Which score view reads best?</h1>
-  <p class="lead">We have three ways to show a candidate's exam result. Help us pick the one that's quickest to read.</p>
+  <p class="lead">We are working on enhancing the cards for showing candidate details to the coordinator. We have a few variations on how we can represent the exam score for the coordinator to have a look at. Help us pick the one that's quickest to read.</p>
   <div class="how3"><div><b>3 views</b>Each shows one candidate's result</div><div><b>1 task each</b>Find their lowest section and topic</div><div><b>Pick one</b>Tell us why, with a tap</div></div>
   <div class="meta"><span>About 4 minutes</span><span>Use a laptop or desktop</span></div>
   <div class="who2">
@@ -197,7 +197,7 @@ main.tasking{padding:0}
     </ol>
     <div class="act"><button class="btn pri" data-task disabled>${n<2?'Next view':'Pick your favourite'}</button><button class="back" data-back>Back</button></div>
    </aside>
-   <div class="view"><iframe title="${esc(first)}’s result, ${esc(v.name)} view" data-src="prototype.html?open=${v.who}&solo=1"></iframe></div>
+   <div class="view"><iframe title="${esc(first)}’s result, ${esc(v.name)} view" data-src="prototype.html?open=${v.who}&solo=1&v=20261016c"></iframe></div>
   </div>`;
   const val=q=>{const i=sec.querySelector(`[data-q="${q}"] input:checked`);return i?i.value:'';};
   const btn=sec.querySelector('[data-task]');
