@@ -15,6 +15,7 @@ python3 -m http.server 8000
 
 | Path | What it is |
 |---|---|
+| `prototypes/cp-final-1.html` | CP Final 1 — the full candidate list with the donut result for everyone: one colour per section, filled from the bottom up, the score as 74/100 in the centre, sub-scores on hover and a levels legend behind an info button. Covers zero, low, no sub-scores, unfinished, PDF only, link only, and the loading, not ready, couldn't fetch, incomplete and empty-report states. The credential card carries Open, Share and the next step; accommodations can be declined with a reason, sent back for more information, or decided after the candidate replies. The PDFs are fictional sample reports. |
 | `prototypes/score-visualisations.html` | Score visualisations — the full candidate list. Completed candidates use one of three result views (spider, level rows, donut) with topic drill-down and a placeholder overall, and the standard credential card with the six statuses: Yet to review, Withheld, Credentialed, Disqualified, Credential revoked, Expired. |
 | `prototypes/candidate-profile-v2.html` | Candidate profile v2 — workflow steps (Enrollment, Verity, Scoring, Credentials) with the bar graph score card. |
 | `prototypes/enrollment-profile.html` | Enrollment-scoped profile. Two variants behind a switcher: **Timeline** and **Cards**. |
