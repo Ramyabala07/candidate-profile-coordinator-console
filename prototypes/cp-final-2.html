@@ -2175,6 +2175,21 @@ input.edt{height:34px}
 .acdh2 .w{font:500 12px/18px var(--font);color:var(--tp)}
 .acdh2 .b{font:400 12.5px/19px var(--font);color:var(--ts)}
 .acdh2 li.wait .w{font-weight:400;color:var(--tt)}
+/* one chip layout everywhere: group label on the left, chips on the right */
+.achs{gap:10px}
+.achg{display:grid;grid-template-columns:96px 1fr;align-items:start;gap:10px}
+.achgt{padding-top:9px}
+@media (max-width:640px){.achg{grid-template-columns:1fr}.achgt{padding-top:0}}
+/* table columns and conflict notes */
+.wht table{table-layout:fixed}
+.wht col.c1{width:30%}.wht col.c2{width:28%}.wht col.c3{width:34%}.wht col.c4{width:8%}
+.wht td:first-child{width:auto}
+.whe{max-width:100%}
+.whx2{display:grid;grid-template-columns:14px 1fr;column-gap:5px;align-items:start;margin-top:6px;font:400 12px/17px var(--font);color:var(--o700)}
+.whx2 svg{width:12px;height:12px;margin-top:2.5px}
+.whx2>span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.whi2{display:block;margin:3px 0 0 19px;font-size:12px}
+.tok[data-tt]{cursor:default}
 </style>
 <div class="proto"><span class="ttl">Candidate profile · v2 · Coordinator Console</span>
   <span class="hint">Click any candidate row — each one is a different use case</span></div>
@@ -6419,6 +6434,31 @@ function accManageScreen(){
   <div class="shead"><button class="bk" data-back="1"><span class="ar">${I.back}</span><span>Accommodations</span></button></div>
   <div class="sbody"><div class="sin">${A.length?A.map(card).join(''):`<p class="picksum">${E(f)} has no accommodations yet.</p>`}</div></div>
   <div class="ftr"><span class="sp"></span><button class="btn sec" data-mi2="addacc">Add accommodation</button></div></div>`;}
+
+/* ===== round 17: one chip layout, status-coloured "now" chips with hover, tidy conflict notes ===== */
+const tokS=(t,cls,tip)=>`<span class="tok ${cls||''}" tabindex="0" data-tt="${E(tip)}" aria-label="${E(t+', '+tip)}">${E(t)}</span>`;
+function whoTableH(cs,picked){
+ const rows=accOutcomes(cs,picked), by=new Map(); rows.forEach(r=>{if(!by.has(r.c.id)) by.set(r.c.id,{c:r.c,rs:[]}); by.get(r.c.id).rs.push(r);});
+ const L=[...by.values()], isChg=x=>x.rs.some(r=>CHANGES.indexOf(r.k)>-1), isSkip=x=>x.rs.every(r=>r.k==='skip');
+ const conflictOf=r=>r.k==='level'?`Replaces ${r.from}`:r.k==='approve'?'Approves their pending request':r.k==='declined'?'Declined before · left out':r.k==='redo'?'Declined before · included':'';
+ const cur=x=>{if(isSkip(x)) return '<span class="tnote">—</span>'; const A=(ACCS[x.c.id]||[]).filter(a=>a.s!=='n'||x.rs.some(r=>r.h===a));
+  return A.length?A.map(a=>a.s==='y'?tokS(normN(a.n),'new','Approved'):a.s==='n'?tokS(normN(a.n),'old','Declined'+(a.why?' · '+a.why:'')):tokS(normN(a.n),'req',a.s==='i'?'Requested · info requested':a.s==='r'?'Requested · reply received':'Requested · waiting on your decision')).join(''):'<span class="tnote">None</span>';};
+ const aft=x=>{if(isSkip(x)) return `<span class="tnote">${E(x.rs[0].note)}</span>`; if(!picked.length) return '<span class="tnote">—</span>';
+  return x.rs.map(r=>r.k==='declined'?`<span class="tnote">Not added</span>`:r.k==='same'?tokS(normN(r.h.n),'new','Already approved · no change'):r.k==='skip'?'':tokS(normN(r.p),'new','Will be approved')).join('');};
+ const order=x=>isSkip(x)?3:x.rs.some(r=>['level','approve','declined','redo'].indexOf(r.k)>-1)?0:isChg(x)?1:2;
+ if(picked.length) L.sort((a,b)=>order(a)-order(b));
+ const nChg=L.filter(isChg).length, nCon=L.filter(x=>order(x)===0).length, nSk=L.filter(x=>!isChg(x)).length;
+ const q=bkQ.trim().toLowerCase(), sugg=q?CANDS.map((c,i)=>[c,i]).filter(([c,i])=>!SEL.has(i)&&(c.n.toLowerCase().includes(q)||c.em.toLowerCase().includes(q))).slice(0,5):[];
+ return `${picked.length?`<p class="whsum"><b>${nChg}</b> will change${nCon?` · <span class="con">${nCon} with a conflict</span>`:''}${nSk?` · ${nSk} unchanged`:''}</p>`:''}
+  <div class="wht"><table><colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup><thead><tr><th>Candidate</th><th>Now</th><th>After</th><th class="r"></th></tr></thead><tbody>
+  <tr class="whadd"><td colspan="4"><div class="whin">${I.search}<input id="bkq" data-bkq="1" placeholder="Add a candidate · E.g., Mia Chen or mia.chen@example.com" value="${E(bkQ)}" autocomplete="off"></div>
+   ${q?`<div class="whsug">${sugg.length?sugg.map(([c,i])=>`<button data-bkpick="${i}"><b>${E(c.n)}</b><span>${E(c.em)}</span></button>`).join(''):'<p>No candidate in DS0432 matches</p>'}</div>`:''}</td></tr>
+  ${L.map(x=>{const cons=picked.length?x.rs.map(conflictOf).filter(Boolean):[], incl=x.rs.find(r=>r.k==='declined'||r.k==='redo');
+   return `<tr class="whr ${picked.length&&order(x)===0?'conf':''} ${isSkip(x)||(picked.length&&!isChg(x)&&!incl)?'mut':''}"><td><span class="whn">${E(x.c.n)}</span><span class="whe" title="${E(x.c.em)}">${E(x.c.em)}</span></td><td><span class="whc">${cur(x)}</span></td>
+    <td><span class="whc">${aft(x)}</span>${cons.length?`<span class="whx2">${I.warnc}<span>${E(cons.join(' · '))}</span></span>`:''}
+     ${incl&&picked.length?`<button class="lnkin whi2" data-bkinc="${E(x.c.id+'|'+famN(incl.p))}">${incl.k==='declined'?'Include anyway':'Leave out'}</button>`:''}</td>
+    <td class="r"><button class="whrm" data-bkrm="${CANDS.indexOf(x.c)}" title="Remove ${E(x.c.n)}" aria-label="Remove ${E(x.c.n)}">${TRASH}</button></td></tr>`;}).join('')}
+  </tbody></table></div>`;}
 
 render();
 </script>
