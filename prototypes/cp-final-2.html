@@ -2191,6 +2191,15 @@ input.edt{height:34px}
 .whx2>span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .whi2{display:block;margin:3px 0 0 19px;font-size:12px}
 .tok[data-tt]{cursor:default}
+.acin{margin-top:4px;padding-top:12px;border-top:1px solid var(--g100)}
+.acin .flab .opt{font-weight:400;color:var(--tt)}
+.acin .rsn{margin-top:6px}
+.acin .ta{min-height:64px}
+.acina{display:flex;align-items:center;gap:6px;margin-top:12px}.acina .sp{flex:1}
+.acd.acadd{margin-bottom:10px;border-color:var(--b200);box-shadow:0 0 0 3px var(--b50)}
+.acaddh{display:flex;align-items:center;margin-bottom:6px}.acaddh b{font:500 14px/21px var(--font)}
+.acadd .flab.first{margin-top:4px}
+.acwhy{display:inline-flex;align-items:center;gap:5px;font:400 12px/17px var(--font);color:var(--o700)}.acwhy svg{width:12px;height:12px}
 </style>
 <div class="proto"><span class="ttl">Candidate profile · v2 · Coordinator Console</span>
   <span class="hint">Click any candidate row — each one is a different use case</span></div>
@@ -6457,6 +6466,51 @@ function whoTableH(cs,picked){
      ${incl&&picked.length?`<button class="lnkin whi2" data-bkinc="${E(x.c.id+'|'+famN(incl.p))}">${incl.k==='declined'?'Include anyway':'Leave out'}</button>`:''}</td>
     <td class="r"><button class="whrm" data-bkrm="${CANDS.indexOf(x.c)}" title="Remove ${E(x.c.n)}" aria-label="Remove ${E(x.c.n)}">${TRASH}</button></td></tr>`;}).join('')}
   </tbody></table></div>`;}
+
+/* ===== decline, request info and add all open inline, in the same pattern as the add form ===== */
+let accInline=null, accAddOpen=false;
+const accCardRe=/<div class="acd">[\s\S]*?(?=<div class="acd">|<\/div><\/div>\s*<div class="ftr">)/g;
+function accInlineH(c,a,i){const f=accFirst(c);
+ if(accInline.kind==='decline'){const ready=rsnSel!=null&&(ACCDEC[rsnSel][0]!=='Other'||rsnNote.trim().length>2);
+  return `<div class="acin"><span class="flab first">Reason for declining<span class="req">*</span></span>
+   <div class="rsn">${ACCDEC.map((o,j)=>`<button class="rr ${rsnSel===j?'on':''}" data-rsn="${j}"><span class="rd"></span><span class="bd2"><span class="nm2">${E(o[0])}</span><span class="ds">${E(o[1])}</span></span></button>`).join('')}</div>
+   <span class="flab">Note to ${E(f)} <span class="opt">(optional)</span></span><textarea class="ta" data-rnote="1" placeholder="Added to the email">${E(rsnNote)}</textarea>
+   <div class="acina"><span class="sp"></span><button class="btn sm" data-accinlx="1">Cancel</button><button class="btn sm dgr" data-accinlgo="1" ${ready?'':'disabled'}>Decline</button></div></div>`;}
+ const A=ACCS[c.id]||[], others=A.map((b,j)=>[b,j]).filter(([b,j])=>j!==i&&OPENA(b)), n=Object.keys(accAsk).filter(k=>accAsk[k]).length;
+ return `<div class="acin"><span class="flab first">What do you need?<span class="req">*</span></span>
+  <div class="rsn">${ACCASK.map((o,j)=>`<button class="rr ck ${accAsk[j]?'on':''}" data-ask="${j}"><span class="cb">${accAsk[j]?I.tick:''}</span><span class="bd2"><span class="nm2">${E(o[0])}</span>${o[1]?`<span class="ds">${E(o[1])}</span>`:''}</span></button>`).join('')}</div>
+  ${others.length?`<span class="flab">Also ask about</span><div class="rsn">${others.map(([b,j])=>`<button class="rr ck ${accAlso[j]?'on':''}" data-askalso="${j}"><span class="cb">${accAlso[j]?I.tick:''}</span><span class="bd2"><span class="nm2">${E(b.n)}</span></span></button>`).join('')}</div>`:''}
+  <span class="flab">Message to ${E(f)} <span class="opt">(optional)</span></span><textarea class="ta" data-rnote="1" placeholder="Added to the email">${E(rsnNote)}</textarea>
+  <div class="acina"><span class="sp"></span><button class="btn sm" data-accinlx="1">Cancel</button><button class="btn sm pri" data-accinlgo="1" ${n?'':'disabled'}>Send request</button></div></div>`;}
+function accAddInlineH(c){const have=new Map(); (ACCS[c.id]||[]).filter(a=>a.s!=='n').forEach(a=>have.set(famN(a.n),a.s==='y'?'Already approved':'Already requested'));
+ const picked=a3picked(), n=picked.length, ok=a3ready()&&accOutcomes([c],picked).some(r=>CHANGES.indexOf(r.k)>-1);
+ return `<div class="acd acadd"><div class="acaddh"><b>Add accommodation</b></div>
+  <span class="flab first">Accommodations<span class="req">*</span></span>${accChipsH(have)}
+  ${reasonH(n)}
+  <div class="acina">${(()=>{const why=CLOSED[c.status[0]];return why?`<span class="acwhy">${I.warnc}Can’t add right now · ${E(why.toLowerCase())}</span>`:'';})()}<span class="sp"></span><button class="btn sm" data-accaddx="1">Cancel</button><button class="btn sm pri" data-accaddgo="1" ${ok?'':'disabled'}>${n>1?'Add '+n+' accommodations':'Add accommodation'}</button></div></div>`;}
+{const _am=accManageScreen; accManageScreen=function(){const c=C(); let h=_am();
+ h=h.replace(/data-goscr="accd:(\d+)"/g,'data-accinl="decline:$1"').replace(/data-goscr="acci:(\d+)"/g,'data-accinl="info:$1"');
+ if(accInline&&accInline.id===c.id){const i=accInline.i, a=(ACCS[c.id]||[])[i]; let n=-1;
+  if(a) h=h.replace(accCardRe,m=>{n++; if(n!==i) return m; m=m.replace(/<div class="acda[^"]*">[\s\S]*?<\/div>/,''); const k=m.lastIndexOf('</div>'); return m.slice(0,k)+accInlineH(c,a,i)+m.slice(k);});}
+ if(accAddOpen){h=h.replace('<div class="sbody"><div class="sin">','<div class="sbody"><div class="sin">'+accAddInlineH(c)).replace(/<button class="btn sec" data-mi2="addacc">Add accommodation<\/button>/,'');}
+ else h=h.replace('data-mi2="addacc"','data-accaddopen="1"');
+ return h;};}
+window.addEventListener('click',e=>{const t=e.target; if(!t.closest) return; const c=C&&C();
+ const op=t.closest('[data-accinl]'); if(op){e.stopPropagation(); const [kind,i]=op.dataset.accinl.split(':'); accInline={id:c.id,i:+i,kind}; accEdit=null; accAddOpen=false; rsnSel=null; rsnNote=''; accAsk={}; accAlso={}; render(); return;}
+ if(t.closest('[data-accinlx]')){e.stopPropagation(); accInline=null; render(); return;}
+ const go=t.closest('[data-accinlgo]'); if(go){e.stopPropagation(); if(go.disabled||!accInline) return; const A=ACCS[c.id]||[], a=A[accInline.i], f=accFirst(c); if(!a) return;
+  if(accInline.kind==='decline'){a.s='n'; a.why=ACCDEC[rsnSel][0]; a.note=rsnNote.trim(); accTouched[c.id]=true; accInline=null; flash(a.n+' declined · '+f+' has been emailed the reason');}
+  else{const ask=Object.keys(accAsk).filter(k=>accAsk[k]).map(k=>ACCASK[k][0]).join(', '), note=rsnNote.trim(), also=Object.keys(accAlso).filter(k=>accAlso[k]).map(Number).filter(j=>A[j]);
+   [accInline.i].concat(also).forEach(j=>{const b=A[j]; b.hist=accHist(b).slice(); b.s='i'; b.ask=ask; b.asked=TODAY; b.askNote=note; b.with=[accInline.i].concat(also).filter(x=>x!==j).map(x=>A[x].n); b.hist.push({t:'ask',on:TODAY,ask,note,with:b.with});});
+   accTouched[c.id]=true; accInline=null; accAsk={}; accAlso={}; rsnNote=''; flash('Info requested from '+f);}
+  return;}
+ if(t.closest('[data-accaddopen]')||t.closest('[data-mi="Add accommodation"]')){e.stopPropagation(); if(typeof closeMenu==='function') closeMenu(); resetForm(); accInline=null; accEdit=null; accAddOpen=true; if(stack[stack.length-1]!=='accmanage') stack.push('accmanage'); render(); return;}
+ if(t.closest('[data-accaddx]')){e.stopPropagation(); resetForm(); accAddOpen=false; render(); return;}
+ const ag=t.closest('[data-accaddgo]'); if(ag){e.stopPropagation(); if(ag.disabled) return; const picked=a3picked(), rows=accOutcomes([c],picked), snap=JSON.parse(JSON.stringify(ACCS[c.id]||[])), id=c.id, f=accFirst(c), what=bkWhat(picked).join(', ');
+  applyOutcomes(rows); resetForm(); accAddOpen=false; flash(`${what} added for ${f}`,()=>{ACCS[id]=snap; return 'Undone';}); return;}
+ if(t.closest('[data-back]')){accInline=null; accAddOpen=false;}},true);
+document.addEventListener('input',e=>{const n=e.target.closest&&e.target.closest('.acin [data-rnote]'); if(!n||!accInline||accInline.kind!=='decline') return;
+ const b=document.querySelector('[data-accinlgo]'); if(b) b.disabled=!(rsnSel!=null&&(ACCDEC[rsnSel][0]!=='Other'||n.value.trim().length>2));});
 
 render();
 </script>
