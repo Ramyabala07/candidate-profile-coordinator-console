@@ -877,6 +877,7 @@ details.bkd>.fxline{margin-top:10px}
 
 /* reason picker */
 .flab{display:block;font:500 12.5px/19px var(--font);margin-top:16px}
+.screen .sin>.flab:first-child{margin-top:0}
 .rsn{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:12px}
 .rr{display:flex;gap:11px;align-items:flex-start;width:100%;padding:12px 13px;border-bottom:1px solid var(--g100);
  transition:background .12s}
@@ -5312,7 +5313,6 @@ function accDeclineScreen(i){const c=C(), a=(ACCS[c.id]||[])[i]||{}, first=c.n.s
  const ready=rsnSel!=null&&(ACCDEC[rsnSel][0]!=='Other'||rsnNote.trim().length>2);
  return `<div class="screen"><div class="shead"><button class="bk" data-back="1"><span class="ar">${I.back}</span><span>Decline ${E(String(a.n||'').toLowerCase())}</span></button></div>
   <div class="sbody"><div class="sin">
-   <p class="picksum">${E(first)} is emailed the reason you pick, and sits the exam without this accommodation unless it’s approved later.</p>
    <span class="flab">Reason</span><div class="rsn">${ACCDEC.map((o,j)=>`<button class="rr ${rsnSel===j?'on':''}" data-rsn="${j}"><span class="rd"></span><span class="bd2"><span class="nm2">${E(o[0])}</span><span class="ds">${E(o[1])}</span></span></button>`).join('')}</div>
    <span class="flab">Note to ${E(first)}${rsnSel!=null&&ACCDEC[rsnSel][0]==='Other'?' (required)':' (optional)'}</span>
    <textarea class="ta" data-rnote="1" placeholder="Added to the email">${E(rsnNote)}</textarea>
@@ -5321,7 +5321,6 @@ function accDeclineScreen(i){const c=C(), a=(ACCS[c.id]||[])[i]||{}, first=c.n.s
 function accInfoScreen(i){const c=C(), a=(ACCS[c.id]||[])[i]||{}, first=c.n.split(' ')[0], n=Object.keys(accAsk).filter(k=>accAsk[k]).length;
  return `<div class="screen"><div class="shead"><button class="bk" data-back="1"><span class="ar">${I.back}</span><span>Ask for more information</span></button></div>
   <div class="sbody"><div class="sin">
-   <p class="picksum">${E(first)} gets the accommodation evidence form again with your message. ${E(a.n||'The request')} stays open until ${E(first)} replies.</p>
    <span class="flab">What do you need?</span><div class="rsn">${ACCASK.map((o,j)=>`<button class="rr ck ${accAsk[j]?'on':''}" data-ask="${j}"><span class="cb">${accAsk[j]?I.tick:''}</span><span class="bd2"><span class="nm2">${E(o[0])}</span>${o[1]?`<span class="ds">${E(o[1])}</span>`:''}</span></button>`).join('')}</div>
    <span class="flab">Message to ${E(first)} (optional)</span>
    <textarea class="ta" data-rnote="1" placeholder="Added to the form">${E(rsnNote)}</textarea>
@@ -5698,7 +5697,6 @@ function accInfoScreen(i){const c=C(), A=ACCS[c.id]||[], a=A[i]||{}, first=accFi
  const others=A.map((b,j)=>[b,j]).filter(([b,j])=>j!==i&&OPENA(b));
  return `<div class="screen"><div class="shead"><button class="bk" data-back="1"><span class="ar">${I.back}</span><span>Ask for more information</span></button></div>
   <div class="sbody"><div class="sin">
-   <p class="picksum">${E(first)} gets one email with your request. ${E(first)}’s reply comes back into each request’s thread.</p>
    <span class="flab">What do you need?</span><div class="rsn">${ACCASK.map((o,j)=>`<button class="rr ck ${accAsk[j]?'on':''}" data-ask="${j}"><span class="cb">${accAsk[j]?I.tick:''}</span><span class="bd2"><span class="nm2">${E(o[0])}</span>${o[1]?`<span class="ds">${E(o[1])}</span>`:''}</span></button>`).join('')}</div>
    ${others.length?`<span class="flab">Requests this email covers</span><div class="rsn"><div class="rr ck on" style="cursor:default"><span class="cb">${I.tick}</span><span class="bd2"><span class="nm2">${E(a.n)}</span></span></div>${others.map(([b,j])=>`<button class="rr ck ${accAlso[j]?'on':''}" data-askalso="${j}"><span class="cb">${accAlso[j]?I.tick:''}</span><span class="bd2"><span class="nm2">${E(b.n)}</span><span class="ds">${E(accLatest(c,b))}</span></span></button>`).join('')}</div>`:''}
    <span class="flab">Message to ${E(first)} (optional)</span>
