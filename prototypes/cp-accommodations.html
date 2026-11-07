@@ -4508,6 +4508,56 @@ details.fss.tacc,.fss{border:0;padding:0;margin:0}
 .a2v .a2meta{display:block;margin-top:2px;font:400 12px/18px var(--font);color:var(--text-subtle)}
 .a2v .a2chips{display:flex;flex-wrap:wrap;gap:6px}
 
+/* ===== 51. Verity in progress after approval: areas not started yet ===== */
+.mxt .rwb b.none{color:var(--text-subtle);font-weight:400}
+
+/* ===== 52. breaks as an add-on under Extra time, with the integration status ===== */
+.a52st{display:flex;align-items:flex-start;gap:6px;margin:8px 0 0;font:400 12px/18px var(--font);color:var(--text-subtle)}
+.a52st svg{flex:none;margin-top:2px}
+.a52st.ok{color:var(--success-strong)}
+.a52st.wr{color:var(--warning-emphasis,var(--warning-strong))}
+.a52st.no{color:var(--text-subtle);margin:0}
+.a52on{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:12px}
+.a52add{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 10px 0 8px;border:1px dashed var(--border-primary);border-radius:var(--radius-lg);background:none;font:500 12px/18px var(--font);color:var(--text-secondary);cursor:pointer;transition:border-color var(--duration-fast) var(--ease-out),background var(--duration-fast) var(--ease-out)}
+.a52add svg{width:14px;height:14px}
+.a52add:hover{border-color:var(--border-strong);background:var(--bg-elevated)}
+.a52add:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.a52add[aria-disabled]{opacity:.5;cursor:not-allowed;background:none;border-color:var(--border-primary)}
+.a52brk{margin-top:12px;padding-top:12px;border-top:1px solid var(--border-subtle)}
+.a52bh{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.a52bl{display:inline-flex;align-items:center;gap:6px;font:500 12px/18px var(--font);color:var(--text-secondary)}
+.a52x{width:24px;height:24px}
+/* the Extra time cell stacks in reverse (slider, then value): keep the status, then the add-on, below it */
+.a2er.tall:has(.a2tsl) .a2ec>.a52st{order:-1;margin-top:0}
+.a2er.tall:has(.a2tsl) .a2ec>.a52on,.a2er.tall:has(.a2tsl) .a2ec>.a52brk{order:-2;margin-top:4px}
+.a52brk{display:flex;flex-direction:column;gap:8px}
+.a52brk>.a52bh{order:0;margin:0}.a52brk>.a2tsl{order:1}.a52brk>.a2slv{order:2;margin:0}.a52brk>.a52st{order:3;margin:0}
+/* 7 Nov, later: the status icon sits above the thumb and moves with it; the words are in its tooltip */
+.a2tsl:has(.a52si){margin-top:22px}
+.a52si{position:absolute;left:calc(var(--ts-slider-thumb) / 2);bottom:calc(100% + 4px);transform:translateX(-50%);display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;border:0;background:var(--bg-surface);border-radius:var(--radius-full);cursor:default}
+.a52si svg{width:16px;height:16px}
+.a52si.ok{color:var(--success-strong)}
+.a52si.wr{color:var(--warning-strong)}
+.a52si.no{color:var(--text-subtle)}
+.a52si:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+[data-a2slt="time"][aria-valuenow="0"]~.a52si{visibility:hidden}
+/* the thumb-pos wrapper ignores the pointer; the icon has to take it back to show its tooltip */
+.ts-slider__thumb-pos .a52si{pointer-events:auto}
+
+/* ===== 53. on-file values still to be set on the exam platform: dot, popover, Mark as set ===== */
+.a2c2 .a2s1{position:relative}
+button.a2it.a53pd{border:0;font:inherit;cursor:pointer}
+button.a2it.a53pd:hover{filter:brightness(.97)}
+button.a2it.a53pd:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.a2it .a53tk{margin-left:4px;flex:none}
+.a53pop{position:absolute;z-index:20;width:272px;padding:12px 14px;border:1px solid var(--border-subtle);border-radius:var(--radius-xl);background:var(--bg-surface-elevated,var(--bg-surface));box-shadow:var(--shadow-md);animation:a53in var(--duration-base) var(--ease-out)}
+.a53pop::before{content:'';position:absolute;top:-6px;left:calc(var(--a53ax,24px) - 6px);width:10px;height:10px;background:inherit;border-left:1px solid var(--border-subtle);border-top:1px solid var(--border-subtle);transform:rotate(45deg)}
+.a53t{margin:0;font:500 14px/20px var(--font);color:var(--text-primary)}
+.a53b{margin:4px 0 12px;font:400 12px/18px var(--font);color:var(--text-subtle)}
+.a53f{display:flex;justify-content:flex-end}
+@keyframes a53in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.a53pop{animation:none}}
+
 </style>
 <div class="proto"><span class="ttl">Candidate profile · v2 · Coordinator Console</span>
   <span class="hint">Click any candidate row — each one is a different use case</span></div>
@@ -11177,6 +11227,167 @@ window.addEventListener('click',e=>{const t=e.target; if(!t.closest) return;
  if(t.closest('[data-a2rcbk]')&&a2onRec()){e.stopImmediatePropagation(); stack.pop(); render();}},true);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&a2onRec()&&!document.querySelector('.dvw, .modal:not([hidden])')){e.stopImmediatePropagation(); stack.pop(); render();}},true);
 {const _r=render; render=function(){a2histSync(); return _r.apply(this,arguments);};}
+
+/* ===== 51. 7 Nov: Verity starts the ID checks as soon as the enrolment is approved. An approved candidate who hasn't
+   sat yet shows Verity in progress: Identity running (document, issuer record, face against the enrolment capture),
+   live person and same-person checks waiting for check-in, and the other four areas starting on exam day ===== */
+const A51ORIG={};
+const a51ok=c=>{const st=(c.status||[])[0], e=c.steps.enrollment.k;
+ return st!=='Cancelled'&&st!=='Rejected'&&(st==='Enrolled'||e==='clear'||e==='done');};
+function VPRE(c){
+ const e=c.steps.enrollment, m=/^\d{1,2} \w{3} \d{4}(, \d\d:\d\d)?/.exec(e.meta||''), on=m?m[0]:TODAY, d=on.replace(/,.*$/,'');
+ const bk=BOOK[c.id], exam=bk&&!bk.cancelled?bk.d:null, xd=exam?' · '+exam:'';
+ const run=(ic,t,find,prov)=>CHK(ic,t,['Running','pending'],find,prov+' · '+d);
+ const wait=(ic,t,find,prov)=>CHK(ic,t,['On exam day','pending'],find,prov+xd);
+ const later=(t,ic,q)=>VGRP(t,ic,q,'none',[],'Starts on exam day');
+ return {on:on,word:'Running',id:'VER-'+String(c.cid||c.ext||c.id).replace(/\D/g,'').slice(-6).padStart(6,'0'),d:d,pre:1,
+  h:'ID checks are running.',
+  s:'Started when the enrolment was approved. Check-in and the session checks run on exam day'+(exam?', '+exam.replace(/ \d{4}$/,''):'')+'.',
+  ctx:'<b>Identity checks are running.</b> <span class="mut">The other four areas start on exam day.</span>',
+  groups:[VGRP('Identity','face','Is this the person they claim to be, and the same person throughout?','pending',[
+    run('idc','ID document','Reading the document, its machine-readable zone and security features.','Government ID submitted at enrolment'),
+    run('bank','Issuer record','Checking the ID against the issuer record, and for another enrolment under the same ID.','Government issuer registry'),
+    run('face','Face match','Comparing the ID photo with the enrolment capture.','Government ID photo against the enrolment capture'),
+    wait('shield','Live person','Runs at check-in, on the primary camera.','Primary camera'),
+    wait('loop','Same person throughout','Runs once the session starts.','Every session in this decision')],
+   '3 running · 2 on exam day'),
+   later('Credentials','award','Are the qualifications real, and are they still current?'),
+   later('Context trust','laptop','Is the device, the network and the place what they claim to be?'),
+   later('Claim integrity','doc','Are the stated facts true, and do they hold together?'),
+   later('Session conduct','play','How did the candidate behave during the session?')],
+  log:[['n','ID checks started',on,'enrolment approved']]};
+}
+function a51sync(){CANDS.forEach(c=>{const a=c.steps.assessment, mine=A51ORIG[c.id];
+ if(mine){ if(a51ok(c)) return; c.steps.assessment=mine.a; c.verity=mine.v; delete A51ORIG[c.id]; return;}
+ if(c.verity||a.k!=='pending'||!a51ok(c)) return;
+ const v=VPRE(c);
+ A51ORIG[c.id]={a:a,v:c.verity};
+ c.verity=v;
+ c.steps.assessment=Object.assign({},a,{k:'info',chip:['In progress','info'],sum:'Enrolment approved. ID checks are running.',meta:'Started '+v.on,
+  checks:[{ic:'shield',t:'Verity',chip:['Running','pending'],find:'ID checks started when the enrolment was approved.',
+   prov:'Verity '+v.id+' · '+v.d,ev:[{t:'jump',label:'View report',to:'verity'}],when:v.d}]});});}
+/* areas that haven't started get no dot in the matrix */
+{const _m=verityMatrix; verityMatrix=function(v){
+ if(!v.groups.some(g=>g.k==='none')) return _m.apply(this,arguments);
+ const cols=['Needs review','In progress','Verified'];
+ return `<div class="mxw"><table class="mxt"><thead><tr><th></th>${cols.map(c=>`<th>${E(c)}</th>`).join('')}</tr></thead><tbody>
+   ${vcats(v).map(c=>{const col=c.k==='none'?-1:c.col; return `<tr><td class="rw"><button class="rwb" data-vgo="${E(c.t)}">
+      <b class="${c.k}">${E(c.t)}</b><span>${E(c.s)}</span></button></td>
+     ${cols.map((_,i)=>`<td class="cl">${i===col?`<i class="d ${c.k}"></i>`:''}</td>`).join('')}</tr>`;}).join('')}
+  </tbody></table></div>`;};}
+/* an open accommodation request keeps the enrolment step in review, but the enrolment is approved: Verity isn't held back */
+{const _sc=stepCard; stepCard=function(k,muted){const a=[].slice.call(arguments); if(k==='assessment'&&A51ORIG[C().id]) a[1]=false; return _sc.apply(this,a);};}
+/* before exam day nothing has passed yet: count what is running */
+{const _vb=verityBody; verityBody=function(v){const h=_vb.apply(this,arguments); if(!v||!v.pre) return h;
+ const all=v.groups.reduce((a,g)=>a.concat(g.checks),[]), run=all.filter(x=>x.chip[0]==='Running').length;
+ return h.replace(/<p class="vtot">[^<]*<\/p>/,`<p class="vtot">${run} of ${all.length} identity checks running. The rest run on exam day.</p>`);};}
+{const _r=render; render=function(){a51sync(); return _r.apply(this,arguments);};}
+a51sync();
+
+/* ===== 52. 7 Nov, Mani on the 2 Nov call (30:35): breaks aren't a row of their own. They're an optional add-on under
+   Extra time, offered only when the exam can be paused. Both depend on the integration, so each says whether it reaches
+   the exam automatically, has to be set on the exam platform too, or isn't available there ===== */
+/* where the exam is delivered, from the booking; no booking means Talview's own platform */
+function a52plat(c){const b=BOOK[c.id]; const n=b&&!b.cancelled?b.c:'Talview', sh=n.split(' ')[0];
+ if(sh==='Talview') return {n:'Talview',time:'ok',brk:'ok',self:1};
+ if(b.virt) return {n:sh,time:'ok',brk:'manual'};
+ return {n:sh,time:'manual',brk:'none'};}
+const A52_OK='<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.3" stroke="currentColor" stroke-width="1.4"/><path d="m5.4 8.2 1.8 1.8 3.4-3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const A52_WARN='<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.2 14.2 13H1.8L8 2.2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6.4v3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="11.3" r=".8" fill="currentColor"/></svg>';
+const A52_NO='<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.3" stroke="currentColor" stroke-width="1.4"/><path d="m3.6 12.4 8.8-8.8" stroke="currentColor" stroke-width="1.4"/></svg>';
+const A52_PAUSE='<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4v8M10 4v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+const A52_X='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4.5 4.5 7 7M11.5 4.5l-7 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
+/* 7 Nov: the status is an icon after the value, its words in the tooltip */
+function a52st(P,k){const what=k==='time'?'extra time':'breaks';
+ const [cls,ic,tt]=P[k]==='ok'?['ok',A52_OK,P.self?'Applied to the exam automatically':'Sent to '+P.n+' automatically']
+  :P[k]==='manual'?['wr',A52_WARN,'Set '+(k==='time'?'it':'them')+' in '+P.n+' too. The integration can’t send '+what+'.']
+  :['no',A52_NO,'Not available. '+P.n+' can’t pause the exam.'];
+ return `<button type="button" class="a52si ${cls}" data-a52si="1" aria-label="${E(tt)}" data-tt="${E(tt)}">${ic}</button>`;}
+/* 7 Nov, later: the icon rides above the slider's thumb, over the selected value */
+const a52ins=(h,ic)=>h.replace(/(<div class="ts-slider__thumb"[^>]*><\/div>)/,'$1'+ic);
+/* the breaks slider starts at the first allowance; removing breaks is the × */
+A2_SL.brk.stops=()=>A2_BSTOPS.filter(Boolean);
+A2_SL.brk.lab='Breaks';
+A2_SL.brk.sub=m=>m?'in total':'';
+function a52addon(c){const d=a2ed, P=a52plat(c);
+ if(!d.brk){
+  if(P.brk==='none') return '';   // the exam can't pause: breaks aren't offered at all
+  return `<div class="a52on"><button type="button" class="a52add" data-a52brk="1" aria-label="Add breaks">${A2_PLUS}<span>Breaks</span></button></div>`;}
+ return `<div class="a52brk" role="group" aria-label="Breaks">
+  <div class="a52bh"><span class="a52bl">${A52_PAUSE}<span>Breaks</span></span>
+   <button type="button" class="a2ib a52x" data-a52brx="1" aria-label="Remove breaks" data-tt="Remove breaks">${A52_X}</button></div>
+  ${a52ins(a2slH('brk'),a52st(P,'brk'))}</div>`;}
+/* only the edit card gets the add-on; the request screen keeps its own controls */
+let a52in=false;
+{const _e=a2editH; a2editH=function(c){a52in=true; try{return _e.apply(this,arguments);}finally{a52in=false;}};}
+{const _s=a2slH; a2slH=function(k){const h=_s.apply(this,arguments); if(!a52in||k!=='time') return h; const c=C();
+ return a52ins(h,a52st(a52plat(c),'time'))+a52addon(c);};}
+window.addEventListener('click',e=>{const t=e.target; if(!t.closest||!a2ed) return;
+ const add=t.closest('[data-a52brk]'), rm=t.closest('[data-a52brx]'), off=t.closest('.a52add[aria-disabled]');
+ if(off||t.closest('[data-a52si]')){e.stopImmediatePropagation(); e.preventDefault(); return;}
+ if(add){e.stopImmediatePropagation(); e.preventDefault(); a2ed.brk=A2_SL.brk.stops()[0]; a2focus={sel:'[data-a2slt="brk"]'}; a2paint(); if(typeof a2btn==='function') a2btn(); return;}
+ if(rm){e.stopImmediatePropagation(); e.preventDefault(); a2ed.brk=0; a2focus={sel:'[data-a52brk]'}; a2paint(); if(typeof a2btn==='function') a2btn();}},true);
+
+/* ===== 53. 7 Nov: when the integration can't send a value (extra time to a test centre, breaks to ProctorU), saving
+   still works; the chip then carries the open step. A dot says it isn't set on the exam platform yet; clicking the chip
+   opens a small popover with Mark as set. Confirming records who and when, and the chip gets a tick. Changing the value
+   later opens the step again ===== */
+const A52SET={};   /* {candidate: {time|brk: {n, by, on}}} */
+let a53open=null;  /* {id, k} */
+const a53kinds=['time','brk'];
+/* candidates who already sat had it set on the platform before exam day */
+(()=>{const SAT={Completed:1,'In Progress':1,Incomplete:1};
+ CANDS.forEach(c=>{if(!SAT[(c.status||[])[0]]) return; const P=a52plat(c);
+  (ACCS[c.id]||[]).forEach(a=>{const k=a2kind(a.n); if(a.s!=='y'||a53kinds.indexOf(k)<0||P[k]!=='manual') return;
+   (A52SET[c.id]=A52SET[c.id]||{})[k]={n:a.n,by:'Divya K.',on:(BOOK[c.id]||{}).on||TODAY};});});})();
+{const _d=a2data; a2data=function(){a53open=null; return _d.apply(this,arguments);};}
+/* what still has to be set on the platform: on file, manual there, and not confirmed at this value */
+function a53state(c,n){const k=a2kind(n), P=a52plat(c); if(a53kinds.indexOf(k)<0||P[k]!=='manual') return null;
+ const s=(A52SET[c.id]||{})[k]; return {k:k,P:P,done:s&&s.n===n?s:null};}
+const A53_TICK='<svg class="a53tk" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3.5 8.4 2.9 2.9 6.1-6.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+{const _v=a2viewH; a2viewH=function(c){const h=_v.apply(this,arguments); if(!h||h.indexOf('a2s1')<0) return h;
+ const T=document.createElement('template'); T.innerHTML=h; let touched=false;
+ T.content.querySelectorAll('.a2s1 .a2it').forEach(el=>{if(el.classList.length!==1) return;   // on-file chips only
+  const nm=[...el.querySelectorAll(':scope>span:not(.sr)')].find(x=>x.textContent.trim()), n=nm&&nm.textContent.trim(), st=n&&a53state(c,n); if(!st) return; touched=true;
+  const what=st.k==='time'?'extra time':'breaks', tt0=el.dataset.tt;
+  if(st.done){el.insertAdjacentHTML('beforeend',A53_TICK);
+   el.dataset.tt=(tt0?tt0+' · ':'')+`Set in ${st.P.n} · ${st.done.by} · ${sd(st.done.on)}`;
+   el.insertAdjacentHTML('beforeend',`<span class="sr"> (set in ${E(st.P.n)})</span>`); return;}
+  const b=document.createElement('button'); b.type='button'; b.className='a2it a53pd';
+  b.dataset.a53pop=st.k; b.setAttribute('aria-haspopup','dialog');
+  const op=a53open&&a53open.id===c.id&&a53open.k===st.k; b.setAttribute('aria-expanded',op?'true':'false');
+  b.dataset.tt=(tt0?tt0+' · ':'')+`Not set in ${st.P.n} yet`;
+  b.innerHTML=el.innerHTML+`<i class="a2dot" aria-hidden="true"></i><span class="sr"> (not set in ${E(st.P.n)} yet)</span>`; el.replaceWith(b);
+  if(op){const v=(/(\+\d+(?:%| min))$/.exec(n)||[0,n])[1];
+   T.content.querySelector('.a2s1').insertAdjacentHTML('beforeend',`<div class="a53pop" role="dialog" aria-label="Not set in ${E(st.P.n)} yet" data-a53for="${st.k}">
+     <p class="a53t">Not set in ${E(st.P.n)} yet</p>
+     <p class="a53b">Talview can’t send ${what} to ${E(st.P.n)}. Set ${E(v)} there, then confirm here.</p>
+     <div class="a53f"><button type="button" class="btn a53ok" data-a53ok="${st.k}">Mark as set</button></div></div>`);}});
+ return touched?T.innerHTML:h;};}
+/* the popover sits under its chip, inside the card */
+function a53place(){const p=document.querySelector('.a53pop'); if(!p) return; const ch=document.querySelector(`[data-a53pop="${p.dataset.a53for}"]`), box=p.parentNode; if(!ch||!box) return;
+ const bx=box.getBoundingClientRect(), r=ch.getBoundingClientRect();
+ p.style.top=(r.bottom-bx.top+8)+'px';
+ const left=Math.max(0,Math.min(r.left-bx.left,bx.width-p.offsetWidth)); p.style.left=left+'px';
+ p.style.setProperty('--a53ax',(r.left-bx.left-left+Math.min(r.width/2,24))+'px');}
+{const _p=a2paint; a2paint=function(){const r=_p.apply(this,arguments); a53place(); return r;};}
+{const _r=render; render=function(){const id=open?C().id:null; if(a53open&&a53open.id!==id) a53open=null; const r=_r.apply(this,arguments); a53place(); return r;};}
+function a53set(o,foc){a53open=o; a2paint(); if(foc){const el=document.querySelector(foc); if(el) el.focus({preventScroll:true});}}
+window.addEventListener('click',e=>{const t=e.target; if(!t.closest) return;
+ const chip=t.closest('[data-a53pop]'), ok=t.closest('[data-a53ok]');
+ if(ok){e.stopImmediatePropagation(); e.preventDefault(); const c=C(), k=ok.dataset.a53ok, n=(a2onFile(c).find(a=>a2kind(a.n)===k)||{}).n; if(!n) return;
+  (A52SET[c.id]=A52SET[c.id]||{})[k]={n:n,by:'Divya K.',on:TODAY}; a53set(null);
+  flash(`Marked as set in ${a52plat(c).n}`);
+  const chips=[...document.querySelectorAll('#accd2 .a2s1 .a2it')], el=chips.find(x=>x.textContent.indexOf(n)>-1); if(el){el.tabIndex=-1; el.focus({preventScroll:true});} return;}
+ if(chip){e.stopImmediatePropagation(); e.preventDefault(); const k=chip.dataset.a53pop, op=a53open&&a53open.k===k;
+  a53set(op?null:{id:C().id,k:k}, op?`[data-a53pop="${k}"]`:`[data-a53ok="${k}"]`); return;}
+ if(a53open&&!t.closest('.a53pop')) a53set(null);},true);
+document.addEventListener('keydown',e=>{if(e.key!=='Escape'||!a53open) return; e.stopImmediatePropagation(); e.preventDefault(); const k=a53open.k; a53set(null,`[data-a53pop="${k}"]`);},true);
+window.addEventListener('resize',a53place);
+/* the edit card's warning doesn't read as blocked: it says what's left to do on the platform */
+{const _s=a52st; a52st=function(P,k){const h=_s.apply(this,arguments); if(P[k]!=='manual') return h; const what=k==='time'?'extra time':'breaks';
+ const tt=`${P.n} needs ${k==='time'?'this':'these'} set there as well. Talview can’t send ${what}.`;
+ return h.replace(/aria-label="[^"]*"/,`aria-label="${E(tt)}"`).replace(/data-tt="[^"]*"/,`data-tt="${E(tt)}"`);};}
 
 render();
 </script>
