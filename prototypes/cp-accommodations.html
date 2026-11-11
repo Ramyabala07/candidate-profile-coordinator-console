@@ -4558,6 +4558,320 @@ button.a2it.a53pd:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 @keyframes a53in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.a53pop{animation:none}}
 
+/* ===== 54. Approve and Reject: Tessera secondary-gray buttons with a leading icon ===== */
+.btn.a54b{display:inline-flex;align-items:center;gap:8px;background:var(--bg-surface);border:1px solid var(--border-primary);color:var(--text-primary);box-shadow:var(--shadow-sm)}
+.btn.a54b:hover:not(:disabled){background:var(--bg-muted)}
+.btn.a54b:active:not(:disabled){background:var(--bg-elevated)}
+.btn.a54b:focus-visible{outline:none;box-shadow:var(--focus-ring-gray)}
+.btn.a54b svg{flex:none}
+
+/* ===== 55. the open request as a row on the card, straight to review ===== */
+.a2rqrow.a55row{align-items:center;gap:12px;color:var(--text-primary)}
+.a2rqrow.a55row:hover{background:var(--bg-muted)}
+.a55row .a2rqi{display:inline-flex;margin-top:0;color:var(--warning-strong)}
+.a55row.wait .a2rqi{color:var(--text-subtle)}
+.a55t{flex:1;min-width:0;display:flex;flex-direction:column}
+.a55h{font:500 14px/20px var(--font);color:var(--text-primary)}
+.a55s{font:400 12px/18px var(--font);color:var(--text-subtle)}
+.a55go{flex:none;font:500 14px/20px var(--font);color:var(--interactive-link)}
+.a55row .a2rqc{display:inline-flex;color:var(--interactive-link)}
+
+/* ===== 56. Approve and Reject as Tessera secondary (color); Request more info as a text link on the left ===== */
+.btn.a54b{background:var(--bg-accent);border:1px solid transparent;color:var(--text-on-secondary-color);box-shadow:none}
+.btn.a54b:hover:not(:disabled){background:var(--bg-accent-elevated)}
+.btn.a54b:active:not(:disabled){background:var(--bg-accent-elevated);border-color:var(--border-accent-subtle)}
+.btn.a54b:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.a2rqa.a56row{display:flex;align-items:center;gap:8px}
+.a56sp{flex:1}
+.a56ask{padding:0 2px;border:0;background:none;border-radius:var(--radius-sm);font:500 14px/20px var(--font);color:var(--interactive-link);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.a56ask:hover{color:var(--interactive-hover)}
+.a56ask:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.a56ask[aria-disabled]{color:var(--text-subtle);text-decoration:none;cursor:default}
+
+/* ===== 57. the Accommodations card: hover state with the pencil, and a pending request as banner + details + footer ===== */
+.a2card[data-a57card]{position:relative;cursor:default}
+/* no border change on hover: a light wash over the card, as on every clickable card (layer 58) */
+.a57pen{opacity:0;transition:opacity var(--duration-fast) var(--ease-out)}
+.a2card[data-a57card]:hover .a57pen,.a2card[data-a57card]:focus-within .a57pen,.a57pen:focus-visible{opacity:1}
+/* the request */
+.a57bn{padding-top:0}
+.a57ban{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:var(--radius-lg);background:var(--warning-surface);border:1px solid var(--warning-border)}
+.a57ban.wait{background:var(--bg-muted);border-color:var(--border-subtle)}
+.a57bi{display:inline-flex;margin-top:2px;color:var(--warning-strong)}
+.a57ban.wait .a57bi{color:var(--text-subtle)}
+.a57bt{flex:1;min-width:0;display:flex;flex-direction:column}
+.a57bt b{font:500 14px/20px var(--font);color:var(--text-primary)}
+.a57bs{font:400 12px/18px var(--font);color:var(--text-subtle)}
+.a57bc{flex:none;align-self:center}
+.a57det{padding-top:0;padding-bottom:0}
+.a57sum{display:flex;align-items:center;gap:8px;width:100%;padding:10px 0;border:0;background:none;text-align:left;cursor:pointer;border-radius:var(--radius-md)}
+.a57sum:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.a57st{font:500 14px/20px var(--font);color:var(--text-primary)}
+.a57sm{flex:1;min-width:0;font:400 12px/18px var(--font);color:var(--text-subtle);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.a57cv{display:inline-flex;color:var(--text-secondary);transition:transform var(--duration-fast) var(--ease-out)}
+.a57det.op .a57cv{transform:rotate(180deg)}
+.a57body{padding:2px 0 12px;display:flex;flex-direction:column;gap:10px}
+.a57body .a2qa{margin:0}
+@media (prefers-reduced-motion:reduce){.a57cv{transition:none}}
+.a57ft{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid var(--border-subtle);padding-top:12px}
+.a57ft.a57form{display:block}
+.a57form .ta{width:100%;box-sizing:border-box}
+.a57form .a2fb{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
+.a57form .a2fl{display:block;margin-bottom:6px;font:500 14px/20px var(--font);color:var(--text-primary)}
+.a57form .a2meta{font:400 12px/18px var(--font);color:var(--text-subtle);margin-left:4px}
+/* 10 Nov: tighter left offset on the profile timeline */
+.pbody .wfrail{padding-left:12px;padding-right:16px}
+.pbody .step{padding-left:44px}
+.a57body[hidden]{display:none}
+.a2c2 .a2sec.a57ft{border-top:1px solid var(--border-subtle);margin-top:4px;padding-top:12px}
+
+/* ===== 58. clickable cards: no chevrons; hover, pressed and focus states with no border change ===== */
+:root{--a58hov:color-mix(in srgb,var(--text-primary) 4%,transparent);--a58act:color-mix(in srgb,var(--text-primary) 8%,transparent)}
+#pbody .tcv.a58hid{display:none!important}
+/* 10 Nov, later: the wash is a layer over the whole card, so gradient headers and inner panels take it too */
+[data-a58]{position:relative;cursor:pointer}
+[data-a58]::after,.a2card[data-a57card]:not(.ed)::after{content:'';position:absolute;inset:0;z-index:3;border-radius:inherit;background:var(--text-primary);opacity:0;pointer-events:none;transition:opacity var(--duration-fast) var(--ease-out)}
+[data-a58]:hover::after,.a2card[data-a57card]:not(.ed):hover::after{opacity:.04}
+[data-a58]:active::after{opacity:.08}
+[data-a58]:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+@media (prefers-reduced-motion:reduce){[data-a58]::after,.a2card[data-a57card]::after{transition:none}}
+
+/* ===== 59. requests and editing on one card; hover that doesn't fight the card's own controls ===== */
+/* a waiting request makes the card a decision surface: no whole-card wash (the pencil still shows on hover) */
+.a2card[data-a57card].a57has::after{display:none}
+/* on any card, the wash steps aside while a button, link or field inside it is hovered or pressed */
+[data-a58]:has(:is(button,a,input,textarea,select,[data-vgo],.sg,.rwb,.a2it[data-a53pop]):hover)::after,
+.a2card[data-a57card]:has(:is(button,a,input,textarea,.a2file,.a2it[data-a53pop]):hover)::after{opacity:0}
+/* buttons sit above the wash, so they keep their own colours */
+[data-a58] .btn,.a2card[data-a57card] .btn{position:relative;z-index:4}
+/* edit card with a request: the banner and details on top, a note in the footer */
+.a2card.a59rq .a57bn{padding-top:4px}
+.a2ft .a59fn{flex:1;min-width:0;align-self:center;font:400 12px/18px var(--font);color:var(--text-subtle)}
+.a59none{margin:0;font:400 14px/20px var(--font);color:var(--text-subtle)}
+/* the record: what changed after the decision */
+.a59ch+.a59ch{margin-top:8px}
+.a59ch p{margin:0}
+.a59ch .a59cm{margin-top:2px;color:var(--text-subtle);font-size:12px;line-height:18px}
+.a59pl{margin-left:6px}
+.a2card.a59rq .a57det{border-bottom:1px solid var(--border-subtle)}
+
+/* ===== 61. banner shapes and disabled-with-reason buttons ===== */
+/* request banner: one line, the date on the right */
+.a57ban{align-items:center}
+.a57bi{margin-top:0}
+.a57bt b{display:block}
+.a57bd{flex:none;white-space:nowrap}
+/* override banner: same structure as the request banner, error colours, a real button */
+.a61cf{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:10px 12px;border-radius:var(--radius-lg);background:var(--error-surface);border:1px solid var(--error-border)}
+.a61ci{display:inline-flex;flex:none;color:var(--error-strong)}
+.a61ci svg{width:16px;height:16px}
+.a61ct{flex:1;min-width:0;display:flex;flex-direction:column}
+.a61ct b{font:500 14px/20px var(--font);color:var(--text-primary)}
+.a61ct span{font:400 12px/18px var(--font);color:var(--text-subtle)}
+.btn.sm.a61ob{flex:none;height:32px;padding:0 12px;font:500 14px/20px var(--font)}
+/* a button that needs explaining stays hoverable and focusable */
+.btn[aria-disabled="true"]{opacity:.5;cursor:not-allowed}
+.a57sum .a57cv{margin-left:auto}
+
+/* ===== 62. the request card: one type scale, one spacing rhythm ===== */
+/* title: the card's largest text (Tessera H5) */
+.a2card.a2c2 .a2hd2{min-height:0;padding:16px 16px 12px}
+.a2card.a2c2 .a2hd2 h4{font:500 16px/24px var(--font)}
+.a2card.a2c2 .a2hd2 .a2ib{margin:-6px -6px -6px 0}
+/* block 1: the request and what's on file, no rule between them */
+.a2card.a62 .a57bn,.a2card.a59rq .a57bn{padding:0 16px 12px}
+.a2card.a62 .a62of{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center;padding:0 16px 16px}
+.a2card.a62 .a2cm{padding:0 16px 16px}
+.a62k{font:400 14px/20px var(--font);color:var(--text-subtle)}
+/* block 2: the evidence, under a divider */
+.a2card.a62 .a57det,.a2card.a59rq .a57det{border-top:1px solid var(--border-subtle);padding:4px 16px 0}
+.a2card.a62 .a57sum,.a2card.a59rq .a57sum{padding:12px 0}
+.a2card.a62 .a57st,.a2card.a59rq .a57st{font:500 14px/20px var(--font);color:var(--text-primary)}
+.a2card.a62 .a57body,.a2card.a59rq .a57body{padding:0 0 16px;gap:12px}
+.a2card.a62 .a2qa,.a2card.a59rq .a2qa{display:flex;flex-direction:column;gap:2px}
+/* block 3: the decision */
+.a2card.a62 .a57ft{margin-top:0;padding:12px 16px}
+/* rejecting: Reason sits in the same key-value grid, an editable text block (Tessera EditableData, Text Block) */
+.a57form{flex-direction:column;align-items:stretch;gap:12px}
+.a62row{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:start}
+.a62row .a62k{padding-top:2px}
+.a62tx{margin:0;min-height:24px}
+.a57form .a2fb{margin-top:0}
+
+/* ===== 63. the request leads: the Enrollment card's pending band, stacked labels throughout ===== */
+.a2card.a63 .a63bd{display:flex;align-items:center;gap:12px;margin:0;padding:11px 16px;border-radius:0;border-top:1px solid var(--b200);border-bottom:1px solid var(--b200);background:var(--ts-blue-50,var(--b50))}
+.a2card.a63 .a63bd .i{flex:0 0 16px;display:flex;color:var(--b600)}
+.a2card.a63 .a63bd .i svg{width:16px;height:16px}
+.a2card.a63 .a63bd .bd{flex:1;min-width:0;display:flex;flex-direction:column}
+.a2card.a63 .a63bd .t{font:500 14px/20px var(--font);color:var(--b800)}
+.a63dt{font:400 12px/18px var(--font);color:var(--text-subtle)}
+.a2card.a63 .a63bd .go2w{display:inline-flex;gap:8px;flex:none}
+.a2card.a63 .a63bd .go2.gh{height:30px;padding:0 13px;border-radius:8px;font:500 14px/20px var(--font);background:var(--bg-surface);border:1px solid var(--border-primary);color:var(--text-primary);cursor:pointer}
+.a2card.a63 .a63bd .go2.gh:hover{background:var(--bg-muted)}
+.a2card.a63 .a63bd .go2.gh:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+/* the request's evidence sits right under the band: no extra rule */
+.a2card.a63 .a57det{border-top:0;padding-top:4px}
+/* Approved: label above the chips, under a divider */
+.a2card.a63 .a63ap{border-top:1px solid var(--border-subtle);padding:12px 16px 16px;gap:6px}
+.a63k{margin:0;font:400 12px/18px var(--font);color:var(--text-subtle)}
+.a2card.a63 .a2cm{padding:0 16px 16px}
+/* rejecting: Reason stacked like everything else, under the band */
+.a2card.a63 .a57form.a63rs{border-top:0;padding:12px 16px 16px;border-bottom:1px solid var(--border-subtle)}
+.a2card.a63 .a63rs .a62row{display:flex;flex-direction:column;gap:4px}
+.a2card.a63 .a63rs .a62k{font:400 12px/18px var(--font);color:var(--text-subtle);padding:0}
+.a2card.a63 .a63rs .a62tx{margin:0 -4px}
+/* 11 Nov, later (Ramya): the accommodation band is warning-toned so it never reads as the Enrollment band; the
+   buttons keep the band's white style and gain a tick and an xmark so Approve and Reject read apart */
+.a2card.a63 .a63bd{background:var(--warning-surface);border-color:var(--warning-border)}
+.a2card.a63 .a63bd .i{color:var(--warning-strong)}
+.a2card.a63 .a63bd .t{color:var(--text-primary)}
+.a2card.a63 .a63bd .go2.gh{display:inline-flex;align-items:center;gap:6px;padding:0 12px 0 10px}
+.a2card.a63 .a63bd .go2.gh svg{width:16px;height:16px;flex:none}
+/* 11 Nov, later: the requested chip sits on the band's right; the decision is the request's footer */
+.a2card.a63 .a63bd .a63ch{flex:none;display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:50%}
+.a2card.a63 .a63ft{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid var(--border-subtle);margin:0;padding:12px 16px}
+.a2card.a63 .a57form.a63rs{flex-direction:column;align-items:stretch;border-bottom:0}
+.a2card.a63 .a63ft+.a63ap{border-top:1px solid var(--border-subtle)}
+.a2card.a63 .a57form.a63rs.a63ft{border-top:1px solid var(--border-subtle);padding:12px 16px 16px}
+
+/* ===== 64. the band is the card's top edge; Approved accommodations is the section that edits ===== */
+.a2card.a64 .a63bd{border-radius:calc(var(--radius-xl) - 1px) calc(var(--radius-xl) - 1px) 0 0}
+.a2card.a64 .a63bd{border-top:0}
+.a64hd{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:28px}
+.a64t{margin:0;font:500 14px/20px var(--font);color:var(--text-primary)}
+.a2card.a64 .a64hd .a2ib{width:28px;height:28px;margin:-4px -6px -4px 0;opacity:1;border-radius:var(--radius-md)}
+.a2card.a64 .a64hd .a2ib svg{width:16px;height:16px}
+.a2card.a64 .a64hd .a2ib:hover{background:var(--bg-elevated)}
+.a2card.a64 .a63ap{gap:8px;padding-top:12px}
+.a64none{margin:0;font:400 14px/20px var(--font);color:var(--text-subtle)}
+/* editing: the same section header, then the editors */
+.a2card.a64 .a64eh{border-top:1px solid var(--border-subtle);padding:12px 16px 0}
+.a2card.a64.ed .a2eb .a2er:first-child{border-top:0}
+/* 11 Nov, later: the Approved accommodations pencil shows on hover or focus, like the card at rest */
+.a2card.a64 .a64hd .a2ib{opacity:0;transition:opacity var(--duration-fast) var(--ease-out)}
+.a2card.a64:hover .a64hd .a2ib,.a2card.a64:focus-within .a64hd .a2ib,.a2card.a64 .a64hd .a2ib:focus-visible{opacity:1}
+
+/* ===== 65. the decided request, inline: labels above values, like the rest of the card ===== */
+.a2c2 .a65rec{padding:0 16px 16px;gap:16px}
+.a65e{display:flex;flex-direction:column;gap:12px}
+.a65e+.a65e{border-top:1px solid var(--border-subtle);padding-top:12px}
+.a65eh{margin:0;font:500 14px/20px var(--font);color:var(--text-primary)}
+.a65rec .a2kv{display:flex;flex-direction:column;gap:2px}
+.a65rec .a2k{font:400 12px/18px var(--font)}
+.a65rec .a2form{padding:0;border:0;display:flex;flex-direction:column;gap:12px}
+.a65rec .a2form .a2cap{font:500 14px/20px var(--font);color:var(--text-primary)}
+.a65rec .a2qa{display:flex;flex-direction:column;gap:2px;margin:0}
+.a65rec .a2sec{padding:0;border:0}
+
+/* ===== 66. the record of a decided request on its own, with the add button under it ===== */
+.a2card.a66rec .a2sec.a2hl{border-top:0;padding-top:12px}
+.a2card.a66rec .a2cm{padding:12px 16px 0}
+.a2card.a66rec .a2cm+.a2hl{border-top:1px solid var(--border-subtle);margin-top:12px}
+
+/* ===== 67. two cards while a request is open; the decided request as a compact timeline ===== */
+.a2card.a67sib{margin-top:12px}
+.a2c2 .a65rec.a67r{padding:0 16px 16px;gap:12px}
+.a67rec{display:flex;flex-direction:column;gap:10px}
+.a67rec+.a67rec{border-top:1px solid var(--border-subtle);padding-top:12px}
+.a67eh{margin:0;font:500 12px/18px var(--font);color:var(--text-subtle)}
+.a67g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 16px}
+.a67c{display:flex;flex-direction:column;gap:4px;min-width:0}
+.a67c.w{grid-column:1/-1}
+.a67k{font:400 12px/18px var(--font);color:var(--text-subtle)}
+.a67v{min-width:0}
+.a67t{font:500 14px/20px var(--font);color:var(--text-primary)}
+.a67t.ok{color:var(--success-strong)}
+.a67t.rj{color:var(--error-strong)}
+.a67s{font:400 12px/18px var(--font);color:var(--text-subtle)}
+.a67p{margin:0;font:400 14px/20px var(--font);color:var(--text-primary)}
+.a67ex{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.a67file{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px 0 6px;border:1px solid var(--border-subtle);border-radius:var(--radius-md);background:var(--bg-surface);font:400 12px/18px var(--font);color:var(--text-primary);cursor:pointer}
+.a67file:hover{background:var(--bg-muted)}
+.a67file:focus-visible,.a67qa:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.a67pdf{font:600 9px/14px var(--font);color:#fff;background:var(--error-strong);border-radius:3px;padding:0 3px}
+.a67fn{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.a67qa{border:0;background:none;padding:0 2px;border-radius:var(--radius-sm);font:500 12px/18px var(--font);color:var(--interactive-link);text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.a67ans{display:flex;flex-direction:column;gap:8px}
+.a67ans .a2qa{display:flex;flex-direction:column;gap:2px;margin:0}
+
+/* ===== 68. 11 Nov (Ramya): every button inside a banner, and the request card's decision, is a Tessera secondary-gray
+   Button (36px, 8/12 padding, radius-lg, 1px border-primary, bg-surface, text-primary; hover bg-muted, pressed
+   bg-elevated with the 0.97 press, focus-ring-gray). Edit and View on the Accommodations card show on hover ===== */
+html body .eatt .go2,html body .eatt .go2.gh,html body .a2card.a63 .a63ft .btn.a54b,html body .btn.sm.a61ob,html body .a61cf .btn{
+ display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:8px 12px;box-sizing:border-box;
+ border:1px solid var(--border-primary);border-radius:var(--radius-lg);background:var(--bg-surface);color:var(--text-primary);
+ font:500 14px/20px var(--font);box-shadow:none;cursor:pointer;
+ transition:background-color var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out)}
+html body .eatt .go2:hover,html body .a2card.a63 .a63ft .btn.a54b:hover,html body .btn.sm.a61ob:hover{background:var(--bg-muted);border-color:var(--border-primary);color:var(--text-primary)}
+html body .eatt .go2:active,html body .a2card.a63 .a63ft .btn.a54b:active,html body .btn.sm.a61ob:active{background:var(--bg-elevated);transform:scale(.97)}
+html body .eatt .go2:focus-visible,html body .a2card.a63 .a63ft .btn.a54b:focus-visible,html body .btn.sm.a61ob:focus-visible{outline:none;box-shadow:var(--focus-ring-gray)}
+html body .a2card.a63 .a63ft .btn.a54b svg{width:16px;height:16px;flex:none;color:inherit}
+@media (prefers-reduced-motion:reduce){html body .eatt .go2,html body .a2card.a63 .a63ft .btn.a54b,html body .btn.sm.a61ob{transition:none}html body .eatt .go2:active,html body .a2card.a63 .a63ft .btn.a54b:active,html body .btn.sm.a61ob:active{transform:none}}
+/* the record's evidence form: same type as on the request card */
+.a68ev{display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--border-subtle);padding-top:12px}
+.a68ft{margin:0;font:500 14px/20px var(--font);color:var(--text-primary)}
+.a68ev .a2qa{display:flex;flex-direction:column;gap:2px;margin:0}
+/* View / Hide on the decided-request line show with the pencil: on hover or keyboard focus */
+/* 11 Nov, later: Hide behaves the same — it shows only while the pointer or keyboard focus is in the card */
+.a2card .a2hl [data-a65rec]{opacity:0;transition:opacity var(--duration-fast) var(--ease-out)}
+.a2card:hover .a2hl [data-a65rec],.a2card:focus-within .a2hl [data-a65rec]{opacity:1}
+/* show the pencil and View / Hide on hover or on KEYBOARD focus only: a mouse click focuses the button too, and
+   focus-within would keep them up after the pointer leaves the card */
+.a2card .a2hl [data-a65rec],.a2card[data-a57card] .a57pen,.a2card.a64 .a64hd .a2ib{opacity:0}
+.a2card:hover .a2hl [data-a65rec],.a2card:has(:focus-visible) .a2hl [data-a65rec],
+.a2card[data-a57card]:hover .a57pen,.a2card[data-a57card]:has(:focus-visible) .a57pen,
+.a2card.a64:hover .a64hd .a2ib,.a2card.a64:has(:focus-visible) .a64hd .a2ib{opacity:1}
+
+/* ===== 69. removed-after-approval chips; band buttons with icons ===== */
+.a2it.a69rm{background:var(--bg-muted);color:var(--text-subtle)}
+.a2it.a69rm>span:not(.a2ci):not(.sr){text-decoration:line-through}
+.a2card.a63 .a63bd .a63l2{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:4px}
+.a2card.a63 .a63bd .a63ch{max-width:none;justify-content:flex-start}
+html body .eatt .go2 svg{width:16px;height:16px;flex:none;color:inherit}
+/* the band in two rows: icon · title across the top; the requested chip and date, then Reject / Approve, below */
+.a2card.a63 .a63bd{display:grid;grid-template-columns:16px minmax(0,1fr) auto;column-gap:12px;row-gap:8px;align-items:center}
+.a2card.a63 .a63bd .i{grid-row:1;grid-column:1}
+.a2card.a63 .a63bd .bd{grid-row:1;grid-column:2/4}
+.a2card.a63 .a63bd .a63l2{grid-row:2;grid-column:2;margin-top:0;min-width:0}
+.a2card.a63 .a63bd .go2w{grid-row:2;grid-column:3}
+.a2card.a63 .a63bd .a63dt{white-space:nowrap}
+.a2card.a63 .a63bd .a63l2{display:flex;flex-wrap:nowrap;align-items:center;gap:8px}
+.a2card.a63 .a63bd .a63ch{flex:none;display:flex;gap:6px;width:auto}
+.a2card.a63 .a63bd .a63dt{min-width:0;overflow:hidden;text-overflow:ellipsis}
+/* title and date share the first row */
+.a2card.a63 .a63bd .bd{display:flex;align-items:baseline;gap:8px;min-width:0;flex-direction:row}
+.a2card.a63 .a63bd .bd .t{flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.a2card.a63 .a63bd .bd .a63dt{flex:none;overflow:visible}
+/* 11 Nov (artifact comment): one-row band — "{f} requested …" with the date below it, Reject / Approve on the right */
+.a2card.a63 .a63bd{grid-template-columns:16px minmax(0,1fr) auto;row-gap:0;align-items:center}
+.a2card.a63 .a63bd .i{grid-row:1;grid-column:1;align-self:center}
+.a2card.a63 .a63bd .bd{grid-row:1;grid-column:2;display:flex;flex-direction:column;align-items:flex-start;gap:0}
+.a2card.a63 .a63bd .bd .t{white-space:normal;overflow:visible}
+.a2card.a63 .a63bd .bd .a63dt{font:400 12px/18px var(--font);color:var(--text-subtle)}
+.a2card.a63 .a63bd .go2w{grid-row:1;grid-column:3}
+/* the evidence form title is plain text: no chevron, no button, no toggle */
+.a57sum-static{margin:0;display:block;cursor:default}
+.a57sum-static .a57st{font:500 14px/20px var(--font);color:var(--text-primary)}
+
+/* ===== 70. how a decision got to where it is: one quiet line at the foot of the record ===== */
+.a67t.rm{color:var(--text-subtle)}
+.a70h{margin:0;padding-top:12px;border-top:1px solid var(--border-subtle);font:400 12px/18px var(--font);color:var(--text-subtle)}
+
+/* ===== 71. the removal warning carries the rejection reason ===== */
+.a61cf.a71cf{flex-direction:column;align-items:stretch;gap:10px}
+.a71top{display:flex;align-items:center;gap:10px}
+/* the reason is the regular Tessera TextArea (outlined, 4 lines): 1px border-primary, bg-surface-muted, radius-sm, 8px
+   padding, no resize handle; hover border-strong, focus interactive-primary + focus ring */
+.a71fld{display:flex;flex-direction:column;gap:4px}
+.a71lb{font:400 14px/20px var(--font);color:var(--text-primary)}
+html body textarea.a71ta{display:block;width:100%;height:96px;min-height:96px;margin:0;padding:7px 8px;box-sizing:border-box;border:1px solid var(--border-primary);border-radius:var(--radius-sm);background:var(--bg-surface-muted);resize:none;overflow:auto;font:400 14px/20px var(--font);color:var(--text-primary);box-shadow:none;transition:border-color var(--duration-fast) var(--ease-out)}
+html body textarea.a71ta::placeholder{color:var(--text-subtle)}
+html body textarea.a71ta:hover{border-color:var(--border-strong);box-shadow:inset 0 1px 2px 0 #0000000d}
+html body textarea.a71ta:focus{outline:none;border-color:var(--interactive-primary)}
+html body textarea.a71ta:focus-visible{border-color:var(--interactive-primary);box-shadow:var(--focus-ring)}
+.a71top{align-items:flex-start}
+.a61cf.a71cf .a61ci{margin-top:2px}
+
 </style>
 <div class="proto"><span class="ttl">Candidate profile · v2 · Coordinator Console</span>
   <span class="hint">Click any candidate row — each one is a different use case</span></div>
@@ -11013,10 +11327,11 @@ a2editH=function(c){const d=a2ed, r=A2V==='B'?a2req(c):null, f=accFirst(c), busy
 
 /* ---------- saving from edit answers what it covers: granted as asked is approved; granted differently keeps the ask as a tooltip ---------- */
 {const _ap=a2apply; a2apply=function(c){const r=A2V==='B'&&!a2onTop()?a2req(c):null, d=a2ed, f=accFirst(c);
+ const __W0={}; if(r) r.items.forEach(n=>{__W0[n]=a2was(c,n);});   /* what was approved BEFORE this save */
  const res=_ap.apply(this,arguments); if(!r) return res;
  const left=[];
  r.items.forEach(n=>{const k=a2kind(n); let got=null;
-  if(k==='time'&&d.time) got='Extra Time +'+d.time+'%'; else if(d[k]&&Array.isArray(d[k])&&d[k].indexOf(n)>-1) got=n;
+  if(k==='time'&&d.time) got='Extra Time +'+d.time+'%'; else if(d[k]&&Array.isArray(d[k])&&d[k].indexOf(n)>-1) got=n; if(got&&got!==n&&got===__W0[n]) got=null;   /* 11 Nov: keeping what's approved doesn't answer the request (compared with what was approved before saving) */
   if(!got){left.push(n); return;}
   ACCS[c.id]=(ACCS[c.id]||[]).filter(a=>!(OPENA(a)&&a.n===n));
   if(got!==n) (A2ASK[c.id]=A2ASK[c.id]||{})[got]=`${f} requested ${a2short(n)} · ${sd(r.on)}`;});
@@ -11388,6 +11703,635 @@ window.addEventListener('resize',a53place);
 {const _s=a52st; a52st=function(P,k){const h=_s.apply(this,arguments); if(P[k]!=='manual') return h; const what=k==='time'?'extra time':'breaks';
  const tt=`${P.n} needs ${k==='time'?'this':'these'} set there as well. Talview can’t send ${what}.`;
  return h.replace(/aria-label="[^"]*"/,`aria-label="${E(tt)}"`).replace(/data-tt="[^"]*"/,`data-tt="${E(tt)}"`);};}
+
+/* ===== 54. 10 Nov: saving accommodations emails the candidate, so the button says so. "Save and notify Olivia" when an
+   accommodation changes; plain "Save" when only the internal comment does. The toast confirms who was told.
+   Approve and Reject on a request are Tessera secondary-gray buttons with a tick and an xmark ===== */
+const a54acc=()=>{if(!a2ed) return false; try{return JSON.stringify(JSON.parse(a2sig(a2ed)).slice(0,6))!==JSON.stringify(JSON.parse(a2base).slice(0,6));}catch(_){return a2dirty();}};
+/* 10 Nov, later: the button just says Save; hovering it says who will be told */
+const a54lab=()=>'Save';
+const a54tt=()=>a54acc()?`${accFirst(C())} will be notified of these changes`:'';
+function a54paintBtn(){const b=document.querySelector('[data-a2save]'); if(!b||a2saving||b.classList.contains('ld')) return; const l=a54lab(); if(b.textContent!==l) b.textContent=l;
+ const t=a54tt(); if(t){b.dataset.tt=t; b.setAttribute('aria-description',t);} else {delete b.dataset.tt; b.removeAttribute('aria-description');}}
+{const _e=a2editH; a2editH=function(c){const h=_e.apply(this,arguments); return a2saving?h:h.replace(/(data-a2save="1"[^>]*>)Save changes/,'$1'+E(a54lab()));};}
+{const _b=a2btn; a2btn=function(){const r=_b.apply(this,arguments); a54paintBtn(); return r;};}
+document.addEventListener('input',e=>{if(a2ed&&e.target.closest&&e.target.closest('#accd2')) setTimeout(a54paintBtn,0);},true);
+/* the toast says who heard about it */
+let a54sent=null;
+{const _ap=a2apply; a2apply=function(c){a54sent=a54acc()?accFirst(c):''; return _ap.apply(this,arguments);};}
+{const _f=flash; flash=function(m){if(a54sent!=null&&/^Accommodations saved for /.test(m||'')){m=a54sent?`Saved. ${a54sent} has been notified.`:'Comment saved'; a54sent=null;}
+ return _f.apply(this,[m].concat([].slice.call(arguments,1)));};}
+
+/* ---------- Approve and Reject: secondary gray, with icons ---------- */
+const A54_TICK='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3.5 8.4 2.9 2.9 6.1-6.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const A54_X='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4.5 4.5 7 7M11.5 4.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+function a54btns(){document.querySelectorAll('[data-a2yes],[data-a2no]').forEach(b=>{const yes=b.hasAttribute('data-a2yes');
+ b.classList.remove('pri'); b.classList.add('a54b');
+ const lab=(b.querySelector('.a54l')||b).textContent.trim();
+ if(!b.querySelector('svg')||!b.querySelector('.a54l')) b.innerHTML=(yes?A54_TICK:A54_X)+`<span class="a54l">${E(lab)}</span>`;});}
+{const _r=render; render=function(){const r=_r.apply(this,arguments); a54btns(); a54paintBtn(); return r;};}
+{const _p=a2paint; a2paint=function(){const r=_p.apply(this,arguments); a54btns(); a54paintBtn(); return r;};}
+if(typeof a2sumPaint==='function'){const _s=a2sumPaint; a2sumPaint=function(){const r=_s.apply(this,arguments); a54btns(); return r;};}
+
+/* ===== 55. 10 Nov: a requested chip on the card led nowhere; you had to open edit to find the request. The card now
+   shows on-file accommodations as chips and the open request as one row that goes straight to it, where it's approved
+   or rejected. Editing stays on the pencil ===== */
+const A55_REQ='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 2.5h5.5L12.5 5.5v8H4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9.5 2.5v3h3M6.2 8.5h4M6.2 11h2.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>';
+{const _v=a2viewH; a2viewH=function(c){const h=_v.apply(this,arguments); if(A2V!=='B'||!h||h.indexOf('a2s1')<0) return h;
+ const r=a2req(c); if(!r) return h;
+ const T=document.createElement('template'); T.innerHTML=h;
+ T.content.querySelectorAll('.a2s1 .a2it.rq').forEach(x=>x.remove());
+ const s1=T.content.querySelector('.a2s1'), left=s1&&s1.querySelector('.a2it');
+ const f=accFirst(c), wait=r.st==='info';
+ const row=`<button type="button" class="a2rqrow a55row ${wait?'wait':''}" data-a2rq="${E(c.id)}" aria-label="Review ${E(f)}’s request for ${E(AND2(r.items))}">
+   <span class="a2rqi" aria-hidden="true">${A55_REQ}</span>
+   <span class="a55t"><span class="a55h">${E(f)} requested ${E(AND2(r.items))}</span>
+    <span class="a55s">${wait?`Asked ${E(f)} for more information · ${E(sd((r.ask||{}).on||r.on))}`:`Submitted ${E(sd(r.on))}`}</span></span>
+   <span class="a55go">Review</span><span class="a2rqc" aria-hidden="true">${I.chev}</span></button>`;
+ if(left) s1.insertAdjacentHTML('afterend',row);
+ else if(s1){s1.insertAdjacentHTML('afterend',row); s1.remove();}
+ return T.innerHTML;};}
+
+/* ===== 56. 10 Nov: on the request, Approve and Reject are Tessera secondary (color) buttons, and a text link on the
+   left asks the candidate for more information, with a short form for what's needed ===== */
+{const _q=a2rqScreen; a2rqScreen=function(){let h=_q.apply(this,arguments); const c=C(), r=a2req(c); if(!h||!r) return h; const f=accFirst(c);
+ const pair=/<div class="a2sec a2rqa">([\s\S]*?)<\/div>/;
+ if(a2mode==='info') return h.replace(pair,`<div class="a2sec a2rqa dec a56info"><label class="a2fl" for="a2note">What you need from ${E(f)} <span class="a2meta">Sent to ${E(f)} by email</span></label>
+   <textarea id="a2note" class="ta" data-a2note="1" rows="3" placeholder="For example: a letter dated this year that covers timed exams.">${E(a2note)}</textarea>
+   <div class="a2fb"><button class="btn" data-a2mx="1">Cancel</button><button class="btn pri" data-a2mgo="1" ${a2note.trim().length>2?'':'disabled'}>Send to ${E(f)}</button></div></div>`);
+ const asked=r.st==='info';
+ const link=`<button type="button" class="a56ask" ${asked?`aria-disabled="true" data-tt="Already asked · waiting on ${E(f)}"`:'data-a2ask="1"'}>Request more info</button>`;
+ return h.replace(pair,(m,inner)=>`<div class="a2sec a2rqa a56row">${link}<span class="a56sp"></span>${inner}</div>`);};}
+
+/* ===== 57. 10 Nov review (Mani). A pending request lives on the Accommodations card itself, not on a screen behind it:
+   the card is tinted so it's clear something waits on you, the requested item sits top right, and the form, the
+   document and the decision are all on the card. No visible edit control: the card shows a hover state, a double click
+   (or Enter) edits it ===== */
+let a57m=null, a57note='';   /* {id, mode:'decline'|'info'} while a decision is being written */
+{const _d=a2data; a2data=function(){a57m=null; a57note=''; return _d.apply(this,arguments);};}
+const A57_WAIT='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.3" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8V8l2.2 1.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+/* 10 Nov, later (Ramya): no tinted card. The request is a banner, its reason, form and document sit in a collapsible,
+   and Reject and Approve are in a footer under a divider. No Request more info. The pencil comes back, shown on hover */
+const A57OPEN={};   /* candidate: false once the details are collapsed; open by default (11 Nov) */
+function a57actions(c,r){const f=accFirst(c), m=a57m&&a57m.id===c.id?a57m.mode:null;
+ /* 11 Nov, later: the reason is an editable text block in the same key-value row as the edit card's Comment, and Reject sits with Cancel (11 Nov, later: there was no way back). Esc backs out too. The placeholder says who reads it, so no caption is needed */
+ if(m) return `<div class="a2sec a57ft a57form"><div class="a62row"><label class="a62k" for="a57note">Reason</label>
+   <textarea id="a57note" class="a2etx a62tx" data-a57note="1" rows="1" placeholder="Write the reason ${E(f)} will see">${E(a57note)}</textarea></div>
+   <div class="a2fb"><button type="button" class="btn" data-a57x="1">Cancel</button><button type="button" class="btn dgr" data-a57go="1" data-tt="${E(f)} will be emailed this reason" aria-description="${E(f)} will be emailed this reason" ${a57note.trim().length>2?'':'aria-disabled="true"'}>Reject</button></div></div>`;
+ return `<div class="a2sec a57ft"><button type="button" class="btn a54b" data-a57no="1" data-tt="You’ll add a reason, which is sent to ${E(f)}" aria-description="You’ll add a reason, which is sent to ${E(f)}">${A54_X}<span class="a54l">Reject</span></button>
+  <button type="button" class="btn a54b" data-a57yes="1" data-tt="${E(f)} will be notified" aria-description="${E(f)} will be notified">${A54_TICK}<span class="a54l">Approve</span></button></div>`;}
+const A57_CHD='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+{const _v=a2viewH; a2viewH=function(c){const h=_v.apply(this,arguments); if(!h||h.indexOf('id="accd2"')<0) return h;
+ const T=document.createElement('template'); T.innerHTML=h; const sec=T.content.querySelector('#accd2'); if(!sec) return h;
+ const why=a2closed(c);
+ sec.setAttribute('data-a57card','1');   // 10 Nov, later: no double click or Enter to edit; the pencil shows on hover
+ /* the pencil only shows on hover or focus */
+ const pen=sec.querySelector('.a2hd2 .a2ib'); if(pen) pen.classList.add('a57pen');
+ const r=A2V==='B'?a2req(c):null;
+ if(!r) return T.innerHTML;
+ const f=accFirst(c), wait=r.st==='info', op=!!A57OPEN[c.id];
+ sec.classList.add('a57has'); sec.setAttribute('aria-label',`Accommodations. ${f}’s request is waiting on your decision`);
+ const row=sec.querySelector('.a55row'); if(row) row.remove();
+ sec.querySelectorAll('.a2it.rq').forEach(x=>x.remove());
+ const s1=sec.querySelector('.a2s1');
+ if(s1&&!s1.querySelector('.a2it')) s1.remove();
+ const B=a57blocks(c,r);
+ const after=sec.querySelector('.a2s1')||sec.querySelector('.a2hd2');
+ after.insertAdjacentHTML('afterend',B.banner+B.body+a57actions(c,r));
+ return T.innerHTML;};}
+/* the banner and the collapsible, shared by the card at rest and the edit card (acc59) */
+function a57blocks(c,r){const f=accFirst(c), wait=r.st==='info', op=true;   /* 11 Nov, later: the evidence form is always open, no chevron, no collapse */
+ /* 11 Nov: one line says what was asked; the date sits under it. No chips, no "waiting on your decision" */
+ const lab=n=>{const k=a2kind(n);
+  const t=k==='time'?pctOf(n)+'% extra time':k==='brk'?minOf(n)+' min of breaks':n.toLowerCase();
+  return t;};   /* what's on file now sits in the On file row (or the slider in edit), so the banner stays one line */
+ const what=AND2(r.items.slice().sort(a2by).map(lab));
+ const banner=`<div class="a2sec a57bn"><div class="a57ban ${wait?'wait':''}" role="status"><span class="a57bi">${A57_WAIT}</span>
+   <span class="a57bt"><b>${E(f)} requested ${E(what)}</b></span>
+   <span class="a57bs a57bd">${wait?`More information asked for on ${E(sd((r.ask||{}).on||r.on))}`:`Submitted on ${E(sd(r.on))}`}</span></div></div>`;
+ const file=r.doc?attH({kind:'pdf',file:r.doc,pages:1,size:r.size},{},0):'';
+ const body=`<div class="a2sec a57det ${op?'op':''}"><h5 class="a57sum a57sum-static"><span class="a57st">${E(r.form)}</span></h5>
+   <div class="a57body" id="a57body-${E(c.id)}" ${op?'':'hidden'}>
+    ${r.qa.map(([q,a])=>`<div class="a2qa"><span class="a2q">${E(q)}</span><p>${E(a)}</p></div>`).join('')}
+    ${wait&&r.ask?`<div class="a2qa"><span class="a2q">You asked · ${E(sd(r.ask.on))}</span><p>${E(r.ask.txt)}</p></div>`:''}
+    ${file?`<div class="a2file">${file}</div>`:''}</div></div>`;
+ return {banner,body};}
+window.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-a57tg]'); if(!t) return; e.stopImmediatePropagation();
+ const id=C().id; A57OPEN[id]=A57OPEN[id]===false; a2paint(); setTimeout(()=>{const b=document.querySelector('[data-a57tg]'); if(b) b.focus({preventScroll:true});});},true);
+
+/* ---------- deciding on the card: the same bookkeeping as the request screen ---------- */
+function a57approve(c){const r=a2req(c), f=accFirst(c); if(!r) return;
+ a2rqStart(c); const dl=a2delta(c);
+ if(!dl.length){a2ed=null; flash('This matches what’s already on file. Reject the request instead.'); return;}
+ ACCS[c.id]=(ACCS[c.id]||[]).filter(a=>!(OPENA(a)&&r.items.indexOf(a.n)>-1));
+ if(A2_CMT[c.id]) a2ed.cmt=A2_CMT[c.id].txt;
+ if(typeof accTouched!=='undefined') accTouched[c.id]=true; a2apply(c); r.st='done'; a57m=null;
+ a2close(`${AND2(dl)} approved · ${f} was emailed${a2still(c)}`);}
+function a57reject(c){const r=a2req(c), f=accFirst(c); if(!r) return; a2note=a57note.trim();
+ const L=(ACCS[c.id]||[]); r.items.forEach(n=>{const a=L.find(x=>x.n===n&&OPENA(x)); if(a) Object.assign(a,{s:'n',why:a2note,by:'Divya K.',on:TODAY});});
+ ACCS[c.id]=L.filter(a=>a.s!=='n'); r.st='done'; if(typeof accTouched!=='undefined') accTouched[c.id]=true; if(typeof accSync==='function') try{accSync();}catch(_){}
+ a57m=null; a57note=''; a2close(`Request rejected · ${f} was emailed the reason${a2still(c)}`);}
+function a57info(c){const r=a2req(c), f=accFirst(c); if(!r) return; r.st='info'; r.ask={txt:a57note.trim(),on:TODAY}; a57m=null; a57note='';
+ a2close(`Sent to ${f} · the request waits until ${f} replies`);}
+const a57foc=sel=>setTimeout(()=>{const el=document.querySelector(sel); if(el) el.focus({preventScroll:true});});
+window.addEventListener('click',e=>{const t=e.target; if(!t.closest||!t.closest('[data-a57card]')) return; const c=C();
+ const hit=s=>t.closest(s);
+ if(hit('[data-a57yes]')){e.stopImmediatePropagation(); a57approve(c); return;}
+ if(hit('[data-a57no]')){e.stopImmediatePropagation(); a57m={id:c.id,mode:'decline'}; a57note=''; a2paint(); a57foc('#a57note'); return;}
+ if(hit('[data-a57ask]')){e.stopImmediatePropagation(); a57m={id:c.id,mode:'info'}; a57note=''; a2paint(); a57foc('#a57note'); return;}
+ if(hit('[data-a57x]')){e.stopImmediatePropagation(); const was=a57m&&a57m.mode; a57m=null; a57note=''; a2paint(); a57foc(was==='info'?'[data-a57ask]':'[data-a57no]'); return;}
+ if(hit('[data-a57go]')&&a57note.trim().length<3){e.stopImmediatePropagation(); a57foc('#a57note'); return;}
+ if(hit('[data-a57go]')&&a57note.trim().length>2){e.stopImmediatePropagation(); (a57m&&a57m.mode==='info'?a57info:a57reject)(c); return;}},true);
+document.addEventListener('input',e=>{const t=e.target; if(!t.dataset||!t.dataset.a57note) return; e.stopImmediatePropagation(); a57note=t.value; t.style.height='auto'; t.style.height=t.scrollHeight+'px';
+ const b=document.querySelector('[data-a57go]'); if(b){if(a57note.trim().length<3) b.setAttribute('aria-disabled','true'); else b.removeAttribute('aria-disabled');}},true);
+/* double click, or Enter on the focused card, opens edit */
+const a57skip=t=>t.closest('button,a,input,textarea,select,label,[data-vw],.attc,.fcard,.a2file,.a53pop,.a2hl');
+function a57edit(c){const why=a2closed(c); if(why){flash(`Can’t change right now · ${why.toLowerCase()}`); return;}
+ a57m=null; a2start(); a2paint(); const el=document.getElementById('accd2'); if(el){el.scrollIntoView({block:'nearest',behavior:'smooth'});} a57foc('#accd2 [data-a2slt="time"]');}
+document.addEventListener('keydown',e=>{if(e.key!=='Escape'||!a57m) return; e.stopImmediatePropagation(); const was=a57m.mode; a57m=null; a57note=''; a2paint(); a57foc(was==='info'?'[data-a57ask]':'[data-a57no]');},true);
+{let last=null; const _r=render; render=function(){const id=open?C().id:null; if(id!==last){a57m=null; a57note=''; last=id;} return _r.apply(this,arguments);};}
+
+/* ===== 58. 10 Nov: no chevrons on the profile cards. Each card that had one is now the control: hover, pressed and
+   focus states (no border change), click or Enter does what the chevron did. The chevron stays in the DOM, hidden,
+   so the existing actions keep working ===== */
+const A58_HOST='.ecell,.scard,.vban';
+function a58cards(){const P=document.getElementById('pbody'); if(!P) return;
+ P.querySelectorAll('.tcv').forEach(b=>{b.classList.add('a58hid'); b.tabIndex=-1; b.setAttribute('aria-hidden','true');
+  const h=b.parentNode.closest(A58_HOST)||b.parentNode; if(!h||h.dataset.a58) return;
+  h.dataset.a58='1'; h.tabIndex=0; const lab=b.getAttribute('aria-label')||b.dataset.tt||''; if(lab) h.setAttribute('aria-description',lab);});}
+const a58inner=(t,h)=>{const x=t.closest('button,a,input,textarea,select,summary,[role=button],[data-vgo],.sg,.rwb'); return x&&x!==h&&h.contains(x)&&!x.classList.contains('a58hid');};
+document.addEventListener('click',e=>{const t=e.target; if(!t.closest) return; const h=t.closest('[data-a58]'); if(!h||a58inner(t,h)) return;
+ const b=h.querySelector('.a58hid'); if(b) b.click();});
+document.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ') return; const h=e.target; if(!h.matches||!h.matches('[data-a58]')) return; e.preventDefault();
+ const b=h.querySelector('.a58hid'); if(b) b.click();});
+{const _r=render; render=function(){const r=_r.apply(this,arguments); a58cards(); return r;};}
+{const _p=a2paint; a2paint=function(){const r=_p.apply(this,arguments); a58cards(); return r;};}
+
+/* ===== 59. 11 Nov (Ramya): requests and editing on the same card.
+   1. Editing while a request is open keeps the request on the card: the same banner and the reason, form and document
+      collapsible sit at the top of the edit card. The footer says what saving does to the request, and the toast
+      confirms it. The old per-row "View" into the request screen is gone.
+   2. A decided request stays true to what happened next: removing or changing something that was approved is logged
+      on the request (card line and record), and the card stays when nothing is left on file.
+   3. Hover: no whole-card wash while a request waits (the card is a decision surface, not one target), and on every
+      card the wash drops away while an inner button or link is hovered ===== */
+
+/* ---------- what saving the edit card would do to the open request: mirrors the save logic (layer 47) ---------- */
+function a59cover(c,r,d){const got=[], left=[], diff=[];
+ r.items.forEach(n=>{const k=a2kind(n); let g=null;
+  if(k==='time'&&d.time) g='Extra Time +'+d.time+'%'; else if(d[k]&&Array.isArray(d[k])&&d[k].indexOf(n)>-1) g=n;
+  if(g&&g!==n&&g===a2was(c,n)) g=null;   /* keeping what's already approved doesn't answer the request */
+  if(!g) left.push(n); else {got.push(g); if(g!==n) diff.push([n,g]);}});
+ return {got,left,diff};}
+function a59noteT(c){const r=A2V==='B'?a2req(c):null; if(!r||!a2ed) return ''; const f=accFirst(c), v=a59cover(c,r,a2ed);
+ if(!v.got.length) return `${f}’s request stays open.`;
+ if(v.left.length) return `Saving approves ${AND2(v.got)}. ${AND2(v.left)} stays open.`;
+ if(v.diff.length) return `Saving approves ${f}’s request with changes: ${v.diff.map(([n,g])=>`${a2short(g)} instead of ${a2short(n)}`).join(', ')}.`;
+ return `Saving approves ${f}’s request.`;}
+
+{const _e=a2editH; a2editH=function(c){const h=_e.apply(this,arguments); const r=A2V==='B'?a2req(c):null; if(!r||!h) return h;
+ const T=document.createElement('template'); T.innerHTML=h; const sec=T.content.querySelector('#accd2'); if(!sec) return h;
+ sec.classList.add('a59rq');
+ /* the per-row note and its View into the old screen repeat the banner: gone */
+ sec.querySelectorAll('.a2rb:not(.cf)').forEach(b=>b.remove());
+ const B=a57blocks(c,r), hd=sec.querySelector('.a2hd2'); if(hd) hd.insertAdjacentHTML('afterend',B.banner+B.body);
+ const ft=sec.querySelector('.a2ft'); if(ft) ft.insertAdjacentHTML('afterbegin',`<span class="a59fn" aria-live="polite">${E(a59noteT(c))}</span>`);
+ return T.innerHTML;};}
+const a59fnPaint=()=>{const el=document.querySelector('#accd2 .a59fn'); if(el){const t=a59noteT(C()); if(el.textContent!==t) el.textContent=t;}};
+['input','change','click','keyup','pointerup','pointermove'].forEach(ev=>document.addEventListener(ev,e=>{if(a2ed&&e.target.closest&&e.target.closest('#accd2')) setTimeout(a59fnPaint,0);},true));
+{const _p=a2paint; a2paint=function(){const r=_p.apply(this,arguments); a59fnPaint(); return r;};}
+
+/* ---------- saving: the toast says what happened to the request, and later changes are logged on decided ones ---------- */
+let a59msg=null;
+{const _ap=a2apply; a2apply=function(c){const d=a2ed, r=A2V==='B'&&!a2onTop()?a2req(c):null, f=accFirst(c);
+ a59msg=null;
+ if(r&&d){const v=a59cover(c,r,d);
+  if(v.got.length) a59msg=v.left.length?`Saved · ${AND2(v.got)} approved, ${AND2(v.left)} stays open. ${f} has been notified.`
+   :`Saved · ${f}’s request approved${v.diff.length?' with changes':''}. ${f} has been notified.`;}
+ const before=a2onFile(c).map(a=>a.n), cmt=d&&d.cmt?d.cmt.trim():'';
+ const res=_ap.apply(this,arguments);
+ const after=a2onFile(c).map(a=>a.n);
+ (A2HIST[c.id]||[]).forEach(e=>{
+  /* a rejected item put on file later is an override: logged on the request it overrode */
+  if(e.out==='rejected'){e.later=e.later||[]; e.items.forEach(n=>{if(before.indexOf(n)<0&&after.indexOf(n)>-1) e.later.push({n,to:n,ovr:1,at:TODAY,by:'Divya K.',cmt});}); return;}
+  e.cur=e.cur||e.granted.slice(); e.later=e.later||[];
+  e.cur.forEach((n,i)=>{if(n==null||before.indexOf(n)<0||after.indexOf(n)>-1) return; const k=a2kind(n);
+   const to=(k==='time'||k==='brk')?after.find(x=>a2kind(x)===k)||null:null;
+   e.later.push({n,to,at:TODAY,by:'Divya K.',cmt}); e.cur[i]=to;});});
+ return res;};}
+{const _f=flash; flash=function(m){if(a59msg&&/^Accommodations saved for /.test(m||'')){m=a59msg; a59msg=null;}
+ return _f.apply(this,[m].concat([].slice.call(arguments,1)));};}
+
+const a59since=e=>{const L=e.later||[]; if(!L.length) return ''; {const l=L[L.length-1]; if(l.back) return `Added back ${sd(l.at)}`; if(l.ovr) return `Overridden ${sd(l.at)}`; if(e.out==='rejected'&&!l.to) return `Removed ${sd(l.at)}`;} const gone=(e.cur||[]).every(x=>x==null);
+ return `${gone?'Removed':'Changed'} ${sd(L[L.length-1].at)}`;};
+const a59line=(c)=>{const H=A2HIST[c.id]; if(!H||!H.length) return ''; const e=H[0], f=accFirst(c), more=H.length>1?` · ${H.length-1} earlier`:'', s=a59since(e);
+ return `<div class="a2sec a2hl"><span class="a2hlt">${E(f)}’s request · ${E(A2OUT[e.out])} ${E(sd(e.at))}${s?' · '+E(s):''}${more}</span>
+  <button type="button" class="a2hlv" data-a2rec="${E(c.id)}" aria-label="View ${E(f)}’s ${H.length>1?'requests':'request'}">View</button></div>`;};
+
+/* ---------- the card at rest: the record line says what happened since, and the card stays when nothing is on file ---------- */
+{const _v=a2viewH; a2viewH=function(c){let h=_v.apply(this,arguments); if(A2V!=='B') return h; a2histSync();
+ const H=A2HIST[c.id]; if(!H||!H.length) return h;
+ if(!h||h.indexOf('id="accd2"')<0){   /* everything granted was removed: keep the card for the record */
+  const hd=a2hd2(c).replace('class="a2ib"','class="a2ib a57pen"'), cm=A2_CMT[c.id];
+  return `<section class="a2card a2c2" id="accd2" aria-label="Accommodations" data-a57card="1">${hd}
+   <div class="a2sec a2s1"><p class="a59none">None on file</p></div>
+   ${cm?`<div class="a2sec a2cm"><span class="a2cap">Comment · ${E(cm.by)} · ${E(sd(cm.on))}</span><p>${E(cm.txt)}</p></div>`:''}${a59line(c)}</section>`;}
+ const T=document.createElement('template'); T.innerHTML=h; const old=T.content.querySelector('.a2hl');
+ if(old){const w=document.createElement('template'); w.innerHTML=a59line(c); old.replaceWith(w.content);}
+ return T.innerHTML;};}
+
+/* ---------- the record: what changed after the decision ---------- */
+{const _rs=a2recScreen; a2recScreen=function(){const h=_rs.apply(this,arguments), c=C(), H=A2HIST[c.id]||[]; if(!h) return h;
+ const T=document.createElement('template'); T.innerHTML=h;
+ T.content.querySelectorAll('.a2rec').forEach((sec,i)=>{const e=H[i]; if(!e||!e.later||!e.later.length) return;
+  const rows=e.later.map(x=>{const k=a2kind(x.n), lab=(k==='time'||k==='brk')?AONE[x.n]||x.n:x.n;
+   const what=x.ovr?`${E(x.n)} put on file, overriding the rejection`:x.to?`${E(lab)} changed from ${E(a2short(x.n))} to ${E(a2short(x.to))}`:`${E(x.n)} removed`;
+   return `<div class="a59ch"><p>${what}</p><span class="a2meta">${E(x.by)} · ${E(sd(x.at))}</span>${x.cmt?`<p class="a59cm">${E(x.cmt)}</p>`:''}</div>`;}).join('');
+  const rd=sec.querySelector('.a2rd'); if(rd) rd.insertAdjacentHTML('beforeend',`<div class="a2kv"><span class="a2k">Since then</span><div class="a2v">${rows}</div></div>`);
+  const pill=sec.querySelector('.a2st'); if(pill){const s=a59since(e); if(s) pill.insertAdjacentHTML('afterend',`<span class="a2it gray a59pl">${E(s)}</span>`);}});
+ return T.innerHTML;};}
+
+/* ===== 60. 11 Nov (Ramya): Priya's enrollment is approved, paid and booked, so nothing else on her profile waits on a
+   decision and the request flow is only about the Accommodations card ===== */
+(()=>{const c=CANDS.find(x=>x.id==='priya'); if(!c) return;
+ c.status=['Enrolled','clear']; delete c.accBase;
+ c.row=Object.assign({},c.row,{step:['Assessment - Booked','06 Oct, 2026'],pay:['$195','Paid','grn']});
+ c.ctx='Enrolled and booked for 6 Oct. Priya asked to wear a <b>head covering</b> during the exam, and that request is waiting on you.';
+ /* keep what enrollment already collected (registration, identity documents, ID check); only payment changes, and the
+    accommodation check goes because the request is decided on its own card (11 Nov: ID collected had gone missing) */
+ const kept=(c.steps.enrollment.checks||[]).filter(x=>['Payment','Accommodations'].indexOf(BASE(x.t))<0);
+ c.steps.enrollment=ST('clear',['Complete','clear'],'Approved by Divya K.','18 Sep 2026, 10:06',
+  kept.concat([PAY_OK('17 Sep 2026','$195.00')]),
+  [AUT('registration-complete','Passed','forward','All required fields validated.','17 Sep 2026, 09:20',1)]);
+ c.steps.reading=ST('pending',['Booked','pending'],'Booked for 6 Oct at Pearson Professional Centre, Austin.','6 Oct 2026');
+ BOOK.priya={c:'Pearson Professional Centre',p:'Austin',room:'Room 2 · Seat 4B',d:'6 Oct 2026',tz:'CDT',ref:'BK-209470',on:'18 Sep 2026'};
+ if(typeof ST4!=='undefined') ST4.priya={enrollment:['clear',null,'Approved by Divya K.','18 Sep 2026, 10:06'],
+  assessment:['pending',['Booked','pending'],'Booked for 6 Oct at Pearson Professional Centre, Austin.','6 Oct 2026'],
+  scoring:['pending',['Not reached','pending'],'Nothing has been sat, so nothing has been marked.','—'],
+  credentialing:['pending',['Not reached','pending'],'No result to issue a credential against.','—']};})();
+
+/* ===== 61. 11 Nov (Ramya): the rejection reason is emailed to the candidate, not just kept on the record; every action
+   that reaches the candidate says so on hover; the override banner gets the same shape as the request banner ===== */
+/* toast: a rejection's reason goes to the candidate (layer 48 said it was only saved) */
+{const _f=flash; flash=function(m){if(/^Request rejected · the reason is saved to the record/.test(m||'')){const f=accFirst(C()); m=m.replace('the reason is saved to the record',`${f} was emailed the reason`);}
+ return _f.apply(this,[m].concat([].slice.call(arguments,1)));};}
+/* the record and the old request screen: same correction */
+{const _rs=a2recScreen; a2recScreen=function(){const h=_rs.apply(this,arguments); return h&&h.replace(/Saved to the record, not sent to ([^<]+)/g,'Sent to $1');};}
+{const _q=a2rqScreen; a2rqScreen=function(){const h=_q.apply(this,arguments); return h&&h.replace(/Saved to the record, not sent to ([^<]+)/g,'Sent to $1');};}
+
+/* ---------- picking something that was rejected: one banner with the decision, the reason and an Override button ---------- */
+{const _e=a2editH; a2editH=function(c){const h=_e.apply(this,arguments); if(!h||h.indexOf('a2rb cf')<0) return h;
+ const T=document.createElement('template'), f=accFirst(c), R=A2REJ[c.id]||[]; T.innerHTML=h;
+ T.content.querySelectorAll('.a2rb.cf').forEach(el=>{const b=el.querySelector('[data-a2ovr]'); if(!b) return; const n=b.dataset.a2ovr;
+  const cx=a2cfOf(c).find(y=>y.n===n)||{};
+  const x=cx.ap?cx:(R.slice().reverse().find(y=>y.n===n)||cx), tip=cx.ap?`Saving removes ${n} and ${f} is notified`:`Saving puts ${n} on file and ${f} is notified`;
+  const w=document.createElement('template');
+  /* 11 Nov, later: removing something approved from a request rejects that request, so it asks for the reason the
+     candidate will be emailed, and Override waits for it */
+  if(cx.ap&&typeof A71WHY!=='undefined'){const v=A71WHY[n]||'', id='a71-'+n.replace(/\W+/g,'-');
+   /* 11 Nov, later: one place, one step. The reason is the confirmation, so there is no Override button here; Save
+      is the only thing that commits, and it waits for the reason */
+   w.innerHTML=`<div class="a61cf a71cf" role="group" aria-label="Rejecting ${E(n)}"><div class="a71top"><span class="a61ci" aria-hidden="true">${I.warnc}</span>
+    <span class="a61ct"><b>Removing ${E(n)} rejects ${E(f)}’s request</b>
+     <span>${cx.ovr?`It was put on file by overriding an earlier rejection (${E(sd(x.on||TODAY))}).`:`You approved it on ${E(sd(x.on||TODAY))}.`} ${E(f)} is emailed the reason below.</span></span></div>
+    <div class="a71fld"><label class="a71lb" for="${id}">Reason</label>
+    <textarea id="${id}" class="ta a71ta" data-a71why="${E(n)}" rows="4" placeholder="Write the reason ${E(f)} will see">${E(v)}</textarea></div></div>`;
+   el.replaceWith(w.content); return;}
+  w.innerHTML=`<div class="a61cf" role="alert"><span class="a61ci" aria-hidden="true">${I.warnc}</span>
+   <span class="a61ct"><b>${E(n)} was ${cx.ovr?'put on file':cx.ap?'approved':'rejected'} on ${E(sd(x.on||TODAY))}</b>
+    <span>${cx.ap?(cx.ovr?`It overrode the rejection of ${E(f)}’s request. Removing it reverses that.`:`From ${E(f)}’s request. Removing it overrides that decision.`):x.why?`“${E(x.why)}”`:'Saving overrides that decision.'}</span></span>
+   <button type="button" class="btn sm a61ob" data-a2ovr="${E(n)}" data-tt="${E(tip)}" aria-description="${E(tip)}">Override</button></div>`;
+  el.replaceWith(w.content);});
+ return T.innerHTML;};}
+
+/* ===== 62. 11 Nov (Ramya): one hierarchy for the Accommodations card with a request.
+   - No integration popover and no dot on chips: the warning above the slider in edit already says the platform needs it.
+   - Order follows the decision: what was asked (banner) → what's already on file (a labelled key-value row, same grid as
+     the edit card) → the evidence → the decision. Dividers separate the three; the card title is the largest text.
+   - A comment on file sits with what's on file, not under the decision ===== */
+a53state=()=>null;   /* layer 53 leaves every chip plain and never opens its popover */
+{const _v=a2viewH; a2viewH=function(c){const h=_v.apply(this,arguments); if(!h||h.indexOf('a57has')<0) return h;
+ const T=document.createElement('template'); T.innerHTML=h; const sec=T.content.querySelector('#accd2'); if(!sec) return h;
+ sec.classList.add('a62');
+ const s1=sec.querySelector('.a2s1'), chips=s1?[...s1.querySelectorAll('.a2it')]:[];
+ chips.forEach(x=>x.querySelectorAll('.a2dot').forEach(d=>d.remove()));
+ const bn=sec.querySelector('.a57bn'), cm=sec.querySelector('.a2cm');
+ if(chips.length&&bn){const row=document.createElement('div'); row.className='a2sec a62of';
+  row.innerHTML=`<span class="a62k">On file</span><div class="a2chips"></div>`; chips.forEach(x=>row.querySelector('.a2chips').appendChild(x));
+  bn.after(row); if(cm) row.after(cm);}
+ else if(cm&&bn) bn.after(cm);
+ if(s1) s1.remove();
+ return T.innerHTML;};}
+
+/* ===== 63. 11 Nov (Ramya): the pending request leads, what's approved follows.
+   Title → the Enrollment card's own pending band (same look, Reject and Approve on the right) → the request's evidence,
+   so the decision sits on top of what it decides → divider → Approved (on-file and manually added alike), then any
+   comment. Every label sits above its value. Rejecting swaps the band's buttons for a Reason block right under it ===== */
+/* 11 Nov, later (Ramya): the band names the request ("Accommodation request from Olivia" + date) with the requested
+   accommodation as a chip on its right; Reject and Approve leave the band and become the request's footer, right
+   under its evidence. Rejecting opens the Reason block in that footer */
+/* 11 Nov, later still (Ramya): Reject and Approve go back into the band (secondary gray, with icons); the requested
+   chip and the date share the band's second line. Rejecting hides the band's buttons and opens the Reason block
+   under the evidence, after the document */
+function a63band(c,r,acts){const f=accFirst(c), wait=r.st==='info', m=a57m&&a57m.id===c.id;
+ /* 11 Nov (artifact comment): the band reads "{f} requested 25% extra time" with the date under it, buttons on the right */
+ const lab=n=>{const k=a2kind(n); return k==='time'?pctOf(n)+'% extra time':k==='brk'?minOf(n)+' min of breaks':n.toLowerCase();};
+ const what=AND2(r.items.slice().sort(a2by).map(lab));
+ const btns=acts&&!m?`<span class="go2w"><button type="button" class="go2 gh" data-a57no="1" data-tt="You’ll add a reason, which is sent to ${E(f)}" aria-description="You’ll add a reason, which is sent to ${E(f)}">${A54_X}<span>Reject</span></button><button type="button" class="go2 gh" data-a57yes="1" data-tt="${E(f)} will be notified" aria-description="${E(f)} will be notified">${A54_TICK}<span>Approve</span></button></span>`:'';
+ /* 11 Nov (artifact comment): the band leads with the requested accommodation's own type icon (head covering, clock…) */
+ const tk=a2kind(r.items[0]), ic=(typeof A2IC!=='undefined'&&A2IC[tk])||I.clock;
+ return `<div class="eatt inf a63bd" role="status"><span class="i" aria-hidden="true">${ic}</span>
+  <span class="bd"><span class="t">${E(f)} requested ${E(what)}</span><span class="a63dt">${wait?'More information asked for on '+E(sd((r.ask||{}).on||r.on)):'Submitted on '+E(sd(r.on))}</span></span>${btns}</div>`;}
+{const _v=a2viewH; a2viewH=function(c){const h=_v.apply(this,arguments); if(!h||h.indexOf('a57has')<0) return h; const r=a2req(c); if(!r) return h;
+ const T=document.createElement('template'); T.innerHTML=h; const sec=T.content.querySelector('#accd2'); if(!sec) return h;
+ sec.classList.add('a63');
+ const hd=sec.querySelector('.a2hd2'), det=sec.querySelector('.a57det'), of=sec.querySelector('.a62of'), cm=sec.querySelector('.a2cm');
+ const chips=of?[...of.querySelectorAll('.a2it')]:[];
+ sec.querySelectorAll('.a57bn,.a62of').forEach(x=>x.remove());
+ sec.querySelectorAll('.a57ft:not(.a57form)').forEach(x=>x.remove());
+ const form=sec.querySelector('.a57form');
+ const w=document.createElement('template'); w.innerHTML=a63band(c,r,1); hd.after(w.content);
+ const band=sec.querySelector('.a63bd');
+ if(det) band.after(det);
+ if(form){form.classList.add('a63ft','a63rs'); (det||band).after(form);}
+ const last=form||det||band;
+ if(chips.length){const ap=document.createElement('div'); ap.className='a2sec a63ap'; ap.innerHTML='<p class="a63k">Approved</p><div class="a2chips"></div>';
+  chips.forEach(x=>ap.querySelector('.a2chips').appendChild(x)); last.after(ap); if(cm) ap.after(cm);}
+ else if(cm) last.after(cm);
+ return T.innerHTML;};}
+/* the edit card keeps the same band, without buttons: Save decides there */
+{const _e=a2editH; a2editH=function(c){const h=_e.apply(this,arguments); const r=A2V==='B'?a2req(c):null; if(!r||!h||h.indexOf('a57bn')<0) return h;
+ const T=document.createElement('template'); T.innerHTML=h; const sec=T.content.querySelector('#accd2'), bn=sec&&sec.querySelector('.a57bn'); if(!bn) return h;
+ sec.classList.add('a63'); const w=document.createElement('template'); w.innerHTML=a63band(c,r,0); bn.replaceWith(w.content); return T.innerHTML;};}
+
+/* ===== 64. 11 Nov (Ramya): with a request open, the band IS the top of the card (no title), like the Enrollment card.
+   Band → the request's evidence → divider → "Approved accommodations" with its edit icon. Editing opens right there,
+   in that section, so the request and its evidence stay on screen while another accommodation is added ===== */
+const a64hd=(pen)=>`<div class="a64hd"><h4 class="a64t">Approved accommodations</h4>${pen||''}</div>`;
+{const _v=a2viewH; a2viewH=function(c){const h=_v.apply(this,arguments); if(!h||h.indexOf('a63bd')<0||h.indexOf('a57has')<0) return h;
+ const T=document.createElement('template'); T.innerHTML=h; const sec=T.content.querySelector('#accd2'); if(!sec) return h;
+ sec.classList.add('a64');
+ const hd=sec.querySelector('.a2hd2'), pen=hd&&hd.querySelector('.a2ib');
+ if(pen){pen.classList.remove('a57pen'); pen.setAttribute('aria-label','Edit approved accommodations');
+  if(pen.dataset.a2edit) pen.dataset.tt='Add or change accommodations';}
+ const penH=pen?pen.outerHTML:''; if(hd) hd.remove();
+ let ap=sec.querySelector('.a63ap');
+ if(ap){const k=ap.querySelector('.a63k'); if(k) k.outerHTML=a64hd(penH);}
+ else{ap=document.createElement('div'); ap.className='a2sec a63ap';
+  ap.innerHTML=a64hd(penH)+'<p class="a64none">None yet</p>';
+  const after=sec.querySelector('.a57det')||sec.querySelector('.a57form')||sec.querySelector('.a63bd'); after.after(ap);
+  const cm=sec.querySelector('.a2cm'); if(cm) ap.after(cm);}
+ return T.innerHTML;};}
+{const _e=a2editH; a2editH=function(c){const h=_e.apply(this,arguments); if(!h||h.indexOf('a63bd')<0) return h;
+ const T=document.createElement('template'); T.innerHTML=h; const sec=T.content.querySelector('#accd2'); if(!sec) return h;
+ sec.classList.add('a64'); const hd=sec.querySelector('.a2hd2'); if(hd) hd.remove();
+ const eb=sec.querySelector('.a2eb'); if(eb){const w=document.createElement('div'); w.className='a2sec a64eh'; w.innerHTML=a64hd(''); eb.before(w);}
+ return T.innerHTML;};}
+
+/* ===== 65. 11 Nov (Ramya): a decided request opens inline. View on the card's request line expands the record right
+   under it (what was asked and granted, the reason, who decided, what changed since, the form and document) and
+   Hide folds it again. No separate screen ===== */
+const A65OPEN={};
+{const _v=a2viewH; a2viewH=function(c){const h=_v.apply(this,arguments); if(!h||h.indexOf('data-a2rec=')<0) return h;
+ const T=document.createElement('template'); T.innerHTML=h; const line=T.content.querySelector('.a2hl'), b=line&&line.querySelector('[data-a2rec]'); if(!b) return h;
+ const op=!!A65OPEN[c.id], f=accFirst(c), H=A2HIST[c.id]||[];
+ b.removeAttribute('data-a2rec'); b.dataset.a65rec='1'; b.textContent=op?'Hide':'View';
+ b.setAttribute('aria-expanded',op); b.setAttribute('aria-controls','a65-'+c.id);
+ b.setAttribute('aria-label',`${op?'Hide':'View'} ${f}’s ${H.length>1?'requests':'request'}`);
+ if(op){const R=document.createElement('template'); R.innerHTML=a2recScreen()||'';
+  const parts=[...R.content.querySelectorAll('.a2rec')].map((sec,i)=>{const e=H[i]||{};
+   const rd=sec.querySelector('.a2rd'), fm=sec.querySelector('.a2form');
+   const head=i?`<p class="a65eh">Earlier request · ${E(A2OUT[e.out]||'')} ${E(sd(e.at||''))}</p>`:'';
+   return `<div class="a65e">${head}${rd?rd.outerHTML:''}${fm?fm.outerHTML:''}</div>`;}).join('');
+  line.insertAdjacentHTML('afterend',`<div class="a2sec a65rec" id="a65-${E(c.id)}">${parts}</div>`);}
+ return T.innerHTML;};}
+window.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-a65rec]'); if(!t) return; e.stopImmediatePropagation(); e.preventDefault();
+ const id=C().id; A65OPEN[id]=!A65OPEN[id]; a2paint(); setTimeout(()=>{const x=document.querySelector('[data-a65rec]'); if(x) x.focus({preventScroll:true});});},true);
+{let last=null; const _r=render; render=function(){const id=open?C().id:null; if(id!==last){Object.keys(A65OPEN).forEach(k=>delete A65OPEN[k]); last=id;} return _r.apply(this,arguments);};}
+
+/* ===== 66. 11 Nov (Ramya): how you add follows what's approved, not whether a request is open.
+   Nothing approved → the "+ Accommodations" button, the same one that sits under the Enrollment card, placed under
+   whatever card is there (an open request, or the record of a decided one). Something approved → the Approved
+   accommodations section with its pencil. (Rejected items show as red chips with the approved ones, so a rejected-only card stays a card) ===== */
+const a66btn=()=>`<div class="a2add a66add"><button class="btn a2tgb" data-a2edit="1">${A2_PLUS}<span>Accommodations</span></button></div>`;
+{const _v=a2viewH; a2viewH=function(c){const h=_v.apply(this,arguments); if(A2V!=='B'||!h||h.indexOf('id="accd2"')<0) return h;
+ const T=document.createElement('template'); T.innerHTML=h; const sec=T.content.querySelector('#accd2'); if(!sec) return h;
+ const closed=!!a2closed(c); let add=false;
+ if(sec.classList.contains('a57has')){   /* open request */
+  const ap=sec.querySelector('.a63ap'); if(ap&&ap.querySelector('.a64none')){ap.remove(); add=true;}}
+ else{
+  /* 11 Nov, later: rejected items stay as red chips beside the approved ones; the card keeps its hover pencil */
+  const s1=sec.querySelector('.a2s1'), any=s1&&s1.querySelector('.a2it');
+  if(!any){   /* nothing approved: keep only the record of the request, and offer the button under it */
+   if(s1) s1.remove(); sec.querySelectorAll('.a2hd2').forEach(x=>x.remove());
+   if(sec.querySelector('.a2hl')){sec.classList.add('a66rec'); sec.removeAttribute('data-a57card');}
+   else sec.remove();
+   add=true;}}
+ if(add&&!closed){const w=document.createElement('template'); w.innerHTML=a66btn(); T.content.appendChild(w.content);}
+ return T.innerHTML;};}
+/* repainting the card replaces only the card: drop the old button first so it isn't doubled */
+{const _p=a2paint; a2paint=function(){document.querySelectorAll('.a66add').forEach(x=>{if(document.getElementById('accd2')) x.remove();}); return _p.apply(this,arguments);};}
+
+/* ===== 67. 11 Nov (Ramya): two cards while a request is open.
+   - The request card stands alone: band, evidence, Reject / Approve.
+   - Approved (and rejected) accommodations are their own "Accommodations" card under it, with the pencil on hover,
+     plus the line for decided requests. With nothing there yet, the "+ Accommodations" button takes its place.
+   - Editing opens that lower card; the request card stays above it, without its decision footer while you edit.
+   - A decided request's View is a compact set of cells (see a67recH) ===== */
+const A67QA={};
+/* 11 Nov, later (Ramya): no timeline inside the profile's timeline. The record uses the Enrollment card's cells:
+   two columns, label above value, a line under it for who and when. Requested · Decision, then the latest change
+   since (if any), the reason (if rejected), and the document with the form answers behind a toggle */
+function a67recH(c){const H=A2HIST[c.id]||[], f=accFirst(c);
+ const chip=(n,cls)=>`<span class="a2it ${cls}">${a2ci(n)}<span>${E(n)}</span></span>`;
+ const cell=(k,v,sub,wide)=>`<div class="a67c ${wide?'w':''}"><span class="a67k">${k}</span><div class="a67v">${v}</div>${sub?`<span class="a67s">${sub}</span>`:''}</div>`;
+ return H.map((e,i)=>{const L=e.later||[], last=L[L.length-1], cells=[];
+  cells.push(cell('Requested',`<div class="a2chips">${e.items.map(n=>chip(n,'gray')).join('')}</div>`,E(sd(e.on))));
+  const dec=e.out==='rejected'?'Rejected':e.out==='changed'?'Approved with changes':'Approved';
+  cells.push(cell('Decision',`<span class="a67t ${e.out==='rejected'?'rj':'ok'}">${dec}</span>`,`${E(e.by)} · ${E(sd(e.at))}`));
+  if(e.out==='changed') cells.push(cell('Granted',`<div class="a2chips">${(e.granted||[]).map(n=>chip(n,'')).join('')}</div>`,'',1));
+  if(e.out==='rejected'&&e.why) cells.push(cell('Reason sent to '+E(f),`<p class="a67p">${E(e.why)}</p>`,'',1));
+  if(last) cells.push(cell('Since then',`<span class="a67t">${last.ovr?'Overridden':last.back?'Added back':last.to?'Changed to '+E(a2short(last.to)):'Removed'}</span>`,`${E(last.by)} · ${E(sd(last.at))}${L.length>1?` · ${L.length-1} earlier change${L.length>2?'s':''}`:''}`,1));
+  /* 11 Nov, later: the evidence form as it reads on the request card — title, answers, the full file card */
+  const fileH=e.doc?`<div class="a2file">${attH({kind:'pdf',file:e.doc,pages:1,size:e.size},{},0)}</div>`:'';
+  const evH=(e.qa||[]).length||fileH?`<div class="a68ev"><p class="a68ft">${E(e.form||'Accommodation evidence form')}</p>${(e.qa||[]).map(([q,a])=>`<div class="a2qa"><span class="a2q">${E(q)}</span><p>${E(a)}</p></div>`).join('')}${fileH}</div>`:'';
+  return `<div class="a67rec">${i?'<p class="a67eh">Earlier request</p>':''}<div class="a67g">${cells.join('')}</div>${evH}</div>`;}).join('');}
+window.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-a67qa]'); if(!t) return; e.stopImmediatePropagation(); e.preventDefault();
+ const k=t.dataset.a67qa; A67QA[k]=!A67QA[k]; a2paint(); setTimeout(()=>{const x=document.querySelector(`[data-a67qa="${k}"]`); if(x) x.focus({preventScroll:true});});},true);
+
+/* ---------- the card(s) at rest ---------- */
+{const _v=a2viewH; a2viewH=function(c){const h=_v.apply(this,arguments); if(A2V!=='B'||!h) return h;
+ const T=document.createElement('template'); T.innerHTML=h; const sec=T.content.querySelector('#accd2');
+ /* the compact record, wherever View is open */
+ T.content.querySelectorAll('.a65rec').forEach(x=>{x.innerHTML=a67recH(c); x.classList.add('a67r');});
+ if(!sec||!sec.classList.contains('a57has')) return T.innerHTML;
+ /* request open: lift what's approved, the comment and the decided-request line into their own card */
+ const ap=sec.querySelector('.a63ap'), chips=ap?[...ap.querySelectorAll('.a2it')]:[], pen=ap&&ap.querySelector('.a64hd .a2ib');
+ const cm=sec.querySelector('.a2cm'), hl=sec.querySelector('.a2hl'), rec=sec.querySelector('.a65rec');
+ if(!chips.length&&!hl) return T.innerHTML;
+ if(ap) ap.remove();
+ const card=document.createElement('section'); card.className='a2card a2c2 a67sib a67acc'; card.setAttribute('aria-label','Accommodations'); card.dataset.a57card='1';
+ let penH=''; if(pen){pen.classList.add('a57pen'); pen.setAttribute('aria-label','Edit accommodations'); penH=pen.outerHTML;}
+ else if(!a2closed(c)) penH=`<button class="a2ib a57pen" aria-label="Edit accommodations" data-a2edit="1" data-tt="Edit accommodations">${A2_PEN}</button>`;
+ card.innerHTML=`<div class="a2hd2"><h4>Accommodations</h4>${penH}</div>`+(chips.length?'<div class="a2sec a2s1"><div class="a2chips"></div></div>':'');
+ chips.forEach(x=>card.querySelector('.a2chips').appendChild(x));
+ [cm,hl,rec].forEach(x=>{if(x) card.appendChild(x);});
+ sec.after(card);
+ T.content.querySelectorAll('.a66add').forEach(x=>x.remove());
+ return T.innerHTML;};}
+
+/* ---------- editing while a request is open: the request card above, a plain edit card below ---------- */
+{const _e=a2editH; a2editH=function(c){const h=_e.apply(this,arguments); if(A2V!=='B'||!h||!a2req(c)||a2onTop()) return h;
+ const T=document.createElement('template'); T.innerHTML=h; const sec=T.content.querySelector('#accd2'); if(!sec) return h;
+ sec.querySelectorAll('.a63bd,.a57det,.a64eh,.a57bn').forEach(x=>x.remove());
+ ['a59rq','a63','a64'].forEach(k=>sec.classList.remove(k));
+ if(!sec.querySelector('.a2hd2')) sec.insertAdjacentHTML('afterbegin',a2hd2(c,1));
+ return T.innerHTML;};}
+function a67reqCard(c){const ed=a2ed; a2ed=null; let h; try{h=a2viewH(c);}finally{a2ed=ed;}
+ const T=document.createElement('template'); T.innerHTML=h; const sec=T.content.querySelector('#accd2'); if(!sec) return '';
+ sec.id='a67rq'; sec.classList.add('a67sib'); sec.querySelectorAll('.a57ft,.a63bd .go2w').forEach(x=>x.remove());
+ return sec.outerHTML;}
+{const _c=a2cardH; a2cardH=function(c){const h=_c.apply(this,arguments); if(A2V!=='B'||!a2ed||!a2req(c)||a2onTop()) return h; return a67reqCard(c)+h;};}
+/* repaint replaces #accd2 only: clear the sibling cards first so nothing doubles */
+{const _p=a2paint; a2paint=function(){if(document.getElementById('accd2')) document.querySelectorAll('.a67sib').forEach(x=>x.remove()); return _p.apply(this,arguments);};}
+
+/* ===== 69. 11 Nov (Ramya): decisions hold their ground in edit, and removals stay visible.
+   - Removing something that was approved from a request raises the same override banner as re-adding a rejected
+     item ("Head Covering was approved on 23 Sep · From Priya's request. Removing it overrides that decision."),
+     and Save waits for Override.
+   - An item approved from a request and later removed stays on the Accommodations card as a struck-through gray
+     chip (tooltip: removed, by, date), so the card never silently forgets a decision ===== */
+const a69last=(e,n)=>{const L=(e.later||[]).filter(x=>x.n===n); return L[L.length-1]||null;};
+const a69ap=c=>{const out=[], on=a2onFile(c).map(a=>a.n);
+ (A2HIST[c.id]||[]).forEach(e=>{
+  if(e.out==='rejected'){   /* put on file by overriding the rejection: removing it is a decision too */
+   e.items.forEach(n=>{const l=a69last(e,n); if(l&&(l.ovr||l.back)&&on.indexOf(n)>-1&&!out.some(x=>x.n===n)) out.push({n,on:l.at,by:l.by,ap:true,ovr:true});}); return;}
+  (e.cur||e.granted||[]).forEach(n=>{if(n&&on.indexOf(n)>-1&&!out.some(x=>x.n===n)) out.push({n,on:e.at,by:e.by,ap:true});});});
+ return out;};
+{const _cf=a2cfOf; a2cfOf=function(c){const base=_cf.apply(this,arguments); if(!a2ed) return base;
+ const rm=a69ap(c).filter(x=>{const k=a2kind(x.n); return k==='time'?!a2ed.time:Array.isArray(a2ed[k])&&a2ed[k].indexOf(x.n)<0;})
+  .map(x=>Object.assign({},x,{ok:a2ovr.has(x.n)}));
+ /* re-adding something whose request was rejected warns every time, not just the first (after a removal the
+    rejection list no longer holds it, but the decision still stands) */
+ const on=a2onFile(c).map(a=>a.n), rj=[];
+ (A2HIST[c.id]||[]).forEach(e=>{if(e.out!=='rejected') return; e.items.forEach(n=>{const k=a2kind(n);
+  const adds=k==='time'?a2ed.time===pctOf(n):Array.isArray(a2ed[k])&&a2ed[k].indexOf(n)>-1;
+  const l=a69last(e,n), lr=l&&l.rej?l:null;   /* the latest rejection's reason and date, not the first */
+  if(adds&&on.indexOf(n)<0&&!base.some(x=>x.n===n)&&!rj.some(x=>x.n===n)) rj.push({n,on:lr?lr.at:e.at,why:lr?lr.why:e.why,ok:a2ovr.has(n)});});});
+ return base.concat(rm,rj);};}
+/* removed after approval: what's no longer on file, latest removal first */
+const a69rm=c=>{const on=a2onFile(c).map(a=>a.n), out=[];
+ (A2HIST[c.id]||[]).forEach(e=>{const names=[...new Set((e.later||[]).map(x=>x.n))];
+  names.forEach(n=>{const l=a69last(e,n); if(l&&!l.to&&!l.ovr&&on.indexOf(n)<0&&!out.some(y=>y.n===n)) out.push(l);});});
+ return out;};
+const a69chip=x=>x.rej?`<span class="a2it rj" data-tt="${E('Rejected · '+sd(x.at)+(x.why?' · '+x.why:''))}">${a2ci(x.n)}<span>${E(x.n)}</span><span class="sr"> (rejected)</span></span>`
+ :`<span class="a2it a69rm" data-tt="Removed · ${E(x.by)} · ${E(sd(x.at))}">${a2ci(x.n)}<span>${E(x.n)}</span><span class="sr"> (removed)</span></span>`;
+{const _v=a2viewH; a2viewH=function(c){const h=_v.apply(this,arguments); if(A2V!=='B'||!h) return h; const R=a69rm(c); if(!R.length) return h;
+ const T=document.createElement('template'); T.innerHTML=h;
+ let card=T.content.querySelector('.a67acc')||T.content.querySelector('#accd2:not(.a57has)');
+ const rqOpen=!!T.content.querySelector('#accd2.a57has');
+ if(!card){   /* request open with nothing else on the card: give the removed items a card of their own */
+  card=document.createElement('section'); card.className='a2card a2c2 a67sib a67acc'; card.dataset.a57card='1'; card.setAttribute('aria-label','Accommodations');
+  card.innerHTML=`<div class="a2hd2"><h4>Accommodations</h4>${a2closed(c)?'':`<button class="a2ib a57pen" aria-label="Edit accommodations" data-a2edit="1" data-tt="Edit accommodations">${A2_PEN}</button>`}</div>`;
+  const rq=T.content.querySelector('#accd2'); (rq||T.content).after?rq.after(card):T.content.appendChild(card);}
+ /* a record-only card becomes the titled card again */
+ if(card.classList.contains('a66rec')){card.classList.remove('a66rec'); card.dataset.a57card='1';
+  if(!card.querySelector('.a2hd2')) card.insertAdjacentHTML('afterbegin',`<div class="a2hd2"><h4>Accommodations</h4>${a2closed(c)?'':`<button class="a2ib a57pen" aria-label="Edit accommodations" data-a2edit="1" data-tt="Edit accommodations">${A2_PEN}</button>`}</div>`);}
+ let s1=card.querySelector('.a2s1'); if(!s1){card.querySelector('.a2hd2').insertAdjacentHTML('afterend','<div class="a2sec a2s1"><div class="a2chips"></div></div>'); s1=card.querySelector('.a2s1');}
+ s1.querySelectorAll('.a59none').forEach(x=>x.remove());
+ let ch=s1.querySelector('.a2chips'); if(!ch){s1.insertAdjacentHTML('beforeend','<div class="a2chips"></div>'); ch=s1.querySelector('.a2chips');}
+ ch.insertAdjacentHTML('beforeend',R.map(a69chip).join(''));
+ if(!rqOpen||card.classList.contains('a67acc')) T.content.querySelectorAll('.a66add').forEach(x=>x.remove());
+ return T.innerHTML;};}
+/* adding back something that was approved and then removed is logged on that request too */
+{const _ap=a2apply; a2apply=function(c){const before=a2onFile(c).map(a=>a.n), cmt=a2ed&&a2ed.cmt?a2ed.cmt.trim():''; const res=_ap.apply(this,arguments);
+ const after=a2onFile(c).map(a=>a.n);
+ (A2HIST[c.id]||[]).forEach(e=>{if(e.out==='rejected'||!e.cur) return;
+  e.cur.forEach((n,i)=>{if(n!=null) return; const g=(e.granted||[])[i]; if(!g||before.indexOf(g)>-1||after.indexOf(g)<0) return;
+   (e.later=e.later||[]).push({n:g,to:g,back:1,at:TODAY,by:'Divya K.',cmt}); e.cur[i]=g;});});
+ /* the same for items put on file by an override: removing and adding back are logged on the rejected request */
+ (A2HIST[c.id]||[]).forEach(e=>{if(e.out!=='rejected') return;
+  e.items.forEach(n=>{const l=a69last(e,n); if(!l) return;
+   if((l.ovr||l.back)&&before.indexOf(n)>-1&&after.indexOf(n)<0) e.later.push({n,to:null,at:TODAY,by:'Divya K.',cmt});
+   else if(!l.to&&!l.ovr&&before.indexOf(n)<0&&after.indexOf(n)>-1) e.later.push({n,to:n,back:1,at:TODAY,by:'Divya K.',cmt});});});
+ return res;};}
+
+/* ===== 70. 11 Nov (Ramya): the final call leads. A request that was overridden, changed, removed or added back shows
+   its outcome as it stands now — rejected then overridden reads "Approved"; approved then removed reads "Removed".
+   The card line and the record's Decision say only that. How it got there is one quiet line at the foot of the
+   record ("Originally rejected by Divya K. on 23 Sep, “…”, then overridden on 23 Sep") ===== */
+function a70final(e){const steps=[{t:e.out==='rejected'?'rejected':e.out==='changed'?'approved with changes':'approved',at:e.at,by:e.by,why:e.why}];
+ (e.later||[]).forEach(x=>steps.push({t:x.ovr?'overridden':x.back?'added back':!x.to?(x.rej?'rejected':'removed'):'changed to '+a2short(x.to),at:x.at,by:x.by,why:x.why}));
+ const l=steps[steps.length-1];
+ const label=l.t==='rejected'?'Rejected':l.t==='removed'?'Removed':l.t==='approved with changes'?'Approved with changes':'Approved';
+ const cls=label==='Rejected'?'rj':label==='Removed'?'rm':'ok';
+ let hist='';
+ if(steps.length>1){const s0=steps[0];
+  hist=`Originally ${s0.t} by ${s0.by} on ${sd(s0.at)}${s0.why?`, “${String(s0.why).replace(/[.\s]+$/,'')}”`:''}`+steps.slice(1).map(s=>`, then ${s.t} on ${sd(s.at)}`).join('')+'.';}
+ const on=label==='Approved'||label==='Approved with changes';
+ const chips=on?(e.out==='rejected'?e.items.slice():(e.cur||e.granted||[]).filter(Boolean)):[];
+ return {label,cls,by:l.by,at:l.at,why:label==='Rejected'?(l.why||e.why):'',hist,chips,changed:on&&(e.out==='changed'||steps.some(s=>/^changed/.test(s.t)))};}
+a67recH=function(c){const H=A2HIST[c.id]||[], f=accFirst(c);
+ const chip=(n,cls)=>`<span class="a2it ${cls}">${a2ci(n)}<span>${E(n)}</span></span>`;
+ const cell=(k,v,sub,wide)=>`<div class="a67c ${wide?'w':''}"><span class="a67k">${k}</span><div class="a67v">${v}</div>${sub?`<span class="a67s">${sub}</span>`:''}</div>`;
+ return H.map((e,i)=>{const F=a70final(e), cells=[];
+  cells.push(cell('Requested',`<div class="a2chips">${e.items.map(n=>chip(n,'gray')).join('')}</div>`,E(sd(e.on))));
+  cells.push(cell('Decision',`<span class="a67t ${F.cls}">${F.label}</span>`,`${E(F.by)} · ${E(sd(F.at))}`));
+  if(F.changed&&F.chips.length) cells.push(cell('Granted',`<div class="a2chips">${F.chips.map(n=>chip(n,'')).join('')}</div>`,'',1));
+  if(F.why) cells.push(cell('Reason sent to '+E(f),`<p class="a67p">${E(F.why)}</p>`,'',1));
+  const fileH=e.doc?`<div class="a2file">${attH({kind:'pdf',file:e.doc,pages:1,size:e.size},{},0)}</div>`:'';
+  const evH=(e.qa||[]).length||fileH?`<div class="a68ev"><p class="a68ft">${E(e.form||'Accommodation evidence form')}</p>${(e.qa||[]).map(([q,a])=>`<div class="a2qa"><span class="a2q">${E(q)}</span><p>${E(a)}</p></div>`).join('')}${fileH}</div>`:'';
+  return `<div class="a67rec">${i?`<p class="a67eh">Earlier request · ${E(F.label)} ${E(sd(F.at))}</p>`:''}<div class="a67g">${cells.join('')}</div>${evH}${F.hist?`<p class="a70h">${E(F.hist)}</p>`:''}</div>`;}).join('');};
+/* the card's request line: the final call only */
+{const _v=a2viewH; a2viewH=function(c){const h=_v.apply(this,arguments); if(A2V!=='B'||!h||h.indexOf('a2hlt')<0) return h; const H=A2HIST[c.id]; if(!H||!H.length) return h;
+ const T=document.createElement('template'), F=a70final(H[0]), f=accFirst(c); T.innerHTML=h;
+ T.content.querySelectorAll('.a2hlt').forEach(x=>{x.textContent=`${f}’s request · ${F.label} ${sd(F.at)}${H.length>1?` · ${H.length-1} earlier`:''}`;});
+ return T.innerHTML;};}
+
+/* ===== 71. 11 Nov (Ramya): removing an accommodation that a request had approved is a rejection, never "removed" or
+   "pending". The warning asks for the reason the candidate is emailed; Override waits for it; the record, the card line
+   and the chip read Rejected; re-adding it later warns like any rejected item ===== */
+const A71WHY={}; let A71RENDER=false;
+{const _st=a2start; a2start=function(){Object.keys(A71WHY).forEach(k=>delete A71WHY[k]); return _st.apply(this,arguments);};}
+const a71ok=n=>(A71WHY[n]||'').trim().length>2;
+document.addEventListener('input',e=>{const t=e.target; if(!t.dataset||t.dataset.a71why==null) return; e.stopImmediatePropagation();
+ A71WHY[t.dataset.a71why]=t.value;
+ if(typeof a2btn==='function') a2btn(); if(typeof a59fnPaint==='function') a59fnPaint();},true);
+/* re-adding something a removal rejected warns like any rejected item */
+{const _cf=a2cfOf; a2cfOf=function(c){let base=_cf.apply(this,arguments); if(!a2ed) return base;
+ base=base.map(x=>x.ap?Object.assign({},x,{ok:A71RENDER?false:a71ok(x.n)}):x);   /* while drawing, not 'cleared': the reason box must stay */
+ const on=a2onFile(c).map(a=>a.n), add=[];
+ (A2HIST[c.id]||[]).forEach(e=>{const names=[...new Set((e.later||[]).map(x=>x.n))];
+  names.forEach(n=>{const L=(e.later||[]).filter(x=>x.n===n), l=L[L.length-1]; if(!l||!l.rej) return; const k=a2kind(n);
+   const adds=k==='time'?a2ed.time===pctOf(n):Array.isArray(a2ed[k])&&a2ed[k].indexOf(n)>-1;
+   if(adds&&on.indexOf(n)<0&&!base.some(x=>x.n===n)&&!add.some(x=>x.n===n)) add.push({n,on:l.at,why:l.why,ok:a2ovr.has(n)});});});
+ return base.concat(add);};}
+/* saving: the removal entries just logged become rejections with their reason; the toast says the candidate was emailed */
+let a71msg=null;
+{const _ap=a2apply; a2apply=function(c){const pend=a2ed?a2cfOf(c).filter(x=>x.ap&&x.ok).map(x=>x.n):[], why={}; pend.forEach(n=>why[n]=(A71WHY[n]||'').trim());
+ const res=_ap.apply(this,arguments);
+ const done=[];
+ pend.forEach(n=>{(A2HIST[c.id]||[]).some(e=>{const L=(e.later||[]).filter(x=>x.n===n), l=L[L.length-1];
+  if(l&&!l.to&&!l.rej){l.rej=1; l.why=why[n]; done.push(n); return true;} return false;});});
+ a71msg=done.length?`${AND2(done)} rejected · ${accFirst(c)} was emailed the reason`:null;
+ return res;};}
+{const _f=flash; flash=function(m){if(a71msg&&/^Accommodations saved for /.test(m||'')){m=a71msg; a71msg=null;} return _f.apply(this,[m].concat([].slice.call(arguments,1)));};}
+
+/* the footer says what Save will do, or what it still needs */
+{const _n=a59noteT; a59noteT=function(c){const rm=a2ed?a2cfOf(c).filter(x=>x.ap):[]; if(rm.length){const f=accFirst(c);
+  return rm.every(x=>x.ok)?`Saving rejects ${f}’s request for ${AND2(rm.map(x=>x.n))} and emails ${f} the reason.`:`Add the reason ${f} will see to save.`;}
+  return _n.apply(this,arguments);};}
+/* while a rejection reason is open: the note under the editors shows even with no request open (a59 adds it only for
+   open requests), and the optional Comment row is hidden so there is one text box, not two. Its saved value is left
+   as it was */
+{const _e=a2editH; a2editH=function(c){let h; A71RENDER=true; try{h=_e.apply(this,arguments);}finally{A71RENDER=false;} if(!h||h.indexOf('a71cf')<0) return h;
+ const T=document.createElement('template'); T.innerHTML=h; const sec=T.content;
+ const cm=sec.querySelector('#a2cmt'); const row=cm&&cm.closest('.a2er'); if(row) row.remove();
+ const ft=sec.querySelector('.a2ft'); if(ft&&!ft.querySelector('.a59fn')) ft.insertAdjacentHTML('afterbegin',`<span class="a59fn" aria-live="polite">${E(a59noteT(c))}</span>`);
+ return T.innerHTML;};}
+
+/* after every repaint, bring Save in line with the reason (drawing treats the removal as not yet confirmed) */
+{const _p=a2paint; a2paint=function(){const r=_p.apply(this,arguments); if(a2ed&&typeof a2btn==='function') a2btn(); if(typeof a59fnPaint==='function') a59fnPaint(); return r;};}
 
 render();
 </script>
