@@ -11970,6 +11970,23 @@ const a59line=(c)=>{const H=A2HIST[c.id]; if(!H||!H.length) return ''; const e=H
   scoring:['pending',['Not reached','pending'],'Nothing has been sat, so nothing has been marked.','—'],
   credentialing:['pending',['Not reached','pending'],'No result to issue a credential against.','—']};})();
 
+/* 11 Nov (Ramya): Olivia too. Enrollment approved, paid and booked, ID collected and guardian consent kept (she is a
+   minor), so her profile is only about the accommodation request */
+(()=>{const c=CANDS.find(x=>x.id==='olivia'); if(!c) return;
+ c.status=['Enrolled','clear']; delete c.accBase;
+ c.row=Object.assign({},c.row,{step:['Assessment - Booked','13 Oct, 2026'],pay:['$195','Paid','grn']});
+ c.ctx='Enrolled and booked for 13 Oct. Olivia asked for <b>25% extra time</b> and that request is waiting on you.';
+ const kept=(c.steps.enrollment.checks||[]).filter(x=>['Payment','Accommodations'].indexOf(BASE(x.t))<0);
+ c.steps.enrollment=ST('clear',['Complete','clear'],'Approved by Divya K.','18 Sep 2026, 10:06',
+  kept.concat([PAY_OK('18 Sep 2026','$195.00')]),
+  [AUT('registration-complete','Passed','forward','All required fields validated.','18 Sep 2026, 09:20',1)]);
+ c.steps.reading=ST('pending',['Booked','pending'],'Booked for 13 Oct at Prometric, San Antonio.','13 Oct 2026');
+ BOOK.olivia={c:'Prometric Testing Center',p:'San Antonio',room:'Room 3 · Seat 8B',d:'13 Oct 2026',tz:'CDT',ref:'BK-209488',on:'19 Sep 2026'};
+ if(typeof ST4!=='undefined') ST4.olivia={enrollment:['clear',null,'Approved by Divya K.','18 Sep 2026, 10:06'],
+  assessment:['pending',['Booked','pending'],'Booked for 13 Oct at Prometric, San Antonio.','13 Oct 2026'],
+  scoring:['pending',['Not reached','pending'],'Nothing has been sat, so nothing has been marked.','—'],
+  credentialing:['pending',['Not reached','pending'],'No result to issue a credential against.','—']};})();
+
 /* ===== 61. 11 Nov (Ramya): the rejection reason is emailed to the candidate, not just kept on the record; every action
    that reaches the candidate says so on hover; the override banner gets the same shape as the request banner ===== */
 /* toast: a rejection's reason goes to the candidate (layer 48 said it was only saved) */
