@@ -4872,6 +4872,81 @@ html body textarea.a71ta:focus-visible{border-color:var(--interactive-primary);b
 .a71top{align-items:flex-start}
 .a61cf.a71cf .a61ci{margin-top:2px}
 
+/* ===== 72. the request banner: what was asked (left) and when (right); the decision is the card's footer ===== */
+html body .a2card.a63 .a63bd{display:flex;align-items:center;gap:12px;padding:12px 16px}
+html body .a2card.a63 .a63bd .i{flex:0 0 16px;align-self:center}
+html body .a2card.a63 .a63bd .bd{flex:1;min-width:0;display:block}
+html body .a2card.a63 .a63bd .t{display:block;white-space:normal;overflow:visible;font:500 14px/20px var(--font);color:var(--text-primary)}
+html body .a2card.a63 .a63bd .a63rt{flex:none;white-space:nowrap;font:400 12px/18px var(--font);color:var(--text-subtle)}
+/* footer: right-aligned, with room on the left for a future Request more info */
+html body .a2card.a63 .a63ft:not(.a63rs){display:flex;align-items:center;justify-content:flex-end;gap:8px;border-top:1px solid var(--border-subtle);padding:12px 16px}
+/* 11 Nov, later still: title + submitted date (body text) left, requested accommodations as gray chips right */
+html body .a2card.a63 .a63bd{align-items:center}
+html body .a2card.a63 .a63bd .bd{display:flex;flex-direction:column;gap:0}
+html body .a2card.a63 .a63bd .a63dt{font:400 12px/18px var(--font);color:var(--text-subtle)}
+html body .a2card.a63 .a63bd .a63ch{flex:none;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;max-width:55%}
+/* 12 Nov (Ramya): the request card's Reject / Approve are Tessera secondary-COLOR buttons (bg-accent, text-on-secondary-color,
+   hover bg-accent-elevated, pressed border-accent-subtle, focus-ring); the other banner buttons stay secondary-gray */
+html body .a2card.a63 .a63ft .btn.a54b{background:var(--bg-accent);border:1px solid transparent;color:var(--text-on-secondary-color);box-shadow:none}
+html body .a2card.a63 .a63ft .btn.a54b:hover{background:var(--bg-accent-elevated);border-color:transparent;color:var(--text-on-secondary-color)}
+html body .a2card.a63 .a63ft .btn.a54b:active{background:var(--border-accent-subtle);border-color:transparent;transform:scale(.97)}
+html body .a2card.a63 .a63ft .btn.a54b:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+
+/* ===== 73. the real Tessera Chip (copied verbatim from the bundle's .ts-chip rules): sm 22px, 2/8 padding, L2, 12px icon in a 16px box ===== */
+/* Chip */
+/* Strokes are inset shadows so primary and secondary chips share one box size (Figma strokes are "inside"). */
+.ts-chip {
+  --ts-chip-fill: var(--chip-gray-fill);
+  --ts-chip-ink: var(--chip-gray-text);
+  --ts-chip-stroke: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: none;
+  max-width: 100%;
+  height: 22px;
+  padding: var(--space-0\.5) var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--ts-chip-fill);
+  box-shadow: inset 0 0 0 1px var(--ts-chip-stroke);
+  color: var(--ts-chip-ink);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.ts-chip__label { overflow: hidden; text-overflow: ellipsis; }
+.ts-chip__icon { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex: none; }
+.ts-chip__icon > svg { width: 12px; height: 12px; }
+
+.ts-chip--md { height: 24px; padding: var(--space-0\.5) var(--space-3); font-size: 14px; line-height: 20px; }
+.ts-chip--lg { height: 32px; padding: var(--space-1\.5) var(--space-3); font-size: 14px; line-height: 20px; }
+.ts-chip--squared { border-radius: var(--radius-sm); }
+
+/* Primary: tinted fill, no stroke. */
+.ts-chip--gray { --ts-chip-fill: var(--chip-gray-fill); --ts-chip-ink: var(--chip-gray-text); }
+.ts-chip--light-gray { --ts-chip-fill: var(--chip-ltgray-fill); --ts-chip-ink: var(--chip-ltgray-text); }
+.ts-chip--purple { --ts-chip-fill: var(--chip-purple-fill); --ts-chip-ink: var(--chip-purple-text); }
+.ts-chip--blue { --ts-chip-fill: var(--chip-blue-fill); --ts-chip-ink: var(--chip-blue-text); }
+.ts-chip--orange { --ts-chip-fill: var(--chip-orange-fill); --ts-chip-ink: var(--chip-orange-text); }
+.ts-chip--red { --ts-chip-fill: var(--chip-red-fill); --ts-chip-ink: var(--chip-red-text); }
+.ts-chip--green { --ts-chip-fill: var(--chip-green-fill); --ts-chip-ink: var(--chip-green-text); }
+.ts-chip--amber { --ts-chip-fill: var(--chip-amber-fill); --ts-chip-ink: var(--chip-amber-text); }
+.ts-chip--solid-red { --ts-chip-fill: var(--destructive-primary); --ts-chip-ink: var(--text-on-primary); }
+
+/* Secondary: same fills plus a 1px stroke (gray swaps to bg-muted / text-primary; solid red becomes an outline). */
+.ts-chip--secondary.ts-chip--gray { --ts-chip-fill: var(--bg-muted); --ts-chip-ink: var(--text-primary); --ts-chip-stroke: var(--border-subtle); }
+.ts-chip--secondary.ts-chip--light-gray { --ts-chip-stroke: var(--border-subtle); }
+.ts-chip--secondary.ts-chip--purple { --ts-chip-stroke: var(--purple-border); }
+.ts-chip--secondary.ts-chip--blue { --ts-chip-stroke: var(--border-accent-subtle); }
+.ts-chip--secondary.ts-chip--orange { --ts-chip-stroke: var(--warning-border); }
+.ts-chip--secondary.ts-chip--red { --ts-chip-stroke: var(--error-border); }
+.ts-chip--secondary.ts-chip--green { --ts-chip-stroke: var(--success-border); }
+.ts-chip--secondary.ts-chip--amber { --ts-chip-stroke: var(--amber-subtle); }
+.ts-chip--secondary.ts-chip--solid-red { --ts-chip-fill: transparent; --ts-chip-ink: var(--destructive-primary); --ts-chip-stroke: var(--destructive-primary); }
+
 </style>
 <div class="proto"><span class="ttl">Candidate profile · v2 · Coordinator Console</span>
   <span class="hint">Click any candidate row — each one is a different use case</span></div>
@@ -12054,23 +12129,27 @@ function a63band(c,r,acts){const f=accFirst(c), wait=r.st==='info', m=a57m&&a57m
  /* 11 Nov (artifact comment): the band reads "{f} requested 25% extra time" with the date under it, buttons on the right */
  const lab=n=>{const k=a2kind(n); return k==='time'?pctOf(n)+'% extra time':k==='brk'?minOf(n)+' min of breaks':n.toLowerCase();};
  const what=AND2(r.items.slice().sort(a2by).map(lab));
- const btns=acts&&!m?`<span class="go2w"><button type="button" class="go2 gh" data-a57no="1" data-tt="You’ll add a reason, which is sent to ${E(f)}" aria-description="You’ll add a reason, which is sent to ${E(f)}">${A54_X}<span>Reject</span></button><button type="button" class="go2 gh" data-a57yes="1" data-tt="${E(f)} will be notified" aria-description="${E(f)} will be notified">${A54_TICK}<span>Approve</span></button></span>`:'';
- /* 11 Nov (artifact comment): the band leads with the requested accommodation's own type icon (head covering, clock…) */
+ /* 11 Nov, later (Ramya): Reject and Approve live in the request card's footer (room for a future Request more info
+    there); the banner is just what was asked on the left and when on the right, so nothing sits empty */
  const tk=a2kind(r.items[0]), ic=(typeof A2IC!=='undefined'&&A2IC[tk])||I.clock;
+ /* 11 Nov, later still (Ramya): title and the submitted date as body text on the left; what was asked as gray chips on
+    the right, one per accommodation, so a request for several is still one tidy cluster */
+ const chips=r.items.slice().sort(a2by).map(n=>`<span class="ts-chip ts-chip--secondary ts-chip--gray"><span class="ts-chip__icon" aria-hidden="true">${(typeof A2IC!=='undefined'&&(A2IC[a2kind(n)]||A2IC.time))||''}</span><span class="ts-chip__label">${E(n)}</span></span>`).join('');   /* the real Tessera Chip, secondary gray */
  return `<div class="eatt inf a63bd" role="status"><span class="i" aria-hidden="true">${ic}</span>
-  <span class="bd"><span class="t">${E(f)} requested ${E(what)}</span><span class="a63dt">${wait?'More information asked for on '+E(sd((r.ask||{}).on||r.on)):'Submitted on '+E(sd(r.on))}</span></span>${btns}</div>`;}
+  <span class="bd"><span class="t">Accommodation request from ${E(f)}</span>
+   <span class="a63dt">${wait?'More information asked for on '+E(sd((r.ask||{}).on||r.on)):'Submitted on '+E(sd(r.on))}</span></span>
+  <span class="a2chips a63ch" aria-label="Requested">${chips}</span></div>`;}
 {const _v=a2viewH; a2viewH=function(c){const h=_v.apply(this,arguments); if(!h||h.indexOf('a57has')<0) return h; const r=a2req(c); if(!r) return h;
  const T=document.createElement('template'); T.innerHTML=h; const sec=T.content.querySelector('#accd2'); if(!sec) return h;
  sec.classList.add('a63');
  const hd=sec.querySelector('.a2hd2'), det=sec.querySelector('.a57det'), of=sec.querySelector('.a62of'), cm=sec.querySelector('.a2cm');
  const chips=of?[...of.querySelectorAll('.a2it')]:[];
  sec.querySelectorAll('.a57bn,.a62of').forEach(x=>x.remove());
- sec.querySelectorAll('.a57ft:not(.a57form)').forEach(x=>x.remove());
- const form=sec.querySelector('.a57form');
+ const form=sec.querySelector('.a57ft');   /* the decision footer: Reject / Approve, or the reason form while rejecting */
  const w=document.createElement('template'); w.innerHTML=a63band(c,r,1); hd.after(w.content);
  const band=sec.querySelector('.a63bd');
  if(det) band.after(det);
- if(form){form.classList.add('a63ft','a63rs'); (det||band).after(form);}
+ if(form){form.classList.add('a63ft'); if(form.classList.contains('a57form')) form.classList.add('a63rs'); (det||band).after(form);}
  const last=form||det||band;
  if(chips.length){const ap=document.createElement('div'); ap.className='a2sec a63ap'; ap.innerHTML='<p class="a63k">Approved</p><div class="a2chips"></div>';
   chips.forEach(x=>ap.querySelector('.a2chips').appendChild(x)); last.after(ap); if(cm) ap.after(cm);}
