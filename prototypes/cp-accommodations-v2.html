@@ -5701,6 +5701,12 @@ html body .eatt.z6band .go2.z6pri{background:var(--interactive-primary);border-c
 html body .eatt.z6band .go2.z6pri:hover{background:var(--interactive-hover);border-color:var(--interactive-hover);color:var(--text-on-primary)}
 html body .eatt.z6band .go2.z6pri:active{background:var(--interactive-click);border-color:var(--interactive-click)}
 html body .eatt.z6band .go2.z6pri:focus-visible{box-shadow:var(--focus-ring)}
+
+/* ===== v217: Reject all = Tessera secondary destructive (error-surface / text-on-secondary-destructive; hover error-subtle; pressed error-border) ===== */
+html body .eatt.z6band .go2.z6dsec{background:var(--error-surface);border-color:transparent;color:var(--text-on-secondary-destructive)}
+html body .eatt.z6band .go2.z6dsec:hover{background:var(--error-subtle);border-color:transparent;color:var(--text-on-secondary-destructive)}
+html body .eatt.z6band .go2.z6dsec:active{background:var(--error-border);border-color:transparent}
+html body .eatt.z6band .go2.z6dsec:focus-visible{box-shadow:var(--focus-ring-destructive)}
 </style>
 <div class="proto"><span class="ttl">Candidate profile · v2 · Coordinator Console</span>
   <span class="hint">Click any candidate row — each one is a different use case</span></div>
@@ -13383,7 +13389,7 @@ function z6H(c){
  /* ---- band ---- */
  let band='';
  if(live) band=`<div class="eatt z6band" role="status"><span class="i" aria-hidden="true">${I.warnc}</span><span class="bd"><span class="t">Decide ${P.length} accommodation request${P.length>1?'s':''}</span></span>
-${Z6V==='B'&&P.length>1?`<span class="go2w"><button type="button" class="go2 gh" data-z6all="n">Reject all</button><button type="button" class="go2 z6pri" data-z6all="y">Approve all</button></span>`:''}</div>`;
+${Z6V==='B'&&P.length>1?`<span class="go2w"><button type="button" class="go2 z6dsec" data-z6all="n">Reject all</button><button type="button" class="go2 z6pri" data-z6all="y">Approve all</button></span>`:''}</div>`;
 
  /* ---- status + pencil ---- */
  const status=status6(c);
