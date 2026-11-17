@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CP Tessera — Coordinator Console</title>
+<link rel="stylesheet" href="tessera/tokens.css">
+<link rel="stylesheet" href="tessera/bundle.css">
+<style>
+  html, body, #root { height: 100%; margin: 0; }
+  body { font-family: var(--font-sans); font-size: 14px; line-height: 20px; color: var(--text-body);
+         background: var(--bg-surface); -webkit-font-smoothing: antialiased; }
+
+  /* ── Compositions. Tessera has no Card, key–value row or check-row component, so these are built
+        from Tessera tokens only (no raw colours, no off-scale sizes). Everything else is a bundled component. ── */
+
+  /* table cells that carry a status line */
+  .cp-sub { display: block; font: var(--p3, 400 12px/18px var(--font-sans)); color: var(--text-body); }
+  .cp-sub--success { color: var(--success-strong); }
+  .cp-sub--error { color: var(--error-strong); }
+  .cp-row { cursor: pointer; }
+  .ts-table__table th, .ts-table__table td { white-space: nowrap; }
+
+  /* side panel: own sticky 76px header, body without the default padding */
+  .cp-panel .ts-side-panel__body { padding: 0; }
+  .cp-head { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: var(--space-3);
+             min-height: 76px; padding: 0 var(--space-4); background: var(--bg-surface);
+             border-bottom: 1px solid var(--border-subtle); box-sizing: border-box; }
+  .cp-head__who { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .cp-head__name { margin: 0; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cp-head__id { color: var(--text-subtle); }
+  .cp-screen-head { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4);
+                    border-bottom: 1px solid var(--border-subtle); background: var(--bg-surface); }
+  .cp-screen-head h3 { margin: 0; color: var(--text-primary); flex: 1; }
+  .cp-body { padding: var(--space-6) var(--space-4); background: var(--bg-muted); min-height: calc(100% - 76px); box-sizing: border-box; }
+
+  /* journey item heading */
+  .cp-step { display: flex; flex-direction: column; gap: var(--space-3); padding-top: var(--space-2); min-width: 0; }
+  .cp-step__t { margin: 0; color: var(--text-primary); }
+  .cp-step__w { color: var(--text-subtle); }
+  .cp-muted-note { color: var(--text-subtle); margin: 0; }
+
+  /* card surface (composition) */
+  .cp-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); overflow: hidden; }
+  .cp-card__pad { padding: var(--space-4); }
+  .cp-card__banner { padding: var(--space-4) var(--space-4) 0; }
+  .cp-card__banner .cp-actions { display: flex; gap: var(--space-2); margin-top: var(--space-2); }
+
+  /* the four grid sections: caption (p3) > value (h5) > caption (p3) */
+  .cp-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: var(--space-4) var(--space-6); }
+  .cp-cell { position: relative; min-width: 0; padding-right: var(--space-6); display: flex; flex-direction: column; gap: 2px; }
+  .cp-cell__cap, .cp-cell__val { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cp-cell__cap { color: var(--text-subtle); }
+  .cp-cell__val { color: var(--text-primary); font-variant-numeric: tabular-nums; }
+  .cp-cell__sub { color: var(--text-body); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+  .cp-cell__sub span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cp-cell .ts-icon-button { position: absolute; top: 0; right: 0; }
+
+  /* check rows: icon, name, tick — full card width, divider above each, own hover */
+  .cp-checks { display: flex; flex-direction: column; }
+  .cp-check { display: flex; align-items: center; gap: var(--space-2); width: 100%; padding: 10px var(--space-4);
+              border: 0; border-top: 1px solid var(--border-subtle); background: var(--bg-surface); color: var(--text-secondary);
+              text-align: left; cursor: pointer; transition: background-color var(--duration-moderate) var(--ease-out); }
+  .cp-check:hover { background: var(--bg-muted); }
+  .cp-check:focus-visible { outline: none; box-shadow: var(--focus-ring-gray); }
+  .cp-check__ic { display: flex; color: var(--text-subtle); }
+  .cp-check__ic--error { color: var(--error-strong); }
+  .cp-check__ic--warning { color: var(--warning-strong); }
+  .cp-check__tick { display: flex; color: var(--success-strong); }
+  .cp-check__note { color: var(--text-subtle); }
+
+  /* verity summary (composition: a gauge has no Tessera equivalent) */
+  .cp-verity { display: flex; gap: var(--space-4); align-items: center; padding: var(--space-4); padding-right: var(--space-12); position: relative; }
+  .cp-verity__gauge { flex: 0 0 96px; text-align: center; position: relative; }
+  .cp-verity__lab { position: absolute; left: 0; right: 0; top: 28px; display: flex; flex-direction: column; }
+  .cp-verity__copy { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .cp-verity__copy h4 { margin: 0; color: var(--text-primary); }
+  .cp-verity__segs { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-1); padding: 0 var(--space-4) var(--space-4); }
+  .cp-verity__segs i { display: block; height: 4px; border-radius: var(--radius-sm); background: var(--border-subtle); }
+  .cp-verity__segs i.on { background: var(--success-strong); }
+  .cp-corner { position: absolute; top: var(--space-3); right: var(--space-3); }
+
+  /* score rows: name | 120px ProgressIndicator | value */
+  .cp-score__top { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); }
+  .cp-score__top h4 { margin: 0; flex: 1; color: var(--text-primary); }
+  .cp-score__total { display: flex; align-items: baseline; gap: 2px; margin: 0 0 var(--space-2); color: var(--text-primary); }
+  .cp-score__of { color: var(--text-subtle); }
+  .cp-bar { display: grid; grid-template-columns: minmax(0,1fr) 120px 72px; gap: var(--space-3); align-items: center; padding: var(--space-2) 0; }
+  .cp-bar__n { color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cp-bar__v { text-align: right; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+  .cp-bar__v em { font-style: normal; color: var(--text-subtle); }
+  .cp-bar--sub .cp-bar__n { color: var(--text-secondary); }
+  /* the Accordion title holds the ProgressIndicator row: let it fill the trigger so every bar lines up */
+  .cp-acc .ts-accordion__heading, .cp-acc .ts-accordion__trigger { flex: 1; min-width: 0; }
+  .cp-acc .ts-accordion__title { flex: 1; min-width: 0; overflow: visible; white-space: normal; }
+  .cp-acc .ts-accordion__title .cp-bar { padding: 0; width: 100%; }
+  .cp-acc .ts-accordion__content { display: flex; flex-direction: column; gap: var(--space-1); }
+  .cp-acc .ts-accordion__content .cp-bar { padding: var(--space-1) 0; margin-right: 36px; } /* clear the 36px chevron box so sub-score bars align with their section's bar */
+  .cp-foot { display: flex; flex-wrap: wrap; gap: var(--space-2); padding-top: var(--space-3); margin-top: var(--space-3); border-top: 1px solid var(--border-subtle); color: var(--text-subtle); }
+
+  /* credential card */
+  .cp-cred__top { display: flex; gap: var(--space-3); padding: var(--space-4); background: var(--success-surface); }
+  .cp-cred__top h4 { margin: 0; color: var(--text-primary); }
+  .cp-cred__kick { color: var(--success-strong); }
+  .cp-cred__grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--space-3); padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); }
+  .cp-cred__grid span { display: block; }
+  .cp-cred__links { display: flex; gap: var(--space-4); justify-content: flex-end; padding: var(--space-3) var(--space-4); }
+
+  /* key–value panel in detail views */
+  .cp-kv { display: flex; flex-direction: column; }
+  .cp-kv__h { margin: 0; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--text-primary); background: var(--bg-muted); }
+  .cp-kv__r { display: flex; justify-content: space-between; gap: var(--space-4); padding: var(--space-2) var(--space-4); border-top: 1px solid var(--border-subtle); }
+  .cp-kv__r:first-of-type { border-top: 0; }
+  .cp-kv__k { color: var(--text-subtle); }
+  .cp-kv__v { color: var(--text-primary); text-align: right; overflow-wrap: anywhere; }
+  .cp-stack { display: flex; flex-direction: column; gap: var(--space-4); }
+  .cp-acc-item__head { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-4); }
+  .cp-acc-item__head h4 { margin: 0; flex: 1; color: var(--text-primary); }
+  .cp-acc-item__actions { display: flex; gap: var(--space-2); padding: 0 var(--space-4) var(--space-4); }
+  .cp-acc-item__body { padding: 0 var(--space-4) var(--space-4); }
+  .cp-empty { padding: var(--space-6) var(--space-4); text-align: center; color: var(--text-subtle); }
+  .ts-sr-only, .cp-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+<script src="tessera/bundle.js"></script>
+
+<script type="text/babel" data-presets="react">
+const {
+  ListView, SideNavigation, SideNavigationItem, Tabs, TabList, Tab, SearchInput, IconButton, Button, Divider,
+  PageHeaderGroup, Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableUser, Chip, Checkbox,
+  Pagination, Dock, DockAction, SidePanel, RtActivityTimeline, RtActivityTimelineItem, Accordion, AccordionItem,
+  ProgressIndicator, CandidateBanner, Icon, Tooltip, Avatar, Toaster, toast, TextLink,
+} = window.TesseraDS;
+const { useState, useMemo } = React;
+
+/* ───────────────────────── Data (fictional, prototype only) ───────────────────────── */
+const EXAM = { name: 'DS0432 Data Science Exam', fee: '$195.00', form: 'Admissions Form 2026' };
+const STATUS = { Completed: 'green', Enrolled: 'green', Registered: 'gray', Pending: 'orange', Rejected: 'red', Cancelled: 'gray', 'In Progress': 'blue' };
+const SECS = (a) => [
+  { n: 'Statistics & probability', v: a[0], m: 25, subs: [['Descriptive statistics', Math.round(a[0] * .36), 9], ['Probability', Math.round(a[0] * .32), 8], ['Hypothesis testing', a[0] - Math.round(a[0] * .36) - Math.round(a[0] * .32), 8]] },
+  { n: 'Machine learning', v: a[1], m: 25, subs: [['Supervised learning', Math.round(a[1] * .5), 12], ['Model evaluation', a[1] - Math.round(a[1] * .5), 13]] },
+  { n: 'Data wrangling & SQL', v: a[2], m: 25, subs: [['Joins and aggregation', Math.round(a[2] * .55), 14], ['Cleaning', a[2] - Math.round(a[2] * .55), 11]] },
+  { n: 'Python for data analysis', v: a[3], m: 25, subs: [['pandas', Math.round(a[3] * .6), 15], ['Visualisation', a[3] - Math.round(a[3] * .6), 10]] },
+];
+const DONE = (scores, cred) => ({ enrollment: 'success', verity: 'success', scoring: 'success', credentials: cred ? 'success' : 'warning', scores });
+
+const CANDS = [
+  { id: 'ethan', name: 'Ethan Cole', email: 'ethan.cole@example.com', cid: 'CAN-12345', status: 'Completed',
+    step: ['Credential - Credentialed', 'Valid till 16 Sep, 2028'], pay: ['$170.00', 'Paid'], idv: 'ok', center: ['Prometric Testing Center', 'New York, NY'], source: 'person', enrolled: '02 Sep, 2026',
+    who: ['Ethan James Cole', 17], src: ['Referral', 'NYU Careers Portal'], paySub: 'of $195.00 after EARLYBIRD-26 · Mastercard', payLab: 'Paid',
+    book: { c: 'Prometric Testing Center', d: '14 Sep 2026', t: '09:00 AM EDT', place: 'New York · Room 204', ref: 'BK-208841' },
+    consent: 'Received', acc: [{ n: 'Extra Time +25%', s: 'approved', form: 'I have dyslexia, so I need extra time on the timed sections.', on: '2 Sep', by: 'Divya K.', dec: '3 Sep' }],
+    when: { enrollment: '2 Sep 2026, 11:21', verity: '14 Sep 2026, 16:02', scoring: '14 Sep 2026, 15:50', credentials: '16 Sep 2026, 06:02' },
+    ...DONE([19, 18, 17, 20], true), vres: 'clear', cred: { t: 'Data Science Certification', issued: '16 Sep 2026', exp: '16 Sep 2028', id: 'CERT-DS-44207' } },
+  { id: 'mia', name: 'Mia Chen', email: 'mia.chen@example.com', cid: 'CAN-12890', status: 'Registered',
+    step: ['Enrollment - Submitted', '20 Mar, 2026'], pay: ['$195.00', 'Not due'], idv: 'ok', center: ['Pearson Professional Centre', 'Los Angeles, CA'], source: 'person', enrolled: '20 Mar, 2026',
+    who: ['Mia Lin Chen', 22], src: ['Self-registered', 'acme.talview.com/reg/ds0432'], acc: [],
+    when: { enrollment: 'Waiting since 20 Mar 2026, 09:12' }, enrollment: 'warning', verity: 'neutral', scoring: 'neutral', credentials: 'neutral' },
+  { id: 'noah', name: 'Noah Smith', email: 'noah.smith@example.com', cid: 'CAN-12441', status: 'Rejected',
+    step: ['Enrollment - Rejected', '15 Aug, 2026'], pay: ['$195.00', 'Not due'], idv: 'err', center: ['Talview', 'Virtual'], source: 'building', enrolled: '12 Aug, 2026',
+    who: ['Noah Alexander Smith', 31], src: ['Self-registered', 'acme.talview.com/reg/ds0432'], acc: [], rejected: { by: 'Divya K.', on: '15 Aug' },
+    when: { enrollment: '15 Aug 2026, 02:01' }, enrollment: 'error', verity: 'neutral', scoring: 'neutral', credentials: 'neutral' },
+  { id: 'olivia', name: 'Olivia Patel', email: 'olivia.patel@example.com', cid: 'CAN-12502', status: 'Pending',
+    step: ['Enrollment - Accommodations', '18 Sep, 2026'], pay: ['$195.00', 'Not due'], idv: 'ok', center: ['Prometric Testing Center', 'San Antonio, TX'], source: 'email', enrolled: '18 Sep, 2026',
+    who: ['Olivia Reshma Patel', 17], src: ['Invited', 'Invited by Divya K.'], consent: 'Received',
+    acc: [{ n: 'Extra Time +25%', s: 'pending', form: 'I have dyslexia, assessed as reading below the standard band, so I need extra time on the timed sections.', on: '18 Sep' }],
+    when: { enrollment: 'Waiting since 18 Sep 2026, 10:06' }, enrollment: 'warning', verity: 'neutral', scoring: 'neutral', credentials: 'neutral' },
+  { id: 'arjun', name: 'Arjun Mehta', email: 'arjun.mehta@example.com', cid: 'CAN-12655', status: 'Enrolled',
+    step: ['Assessment - Booked', '02 Oct, 2026'], pay: ['$195.00', 'Paid'], idv: 'ok', center: ['Prometric Testing Center', 'Chicago, IL'], source: 'person', enrolled: '15 Sep, 2026',
+    who: ['Arjun Dev Mehta', 26], src: ['Self-registered', 'acme.talview.com/reg/ds0432'], paySub: 'of $195.00 · Visa', payLab: 'Paid',
+    book: { c: 'Prometric Testing Center', d: '2 Oct 2026', t: '09:00 AM CDT', place: 'Chicago · Room 3', ref: 'BK-209512' },
+    acc: [{ n: 'Extra Time +25%', s: 'approved', form: 'I have a hand tremor that slows my typing.', on: '4 Jun', by: 'Divya K.', dec: '12 Jun' }],
+    when: { enrollment: '15 Sep 2026, 08:40' }, enrollment: 'success', verity: 'neutral', scoring: 'neutral', credentials: 'neutral' },
+  { id: 'ava', name: 'Ava Davis', email: 'ava.davis@example.com', cid: 'CAN-12744', status: 'Enrolled',
+    step: ['Enrollment - Payment Failed', '12 Sep, 2026'], pay: ['$195.00', 'Failed'], idv: 'ok', center: ['UNITY Grand Island Center', 'Jacksonville, FL'], source: 'person', enrolled: '10 Sep, 2026',
+    who: ['Ava Grace Davis', 24], src: ['Self-registered', 'acme.talview.com/reg/ds0432'], acc: [], payFailed: true,
+    when: { enrollment: '12 Sep 2026, 14:20' }, enrollment: 'error', verity: 'neutral', scoring: 'neutral', credentials: 'neutral' },
+  { id: 'isabella', name: 'Isabella Taylor', email: 'isabella.taylor@example.com', cid: 'CAN-12207', status: 'In Progress',
+    step: ['Assessment - In Progress', '23 Sep, 2026'], pay: ['$245.00', 'Paid'], idv: 'ok', center: ['Pearson Professional Centre', 'Los Angeles, CA'], source: 'building', enrolled: '20 Jul, 2026',
+    who: ['Isabella Rose Taylor', 29], src: ['Moodle', 'lms.acme.edu/courses/adv-math'], paySub: 'Exam fee $195.00 + reschedule fee $50.00', payLab: 'Paid',
+    book: { c: 'Pearson Professional Centre', d: '23 Sep 2026', t: '09:00 AM PDT', place: 'Los Angeles · Room 3', ref: 'BK-209120', resched: true },
+    acc: [{ n: 'Cast or Sling', s: 'approved', manual: true, note: 'Recovering from shoulder surgery and will wear a sling.', on: '15 Sep', by: 'Divya K.' }],
+    when: { enrollment: '20 Jul 2026, 09:40', verity: '23 Sep 2026, 09:00' }, enrollment: 'success', verity: 'info', scoring: 'neutral', credentials: 'neutral' },
+  { id: 'charlotte', name: 'Charlotte White', email: 'charlotte.white@example.com', cid: 'CAN-13251', status: 'Completed',
+    step: ['Credential - Disqualified', '10 Sep, 2026'], pay: ['$170.00', 'Paid'], idv: 'ok', center: ['Pearson Professional Centre – Downtown Manhattan Assessment Suite', 'New York, NY'], source: 'email', enrolled: '25 Aug, 2026',
+    who: ['Charlotte Alexandra Catherine Whitmore-Fitzgerald', 24], src: ['Partner referral · Northeastern University Career Services Office', 'careers.northeastern.edu/partners/talview/ds0432-spring-cohort-2026'],
+    paySub: 'of $195.00 after SPRING-SCHOLARSHIP-2026-FULLTIME-COHORT · American Express Corporate', payLab: 'Paid',
+    book: { c: 'Pearson Professional Centre – Downtown Manhattan Assessment Suite', d: '7 Sep 2026', t: '09:00 AM EDT', place: 'New York City, Lower Manhattan Financial District · Conference Room 1204B', ref: 'BK-208955' },
+    acc: [], when: { enrollment: '25 Aug 2026, 10:12', verity: '7 Sep 2026, 12:30', scoring: '7 Sep 2026, 13:10', credentials: '10 Sep 2026, 09:00' },
+    ...DONE([15, 14, 16, 12], true), vres: 'clear', cred: { t: 'Data Science Certification', issued: '10 Sep 2026', exp: '10 Sep 2028', id: 'CERT-DS-44188' } },
+];
+
+/* ───────────────────────── Small building blocks ───────────────────────── */
+const SRC_ICON = { person: ['person-2', 'Self-registered'], building: ['building-user', 'Through an organisation'], email: ['email', 'Invited by email'] };
+function elig(c) {
+  if (c.status === 'Rejected') return ['circle-xmark', 'error', 'Not eligible · enrollment rejected'];
+  if (c.status === 'Cancelled') return ['circle-xmark', 'error', 'Not eligible · enrollment cancelled'];
+  if (c.idv === 'err') return ['circle-xmark', 'error', 'Not eligible · identity not verified'];
+  if (c.pay[1] === 'Failed') return ['circle-xmark', 'error', 'Not eligible · payment failed'];
+  if (c.status === 'Pending') return ['circle-info', 'subtle', 'Pending · accommodation request open'];
+  if (c.status === 'Registered') return ['circle-info', 'subtle', 'Pending · waiting on your decision'];
+  return ['circle-check', 'success', 'Eligible'];
+}
+const TONE = { success: 'var(--success-strong)', error: 'var(--error-strong)', subtle: 'var(--text-subtle)' };
+const pct = (v, m) => Math.round(v / m * 100);
+
+function ScoreBar({ n, v, m, sub }) {
+  return (
+    <span className={'cp-bar' + (sub ? ' cp-bar--sub' : '')}>
+      <span className="cp-bar__n p2">{n}</span>
+      <ProgressIndicator value={pct(v, m)} valuePosition="none" aria-label={`${n}: ${v} of ${m}`} />
+      <span className="cp-bar__v p2">{v}<em>/{m}</em></span>
+    </span>
+  );
+}
+function KV({ title, rows }) {
+  return (
+    <div className="cp-card cp-kv">
+      <h4 className="cp-kv__h l1">{title}</h4>
+      {rows.map(([k, v]) => <div key={k} className="cp-kv__r p2"><span className="cp-kv__k">{k}</span><span className="cp-kv__v">{v}</span></div>)}
+    </div>
+  );
+}
+
+/* ───────────────────────── Enrollment card ───────────────────────── */
+function bannerFor(c, act) {
+  if (c.status === 'Rejected') return { color: 'red', icon: 'ban', text: `Rejected by ${c.rejected.by} · ${c.rejected.on}`, actions: [['Change decision', 'secondary-gray', () => act('reopen')]] };
+  if (c.payFailed) return { color: 'red', icon: 'circle-exclamation', text: 'Payment failed twice · booking is locked', actions: [] };
+  const open = c.acc.filter(a => a.s === 'pending');
+  if (open.length) return { color: 'yellow', icon: 'circle-exclamation', text: `${open.length} accommodation request pending approval`, actions: [['Review', 'primary', () => act('go', 'acc')]] };
+  if (c.status === 'Registered') return { color: 'yellow', icon: 'clock', text: 'Submitted and waiting on your decision', actions: [['Reject', 'secondary-gray', () => act('reject')], ['Approve', 'primary', () => act('approve')]] };
+  return null;
+}
+function Cell({ cap, val, sub, onOpen, label }) {
+  return (
+    <div className="cp-cell">
+      {onOpen && <IconButton size={20} variant="tertiary-gray" icon="chevron-right" aria-label={label} onClick={onOpen} />}
+      <span className="cp-cell__cap p3" title={cap}>{cap}</span>
+      <span className="cp-cell__val h5" title={typeof val === 'string' ? val : undefined}>{val}</span>
+      {sub && <span className="cp-cell__sub p3">{sub}</span>}
+    </div>
+  );
+}
+function EnrollmentCard({ c, go, act }) {
+  const b = bannerFor(c, act);
+  const ok = c.acc.filter(a => a.s === 'approved'), open = c.acc.filter(a => a.s === 'pending'), dec = c.acc.filter(a => a.s === 'declined').length;
+  const checks = [
+    { key: 'idv', ic: 'candidate-profile', tone: c.idv === 'err' ? 'error' : '', txt: c.idv === 'err' ? 'ID not verified' : 'ID collected', tick: c.idv !== 'err', open: () => go('idv') },
+    c.consent && { key: 'consent', ic: 'users', txt: 'Guardian consent', tick: true, open: () => go('consent') },
+    { key: 'acc', ic: 'clock', tone: open.length ? 'warning' : '', txt: ok.length ? ok.map(a => a.n).join(', ') : open.length ? `${open.length} accommodation request pending` : 'No accommodations',
+      note: dec ? ` · ${dec} declined` : '', tick: ok.length > 0, open: () => go('acc') },
+  ].filter(Boolean);
+  return (
+    <section className="cp-card" aria-label="Enrollment details">
+      {b && (
+        <div className="cp-card__banner">
+          <CandidateBanner color={b.color} device="mobile" heading={b.text} icon={<Icon name={b.icon} size={20} />}>
+            {b.actions.length > 0 && <span className="cp-actions">{b.actions.map(([l, v, f]) => <Button key={l} variant={v} onClick={f}>{l}</Button>)}</span>}
+          </CandidateBanner>
+        </div>
+      )}
+      <div className="cp-card__pad">
+        <div className="cp-grid">
+          {!c.payFailed && c.pay[1] !== 'Not due' && <Cell cap={c.payLab || 'Paid'} val={c.pay[0]} sub={c.paySub} onOpen={() => go('payment')} label="Open payment details" />}
+          {c.book && <Cell cap={c.book.resched ? 'Booking · rescheduled' : 'Booking'} val={c.book.c}
+            sub={<><span>{c.book.d} · {c.book.t}</span><span>{c.book.place}</span></>} onOpen={() => go('booking')} label="Open booking details" />}
+          <Cell cap={EXAM.form} val={c.who[0]} sub={`Age ${c.who[1]}`} onOpen={() => go('form')} label="Open registration form" />
+          <Cell cap="Came from" val={c.src[0]} sub={c.src[1]} onOpen={() => go('source')} label="Open source details" />
+        </div>
+      </div>
+      <div className="cp-checks">
+        {checks.map(k => (
+          <button key={k.key} className="cp-check p2" onClick={k.open}>
+            <span className={'cp-check__ic' + (k.tone ? ' cp-check__ic--' + k.tone : '')}><Icon name={k.ic} size={16} /></span>
+            <span>{k.txt}{k.note && <span className="cp-check__note">{k.note}</span>}</span>
+            {k.tick && <span className="cp-check__tick"><Icon name="check" size={14} label="Done" /></span>}
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────── Verity, score, credential ───────────────────────── */
+function VerityCard({ c, go }) {
+  const running = c.vres !== 'clear';
+  const arc = running ? .55 : 1, R = 37.8, L = Math.PI * R;
+  return (
+    <section className="cp-card" aria-label="Verity">
+      <div className="cp-verity">
+        <span className="cp-corner"><IconButton size={20} variant="tertiary-gray" icon="chevron-right" aria-label="Open Verity details" onClick={() => go('verity')} /></span>
+        <span className="cp-verity__gauge" aria-hidden="true">
+          <svg width="96" height="56" viewBox="0 0 96 56">
+            <path d="M10.2 48A37.8 37.8 0 0 1 85.8 48" stroke="var(--border-subtle)" strokeWidth="9" fill="none" strokeLinecap="round" />
+            <path d="M10.2 48A37.8 37.8 0 0 1 85.8 48" stroke={running ? 'var(--interactive-link)' : 'var(--success-strong)'} strokeWidth="9" fill="none" strokeLinecap="round"
+              strokeDasharray={`${L * arc} ${L}`} />
+          </svg>
+          <span className="cp-verity__lab"><span className="p3" style={{ color: 'var(--text-subtle)' }}>{running ? 'Running' : 'All'}</span>
+            <span className="h5" style={{ color: running ? 'var(--interactive-link)' : 'var(--success-strong)' }}>{running ? '3 of 5' : 'Clear'}</span></span>
+        </span>
+        <span className="cp-verity__copy">
+          <h4 className="h5">{running ? 'Checks are still running.' : 'Every check came back clean.'}</h4>
+          <span className="p3" style={{ color: 'var(--text-body)' }}>{running ? 'Results arrive as each check finishes.' : 'Every check was completed against its source record. Nothing needed review.'}</span>
+        </span>
+      </div>
+      <div className="cp-verity__segs" aria-hidden="true">{[0, 1, 2, 3, 4].map(i => <i key={i} className={!running || i < 3 ? 'on' : ''} />)}</div>
+    </section>
+  );
+}
+function ScoreCard({ c, go }) {
+  const S = SECS(c.scores), tot = S.reduce((a, x) => a + x.v, 0);
+  return (
+    <section className="cp-card" aria-label="Result">
+      <div className="cp-score__top"><Icon name="list" size={16} /><h4 className="l1">Result</h4>
+        <IconButton size={20} variant="tertiary-gray" icon="chevron-right" aria-label="Open score details" onClick={() => go('score')} /></div>
+      <div className="cp-card__pad">
+        <p className="cp-score__total"><span className="h2">{tot}</span><span className="cp-score__of p2">/100</span></p>
+        {S.map(x => <ScoreBar key={x.n} n={x.n} v={x.v} m={x.m} />)}
+        <div className="cp-foot p3"><span>Published 16 Sep 2026</span><span>·</span><span>{EXAM.name}</span><span>·</span><span>Provider: TAE</span></div>
+      </div>
+    </section>
+  );
+}
+function CredentialCard({ c }) {
+  return (
+    <section className="cp-card" aria-label="Credential">
+      <div className="cp-cred__top">
+        <Icon name="completed" size={24} style={{ color: 'var(--success-strong)' }} />
+        <span><span className="cp-cred__kick l2">CREDENTIALED</span><h4 className="h5">{c.cred.t}</h4><span className="p3">Issued to {c.name.split(' ')[0]}</span></span>
+      </div>
+      <div className="cp-cred__grid">
+        {[['Issued on', c.cred.issued], ['Expires', c.cred.exp], ['Credential ID', c.cred.id]].map(([k, v]) =>
+          <span key={k}><span className="p3" style={{ color: 'var(--text-subtle)' }}>{k}</span><span className="l1" style={{ color: 'var(--text-primary)' }}>{v}</span></span>)}
+      </div>
+      <div className="cp-cred__links"><TextLink as="button" trailingIcon={<Icon name="new-tab" size={16} />} onClick={() => toast.info('Opens the public credential page')}>Open</TextLink>
+        <TextLink as="button" trailingIcon={<Icon name="send" size={16} />} onClick={() => toast.info('Share is not part of this build')}>Share</TextLink></div>
+    </section>
+  );
+}
+
+/* ───────────────────────── Profile (journey) and detail screens ───────────────────────── */
+const STEPS = [['enrollment', 'Enrollment', 'form'], ['verity', 'Verity', 'secure'], ['scoring', 'Scoring', 'chart-line-graph'], ['credentials', 'Credentials', 'completed']];
+function Journey({ c, go, act }) {
+  return (
+    <RtActivityTimeline nodeType="icon" aria-label="Candidate journey">
+      {STEPS.map(([k, t, ic]) => {
+        const st = c[k] || 'neutral', w = (c.when || {})[k];
+        let body = null;
+        if (k === 'enrollment') body = <EnrollmentCard c={c} go={go} act={act} />;
+        if (k === 'verity' && st !== 'neutral') body = <VerityCard c={c} go={go} />;
+        if (k === 'scoring' && st !== 'neutral' && c.scores) body = <ScoreCard c={c} go={go} />;
+        if (k === 'credentials' && st !== 'neutral' && c.cred) body = <CredentialCard c={c} />;
+        return (
+          <RtActivityTimelineItem key={k} state={st} icon={ic}>
+            <div className="cp-step">
+              <div><h3 className="cp-step__t h5">{t}</h3><span className="cp-step__w p3">{w || '—'}</span></div>
+              {body || <p className="cp-muted-note p3">No activity recorded on this step yet.</p>}
+            </div>
+          </RtActivityTimelineItem>
+        );
+      })}
+    </RtActivityTimeline>
+  );
+}
+function ScoreDetail({ c }) {
+  const S = SECS(c.scores), tot = S.reduce((a, x) => a + x.v, 0);
+  return (
+    <div className="cp-card cp-card__pad">
+      <p className="p3" style={{ margin: 0, color: 'var(--text-subtle)' }}>Open a section to view its sub-scores</p>
+      <p className="cp-score__total"><span className="h2">{tot}</span><span className="cp-score__of p2">/100</span></p>
+      <Accordion variant="divider" className="cp-acc">
+        {S.map(x => (
+          <AccordionItem key={x.n} value={x.n} title={<ScoreBar n={x.n} v={x.v} m={x.m} />}>
+            {x.subs.map(([n, v, m]) => <ScoreBar key={n} n={n} v={v} m={m} sub />)}
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
+  );
+}
+function AccDetail({ c, act }) {
+  if (!c.acc.length) return <div className="cp-card cp-empty p2">{c.name.split(' ')[0]} has no accommodations yet.</div>;
+  return (
+    <div className="cp-stack">
+      {c.acc.map((a, i) => (
+        <div key={a.n} className="cp-card">
+          <div className="cp-acc-item__head"><Icon name="clock" size={16} /><h4 className="h5">{a.n}</h4>
+            <Chip size="md" color={a.s === 'approved' ? 'green' : a.s === 'pending' ? 'orange' : 'red'}>{a.s === 'approved' ? 'Approved' : a.s === 'pending' ? 'Pending' : 'Declined'}</Chip></div>
+          <div className="cp-acc-item__body">
+            <RtActivityTimeline nodeType="dot" aria-label={`${a.n} history`}>
+              <RtActivityTimelineItem state="neutral"><span className="p2">{a.manual ? `Added by ${a.by} · ${a.on}` : `${c.name.split(' ')[0]} submitted the request form · ${a.on}`}</span>
+                <div className="p3" style={{ color: 'var(--text-body)' }}>{a.manual ? a.note : `“${a.form}”`}</div></RtActivityTimelineItem>
+              {a.s === 'approved' && !a.manual && <RtActivityTimelineItem state="success"><span className="p2">Approved by {a.by} · {a.dec}</span></RtActivityTimelineItem>}
+              {a.s === 'declined' && <RtActivityTimelineItem state="error"><span className="p2">Declined by Divya K. · today</span></RtActivityTimelineItem>}
+            </RtActivityTimeline>
+          </div>
+          {a.s === 'pending' && <div className="cp-acc-item__actions"><Button variant="secondary-gray" onClick={() => act('decide', i, 'declined')}>Decline</Button>
+            <span style={{ flex: 1 }} /><Button onClick={() => act('decide', i, 'approved')}>Approve</Button></div>}
+        </div>
+      ))}
+    </div>
+  );
+}
+function Detail({ c, screen, act }) {
+  const T = {
+    payment: ['Payment', <KV title="What was charged" rows={[['Amount paid', c.pay[0]], ['Exam fee', EXAM.fee], ['Details', c.paySub || '—']]} />],
+    booking: ['Booking', c.book && <KV title="Booked session" rows={[['Centre', c.book.c], ['Date', c.book.d], ['Start time', c.book.t], ['Location', c.book.place], ['Reference', c.book.ref]]} />],
+    form: ['Registration form', <div className="cp-stack"><KV title="Candidate" rows={[['Full name', c.who[0]], ['Age', String(c.who[1])]]} />
+      <KV title="Professional and academic background" rows={[['Employer / organisation', 'Talview'], ['Current job title', 'UX Designer'], ['Years of experience', '3'], ['Highest education level', 'BE']]} /></div>],
+    source: ['Came from', <KV title="How it came in" rows={[['Source', c.src[0]], ['Reference', c.src[1]], ['Enrolled on', c.enrolled], ['Form', EXAM.form]]} />],
+    idv: ['Identity documents', <KV title="Identity" rows={[['Document', 'Passport'], ['Status', c.idv === 'err' ? 'Could not be verified' : 'Collected and verified']]} />],
+    consent: ['Guardian consent', <KV title="Consent" rows={[['Status', c.consent || '—'], ['Guardian', 'Verified against a government ID']]} />],
+    acc: ['Accommodations', <AccDetail c={c} act={act} />],
+    score: ['Result', <ScoreDetail c={c} />],
+    verity: ['Verity', <KV title="Checks" rows={[['Identity', 'Clear'], ['Environment', 'Clear'], ['Device', 'Clear'], ['Behaviour', c.vres === 'clear' ? 'Clear' : 'Running'], ['Audio', c.vres === 'clear' ? 'Clear' : 'Running']]} />],
+  }[screen];
+  return T ? T : ['Not found', null];
+}
+
+function Profile({ c, screen, setScreen, act, prev, next }) {
+  const [title, body] = screen ? Detail({ c, screen, act }) : [null, null];
+  return (
+    <>
+      <div className="cp-head">
+        <IconButton size={20} variant="tertiary-gray" icon="chevron-left" aria-label="Previous candidate" onClick={prev} />
+        <Avatar size="md" name={c.name} />
+        <span className="cp-head__who"><h2 className="cp-head__name h5">{c.name}</h2><span className="cp-head__id p3">{c.cid}</span></span>
+        <Chip size="md" color={STATUS[c.status] || 'gray'}>{c.status}</Chip>
+        <IconButton variant="secondary-gray" icon="ellipsis-vertical" aria-label="More actions" onClick={() => toast.info('The actions menu is not part of this build')} />
+        <IconButton size={20} variant="tertiary-gray" icon="chevron-right" aria-label="Next candidate" onClick={next} />
+      </div>
+      {screen && (
+        <div className="cp-screen-head">
+          <IconButton variant="tertiary-gray" icon="arrow-left-regular" aria-label="Back to profile" onClick={() => setScreen(null)} />
+          <h3 className="h5">{title}</h3>
+        </div>
+      )}
+      <div className="cp-body">{screen ? body : <Journey c={c} go={setScreen} act={act} />}</div>
+    </>
+  );
+}
+
+/* ───────────────────────── App ───────────────────────── */
+function App() {
+  const [cands, setCands] = useState(CANDS);
+  const [selected, setSelected] = useState([]);
+  const [openId, setOpenId] = useState(null);
+  const [screen, setScreen] = useState(null);
+  const [q, setQ] = useState('');
+  const rows = useMemo(() => cands.filter(c => !q || (c.name + ' ' + c.email + ' ' + c.cid).toLowerCase().includes(q.toLowerCase())), [cands, q]);
+  const c = cands.find(x => x.id === openId);
+  const upd = (id, patch) => setCands(cs => cs.map(x => x.id === id ? { ...x, ...patch(x) } : x));
+  const openAt = (d) => { const i = cands.findIndex(x => x.id === openId); const n = cands[(i + d + cands.length) % cands.length]; setOpenId(n.id); setScreen(null); };
+
+  const act = (what, a, b) => {
+    const snap = c;
+    const undo = () => setCands(cs => cs.map(x => x.id === snap.id ? snap : x));
+    if (what === 'go') return setScreen(a);
+    if (what === 'approve') { upd(c.id, () => ({ status: 'Enrolled', enrollment: 'success', step: ['Enrollment - Approved', 'Today'] })); toast.success('Enrollment approved', { description: `${c.name.split(' ')[0]} can now book a session.`, action: { label: 'Undo', onClick: undo } }); }
+    if (what === 'reject') { upd(c.id, () => ({ status: 'Rejected', enrollment: 'error', rejected: { by: 'Divya K.', on: 'today' }, step: ['Enrollment - Rejected', 'Today'] })); toast.success('Enrollment rejected', { action: { label: 'Undo', onClick: undo } }); }
+    if (what === 'reopen') { upd(c.id, () => ({ status: 'Registered', enrollment: 'warning', step: ['Enrollment - Submitted', 'Today'] })); toast.success('Decision changed', { description: 'The enrollment is waiting on your decision again.', action: { label: 'Undo', onClick: undo } }); }
+    if (what === 'decide') {
+      upd(c.id, x => { const acc = x.acc.map((y, j) => j === a ? { ...y, s: b, by: 'Divya K.', dec: 'today' } : y); const open = acc.some(y => y.s === 'pending');
+        return { acc, status: open ? x.status : x.status === 'Pending' ? 'Registered' : x.status }; });
+      toast.success(b === 'approved' ? 'Accommodation approved' : 'Accommodation declined', { description: `${c.name.split(' ')[0]} has been emailed.`, action: { label: 'Undo', onClick: undo } });
+    }
+  };
+
+  const nCore = cands.filter(x => ['Enrolled', 'In Progress', 'Completed'].includes(x.status)).length, nCred = cands.filter(x => x.status === 'Completed').length;
+  const allOn = rows.length > 0 && rows.every(r => selected.includes(r.id)), some = selected.length > 0 && !allOn;
+  const toggle = id => setSelected(s => s.includes(id) ? s.filter(x => x !== id) : [...s, id]);
+
+  return (
+    <>
+      <ListView
+        style={{ height: '100%' }}
+        nav={<SideNavigation defaultCollapsed defaultValue="exams">
+          <SideNavigationItem value="home" label="Home" icon="home" />
+          <SideNavigationItem value="exams" label="Exams" icon="clip-board" />
+          <SideNavigationItem value="candidates" label="Candidates" icon="users" />
+        </SideNavigation>}
+        title={EXAM.name}
+        breadcrumbs={[{ label: 'Exams', href: '#' }, { label: EXAM.name }]}
+        tabs={<Tabs variant="primary" defaultValue="enrollment" onValueChange={v => v !== 'enrollment' && toast.info('Only the Enrollment tab is part of this build')}>
+          <TabList aria-label="Exam stages">
+            <Tab value="enrollment">Enrollment</Tab><Tab value="core">Data Science | Core ({nCore})</Tab><Tab value="cred">Credentials ({nCred})</Tab>
+          </TabList></Tabs>}
+        toolbar={<><PageHeaderGroup>
+            <SearchInput aria-label="Search candidates" value={q} onValueChange={setQ} />
+            <IconButton variant="secondary-gray" icon="filter" aria-label="Filter" onClick={() => toast.info('Filters are not part of this build')} />
+          </PageHeaderGroup>
+          <Divider orientation="vertical" />
+          <Button leadingIcon={<Icon name="send" />} onClick={() => toast.info('Invite is not part of this build')}>Invite</Button></>}
+        dock={<Dock open={selected.length > 0} summary={<><strong>{selected.length}</strong> of {cands.length} candidates selected</>}>
+          <DockAction onClick={() => setSelected([])}>Clear</DockAction>
+          <DockAction icon="command" onClick={() => toast.info('Bulk actions open the Command Palette — not part of this build')}>Actions</DockAction>
+        </Dock>}
+      >
+        <Table aria-label="Candidates in Enrollment" zebra stickyHeader headerSize="lg" containerStyle={{ height: '100%' }}
+          footer={<Pagination totalItems={rows.length} defaultPageSize={25} pageSizeOptions={[10, 25, 50]} />}>
+          <TableHeader><TableRow>
+            <TableHead sticky="start" leading={<Checkbox aria-label="Select all candidates" checked={allOn} indeterminate={some}
+              onCheckedChange={() => setSelected(allOn ? [] : rows.map(r => r.id))} />}>Candidate Name</TableHead>
+            <TableHead>Enrollment Status</TableHead><TableHead>External ID</TableHead><TableHead>Eligibility</TableHead>
+            <TableHead sortable sortDirection="none">Current Step</TableHead><TableHead>Payment</TableHead><TableHead>ID</TableHead>
+            <TableHead>Exam Center</TableHead><TableHead>Source</TableHead><TableHead>Enrolled On</TableHead>
+          </TableRow></TableHeader>
+          <TableBody>
+            {rows.map(r => {
+              const [ei, et, el] = elig(r), [si, sl] = SRC_ICON[r.source];
+              return (
+                <TableRow key={r.id} className="cp-row" selected={selected.includes(r.id)} onClick={() => { setOpenId(r.id); setScreen(null); }}>
+                  <TableCell sticky="start" leading={<span onClick={e => e.stopPropagation()}><Checkbox aria-label={`Select ${r.name}`} checked={selected.includes(r.id)} onCheckedChange={() => toggle(r.id)} /></span>}>
+                    <TableUser name={r.name} description={r.email} /></TableCell>
+                  <TableCell><Chip size="md" variant="secondary" color={STATUS[r.status] || 'gray'}>{r.status}</Chip></TableCell>
+                  <TableCell>{r.cid}</TableCell>
+                  <TableCell><Tooltip content={el}><span tabIndex={0} style={{ display: 'inline-flex', color: TONE[et] }}><Icon name={ei} size={20} label={el} /></span></Tooltip></TableCell>
+                  <TableCell description={r.step[1]}>{r.step[0]}</TableCell>
+                  <TableCell description={<span className={'cp-sub cp-sub--' + (r.pay[1] === 'Paid' ? 'success' : r.pay[1] === 'Failed' ? 'error' : 'x')}>{r.pay[1]}</span>}>{r.pay[0]}</TableCell>
+                  <TableCell><span style={{ display: 'inline-flex', color: r.idv === 'err' ? 'var(--error-strong)' : 'var(--success-strong)' }}>
+                    <Icon name="image" size={20} label={r.idv === 'err' ? 'ID could not be verified' : 'ID verified'} /></span></TableCell>
+                  <TableCell description={r.center[1]}><span style={{ display: 'inline-block', maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', verticalAlign: 'bottom' }}>{r.center[0]}</span></TableCell>
+                  <TableCell><Tooltip content={sl}><span tabIndex={0} style={{ display: 'inline-flex' }}><Icon name={si} size={20} label={sl} /></span></Tooltip></TableCell>
+                  <TableCell>{r.enrolled}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </ListView>
+
+      <SidePanel open={!!c} onOpenChange={o => { if (!o) { setOpenId(null); setScreen(null); } }} size="md" aria-label={c ? `${c.name} profile` : 'Candidate profile'} className="cp-panel">
+        {c && <Profile c={c} screen={screen} setScreen={setScreen} act={act} prev={() => openAt(-1)} next={() => openAt(1)} />}
+      </SidePanel>
+      <Toaster />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

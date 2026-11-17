@@ -5854,7 +5854,7 @@ const CFG={form:'Admissions Form 2026',idcap:'6 ID types · 3 countries',
   ['Data wrangling & SQL',25,0.2,'Data wrangling'],['Python for data analysis',25,0.2,'Python']],
  grades:[{n:'Platinum',k:'pt',min:85},{n:'Gold',k:'gd',min:70},{n:'Silver',k:'sv',min:50},{n:'Bronze',k:'bz',min:0}],
  src:'TAE scores',window:'30 Oct 2026',
- card:{vendor:'Acme Assessments',lv:['Developing','Competent','Strong'],ov:['Associate','Professional','Expert'],
+ card:{vendor:'TAE',lv:['Developing','Competent','Strong'],ov:['Associate','Professional','Expert'],
   desc:{Developing:'Below what the role needs. Gaps in the core ideas.',Competent:'Meets what the role needs.',Strong:'Above what the role needs. Could guide others.'}},
  cohort:{n:1000,mean:67.7,rate:73,bins:[0,0,10,30,70,160,280,270,130,50]},paper:'Data Science Exam',paperMeta:'4 sections × 25 marks · 90 min',issuer:'Talview',
  proctor:'Required',signoff:'One approver',release:'Manual · all candidates at once',
@@ -6250,9 +6250,9 @@ const CANDS=[
  DONE({id:'liam',n:'Liam Johnson',em:'liam.johnson@example.com',cid:'CAN-12611',ext:'EXT-87720',period:'4 Jul – 20 Jul 2026',
   row:{step:['Credential - Expired','20 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'usr',en:'04 Jul, 2026',chn:['kbd']},
   en:'4 Jul 2026',sat:'18 Jul 2026',pub:'20 Jul 2026',ver:'VER-000318',h:28,
-  ctx:'Every Verity area passed. Acme Assessments returned <b>68</b> by section, with no sub-scores. His Credly badge was sent on 20 Jul and <b>he hasn\u2019t accepted it yet</b>.',
+  ctx:'Every Verity area passed. TAE returned <b>68</b> by section, with no sub-scores. His Credly badge was sent on 20 Jul and <b>he hasn\u2019t accepted it yet</b>.',
   sline:'Rated Expert.',
-  schk:CHK('list','Assessment result',['',''],'Scored by section. No sub-scores were returned.','Returned by Acme Assessments \u00b7 18 Jul 2026',
+  schk:CHK('list','Assessment result',['',''],'Scored by section. No sub-scores were returned.','Returned by TAE \u00b7 18 Jul 2026',
     [Object.assign(CRES('68',[0,0,0,0]),{viz:'donut',vals:[{m:[18,25]},{m:[16,25]},{m:[17,25]},{m:[17,25]}]})]),
   mark:'Vendor result received: Expert.',
   cchk:Object.assign(CHK('award','Certificate',['Pending acceptance','pending'],'Sent to Credly. Liam hasn\u2019t accepted it yet.','Credly \u00b7 20 Jul 2026'),{pub:'20 Jul 2026'}),
@@ -6311,7 +6311,7 @@ const CANDS=[
   en:'25 Jul 2026',sat:'5 Aug 2026',pub:'7 Aug 2026',ver:'VER-000611',h:30,
   ctx:'Every Verity area passed. The vendor rated Mason <b>Expert</b> and he <b>claimed the credential on Credly</b>.',
   sline:'Rated Expert.',
-  schk:CHK('list','Assessment result',['Expert','clear'],'Rated by section.','Returned by Acme Assessments \u00b7 5 Aug 2026',
+  schk:CHK('list','Assessment result',['Expert','clear'],'Rated by section.','Returned by TAE \u00b7 5 Aug 2026',
     [Object.assign(CRES('Professional',[2,1,2,2]),{viz:'donut',sub:[[2,2,3],[1,2,1],[2,3,2],[2,2,1]],adj:{sec:3,from:1,to:2,why:'Question 14 now accepts an alternative answer.',by:'Divya K.',on:'12 Aug 2026'}})]),
   mark:'Vendor result received: Expert.',
   cchk:Object.assign(CHK('award','Certificate',['Claimed','done'],'Sent to Credly and claimed by Mason.','Credly \u00b7 8 Aug 2026'),{pub:'7 Aug 2026'}),
@@ -6321,16 +6321,16 @@ const CANDS=[
   en:'12 Aug 2026',sat:'28 Aug 2026',pub:'30 Aug 2026',ver:'VER-000588',h:26,
   ctx:'Every Verity area passed. The vendor rated James <b>Professional</b>, section by section, with no numeric score, and he <b>accepted the credential on Credly</b>.',
   sline:'Rated Professional.',
-  schk:CHK('list','Assessment result',['Professional','clear'],'Rated by section. No numeric score was returned.','Returned by Acme Assessments \u00b7 28 Aug 2026',[Object.assign(CRES('Professional',[0,3,0,2]),{viz:'donut',att:[{kind:'pdf',real:1}],vals:[{m:[21,25]},{lv:3},{m:[15,25]},{lv:2}],sub:[[[8,9],[7,8],[6,8]],[3,3,2],[[6,9],[5,8],[4,8]],[2,2,3]]})]),
+  schk:CHK('list','Assessment result',['Professional','clear'],'Rated by section. No numeric score was returned.','Returned by TAE \u00b7 28 Aug 2026',[Object.assign(CRES('Professional',[0,3,0,2]),{viz:'donut',att:[{kind:'pdf',real:1}],vals:[{m:[21,25]},{lv:3},{m:[15,25]},{lv:2}],sub:[[[8,9],[7,8],[6,8]],[3,3,2],[[6,9],[5,8],[4,8]],[2,2,3]]})]),
   mark:'Vendor result received: Professional.',
   cchk:Object.assign(CHK('award','Certificate',['Claimed','done'],'Sent to Credly and claimed by James.','Credly \u00b7 31 Aug 2026'),{pub:'30 Aug 2026'}),
   cline:'Sent to Credly and accepted by James on 31 Aug.',issueNote:'Badge sent to Credly.'}),
  DONE({id:'amelia',n:'Amelia Wilson',em:'amelia.wilson@example.com',cid:'CAN-13207',ext:'EXT-88920',period:'20 Aug – 2 Sep 2026',
   row:{step:['Credential - Yet to review','Result received · 02 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['Prometric Testing Center','San Antonio, TX'],src:'mail',en:'20 Aug, 2026'},
   en:'20 Aug 2026',sat:'31 Aug 2026',pub:'2 Sep 2026',ver:'VER-000603',h:28,
-  ctx:'Every Verity area passed. Acme Assessments sent <b>a PDF report only</b>, with no scores. The credential is <b>waiting for review</b>.',
+  ctx:'Every Verity area passed. TAE sent <b>a PDF report only</b>, with no scores. The credential is <b>waiting for review</b>.',
   sline:'Rated Expert.',
-  schk:CHK('list','Assessment result',['',''],'A PDF report only. No scores were returned.','Returned by Acme Assessments \u00b7 2 Sep 2026',
+  schk:CHK('list','Assessment result',['',''],'A PDF report only. No scores were returned.','Returned by TAE \u00b7 2 Sep 2026',
     [{t:'rep',items:[{kind:'pdf',real:1}],on:'2 Sep 2026'}]),
   mark:'Vendor result received: Expert.',
   cchk:Object.assign(CHK('award','Certificate',['Claimed','done'],'Sent to Credly and claimed by Amelia.','Credly \u00b7 3 Sep 2026'),{pub:'2 Sep 2026'}),
@@ -6340,55 +6340,55 @@ const CANDS=[
   en:'25 Aug 2026',sat:'7 Sep 2026',pub:'9 Sep 2026',ver:'VER-000617',h:31,
   ctx:'Every Verity area passed. Full marks in every section, rated <b>Expert</b>, and she <b>claimed the credential on Credly</b>.',
   sline:'Full marks. Rated Expert.',
-  schk:CHK('list','Assessment result',['Expert','clear'],'Rated by section.','Returned by Acme Assessments \u00b7 9 Sep 2026',
+  schk:CHK('list','Assessment result',['Expert','clear'],'Rated by section.','Returned by TAE \u00b7 9 Sep 2026',
     [Object.assign(CRES('Expert',[3,3,3,3]),{viz:'donut',att:[{kind:'link',t:'Candidate report',url:'reports.acmeassess.com/r/CW-4471'}],vals:[{m:[25,25]},{m:[25,25]},{lv:3},{m:[25,25]}],sub:[[[9,9],[8,8],[8,8]],[[9,9],[8,8],[8,8]],[3,3,3],[[9,9],[8,8],[8,8]]]})]),
   mark:'Vendor result received: Expert.',
   cchk:Object.assign(CHK('award','Certificate',['Claimed','done'],'Sent to Credly and claimed by Charlotte.','Credly \u00b7 10 Sep 2026'),{pub:'9 Sep 2026'}),
   cline:'Sent to Credly and claimed by Charlotte on 10 Sep.',issueNote:'Badge sent to Credly.'}),
  DONE({id:'henry',n:'Henry Clark',em:'henry.clark@example.com',cid:'CAN-13302',ext:'EXT-89011',period:'1 Sep 2026 – 15 Sep 2026',
   row:{step:['Credential - Yet to review', 'Result received \u00b7 15 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'usr',en:'1 Sep, 2026'},
-  en:'1 Sep 2026',sat:'14 Sep 2026',pub:'15 Sep 2026',ver:'VER-000631',h:26,ctx:'Every Verity area passed. Acme Assessments returned <b>0 in every section</b>.',sline:'Scored 0.',
-  schk:CHK('list','Assessment result',['',''],'Scored by section.','Returned by Acme Assessments · 15 Sep 2026',[Object.assign(CRES('0',[0,0,0,0]),{viz:'donut',vals:[{m:[0,25]},{m:[0,25]},{m:[0,25]},{m:[0,25]}],sub:[[[0,9],[0,8],[0,8]],[[0,9],[0,8],[0,8]],[[0,9],[0,8],[0,8]],[[0,9],[0,8],[0,8]]]})]),mark:'Result from Acme Assessments.',
+  en:'1 Sep 2026',sat:'14 Sep 2026',pub:'15 Sep 2026',ver:'VER-000631',h:26,ctx:'Every Verity area passed. TAE returned <b>0 in every section</b>.',sline:'Scored 0.',
+  schk:CHK('list','Assessment result',['',''],'Scored by section.','Returned by TAE · 15 Sep 2026',[Object.assign(CRES('0',[0,0,0,0]),{viz:'donut',vals:[{m:[0,25]},{m:[0,25]},{m:[0,25]},{m:[0,25]}],sub:[[[0,9],[0,8],[0,8]],[[0,9],[0,8],[0,8]],[[0,9],[0,8],[0,8]],[[0,9],[0,8],[0,8]]]})]),mark:'Result from TAE.',
   cchk:CHK('award','Certificate',['Yet to review','pending'],'Result received. Awaiting review.','Credly · 15 Sep 2026'),cline:'Awaiting review.',issueNote:'Awaiting review.'}),
  DONE({id:'grace',n:'Grace Kim',em:'grace.kim@example.com',cid:'CAN-13318',ext:'EXT-89026',period:'2 Sep 2026 – 15 Sep 2026',
   row:{step:['Credential - Yet to review', 'Result received \u00b7 15 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'usr',en:'2 Sep, 2026'},
   en:'2 Sep 2026',sat:'14 Sep 2026',pub:'15 Sep 2026',ver:'VER-000634',h:26,ctx:'Every Verity area passed. A <b>low score, 22</b>, with sections but no topic breakdown.',sline:'Scored 22.',
-  schk:CHK('list','Assessment result',['',''],'Scored by section. No topics were returned.','Returned by Acme Assessments · 15 Sep 2026',[Object.assign(CRES('22',[0,0,0,0]),{viz:'donut',vals:[{m:[6,25]},{m:[4,25]},{m:[9,25]},{m:[3,25]}]})]),mark:'Result from Acme Assessments.',
+  schk:CHK('list','Assessment result',['',''],'Scored by section. No topics were returned.','Returned by TAE · 15 Sep 2026',[Object.assign(CRES('22',[0,0,0,0]),{viz:'donut',vals:[{m:[6,25]},{m:[4,25]},{m:[9,25]},{m:[3,25]}]})]),mark:'Result from TAE.',
   cchk:CHK('award','Certificate',['Yet to review','pending'],'Result received. Awaiting review.','Credly · 15 Sep 2026'),cline:'Awaiting review.',issueNote:'Awaiting review.'}),
  DONE({id:'zoe',n:'Zoe Adams',em:'zoe.adams@example.com',cid:'CAN-13341',ext:'EXT-89040',period:'3 Sep 2026 – 16 Sep 2026',
   row:{step:['Credential - Yet to review', 'Result received \u00b7 16 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'usr',en:'3 Sep, 2026'},
   en:'3 Sep 2026',sat:'15 Sep 2026',pub:'16 Sep 2026',ver:'VER-000640',h:26,ctx:'Time ran out before the last section. <b>Scored 45 on what was answered</b>.',sline:'Time ran out.',
-  schk:CHK('list','Assessment result',['',''],'Scored on the sections answered.','Returned by Acme Assessments · 16 Sep 2026',[Object.assign(CRES('45',[0,0,0,0]),{viz:'donut',note:'Time ran out before Python for data analysis. Scored on what was answered.',vals:[{m:[18,25]},{m:[15,25]},{m:[12,25]},{m:[0,25],na:1}],sub:[[[7,9],[6,8],[5,8]],[[6,9],[5,8],[4,8]],[[5,9],[4,8],[3,8]],[]]})]),mark:'Result from Acme Assessments.',
+  schk:CHK('list','Assessment result',['',''],'Scored on the sections answered.','Returned by TAE · 16 Sep 2026',[Object.assign(CRES('45',[0,0,0,0]),{viz:'donut',note:'Time ran out before Python for data analysis. Scored on what was answered.',vals:[{m:[18,25]},{m:[15,25]},{m:[12,25]},{m:[0,25],na:1}],sub:[[[7,9],[6,8],[5,8]],[[6,9],[5,8],[4,8]],[[5,9],[4,8],[3,8]],[]]})]),mark:'Result from TAE.',
   cchk:CHK('award','Certificate',['Yet to review','pending'],'Result received. Awaiting review.','Credly · 16 Sep 2026'),cline:'Awaiting review.',issueNote:'Awaiting review.'}),
  DONE({id:'leo',n:'Leo Scott',em:'leo.scott@example.com',cid:'CAN-13356',ext:'EXT-89052',period:'3 Sep 2026 – 14 Sep 2026',
   row:{step:['Assessment - Incomplete', '14 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'usr',en:'3 Sep, 2026'},
   en:'3 Sep 2026',sat:'14 Sep 2026',pub:'14 Sep 2026',ver:'VER-000642',h:26,ctx:'Leo <b>left the session after 22 minutes</b> and submitted nothing, so there is no result.',sline:'Left after 22 minutes.',
-  schk:CHK('list','Assessment result',['',''],'Nothing was submitted.','Sent to Acme Assessments · 14 Sep 2026',[{t:'state',k:'abandoned',after:'22 minutes'}]),mark:'Result from Acme Assessments.',
+  schk:CHK('list','Assessment result',['',''],'Nothing was submitted.','Sent to TAE',[{t:'state',k:'abandoned',after:'22 minutes'}]),mark:'Result from TAE.',
   cchk:CHK('award','Certificate',['Yet to review','pending'],'Result received. Awaiting review.','Credly · 14 Sep 2026'),cline:'Awaiting review.',issueNote:'Awaiting review.'}),
  DONE({id:'ruby',n:'Ruby Baker',em:'ruby.baker@example.com',cid:'CAN-13362',ext:'EXT-89058',period:'4 Sep 2026 – 16 Sep 2026',
   row:{step:['Scoring - Empty report', '16 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'usr',en:'4 Sep, 2026'},
   en:'4 Sep 2026',sat:'15 Sep 2026',pub:'16 Sep 2026',ver:'VER-000645',h:26,ctx:'Every Verity area passed, but <b>the report came back empty</b>.',sline:'Sat the full exam.',
-  schk:CHK('list','Assessment result',['',''],'The report had no scores.','Received from Acme Assessments · 16 Sep 2026',[{t:'state',k:'empty',by:'Acme Assessments',on:'16 Sep'}]),mark:'Result from Acme Assessments.',
+  schk:CHK('list','Assessment result',['',''],'The report had no score.','Received from TAE',[{t:'state',k:'empty',by:'TAE',on:'16 Sep'}]),mark:'Result from TAE.',
   cchk:CHK('award','Certificate',['Yet to review','pending'],'Result received. Awaiting review.','Credly · 16 Sep 2026'),cline:'Awaiting review.',issueNote:'Awaiting review.'}),
  DONE({id:'daniel',n:'Daniel Wright',em:'daniel.wright@example.com',cid:'CAN-13375',ext:'EXT-89066',period:'5 Sep 2026 – 23 Sep 2026',
   row:{step:['Scoring - Fetching result', '23 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'usr',en:'5 Sep, 2026'},
-  en:'5 Sep 2026',sat:'22 Sep 2026',pub:'23 Sep 2026',ver:'VER-000651',h:26,ctx:'Every Verity area passed. <b>The result is being fetched</b> from Acme Assessments.',sline:'Sat the full exam.',
-  schk:CHK('list','Assessment result',['',''],'Fetching the result.','Sent to Acme Assessments · 23 Sep 2026',[{t:'state',k:'loading',by:'Acme Assessments',on:'23 Sep, 09:14'}]),mark:'Result from Acme Assessments.',
+  en:'5 Sep 2026',sat:'22 Sep 2026',pub:'23 Sep 2026',ver:'VER-000651',h:26,ctx:'Every Verity area passed. <b>The result is being fetched</b> from TAE.',sline:'Sat the full exam.',
+  schk:CHK('list','Assessment result',['',''],'Fetching the result.','Sent to TAE',[{t:'state',k:'loading',by:'TAE',on:'23 Sep, 09:14'}]),mark:'Result from TAE.',
   cchk:CHK('award','Certificate',['Yet to review','pending'],'Result received. Awaiting review.','Credly · 23 Sep 2026'),cline:'Awaiting review.',issueNote:'Awaiting review.'}),
  DONE({id:'ella',n:'Ella Moore',em:'ella.moore@example.com',cid:'CAN-13381',ext:'EXT-89071',period:'5 Sep 2026 – 23 Sep 2026',
   row:{step:['Scoring - Couldn\u2019t fetch', '23 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'usr',en:'5 Sep, 2026'},
   en:'5 Sep 2026',sat:'20 Sep 2026',pub:'23 Sep 2026',ver:'VER-000648',h:26,ctx:'Every Verity area passed, but <b>the result couldn’t be fetched</b>. Retry, or attach it yourself.',sline:'Sat the full exam.',
-  schk:CHK('list','Assessment result',['',''],'Acme Assessments didn’t respond.','Sent to Acme Assessments · 20 Sep 2026',[{t:'state',k:'fail',by:'Acme Assessments',tried:'23 Sep, 08:40',tries:3}]),mark:'Result from Acme Assessments.',
+  schk:CHK('list','Assessment result',['',''],'TAE didn’t respond.','Sent to TAE',[{t:'state',k:'fail',by:'TAE',tried:'23 Sep, 08:40',tries:3}]),mark:'Result from TAE.',
   cchk:CHK('award','Certificate',['Yet to review','pending'],'Result received. Awaiting review.','Credly · 23 Sep 2026'),cline:'Awaiting review.',issueNote:'Awaiting review.'}),
  DONE({id:'nora',n:'Nora Evans',em:'nora.evans@example.com',cid:'CAN-13396',ext:'EXT-89083',period:'6 Sep 2026 – 16 Sep 2026',
   row:{step:['Credential - Yet to review', 'Result received \u00b7 16 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'usr',en:'6 Sep, 2026'},
-  en:'6 Sep 2026',sat:'15 Sep 2026',pub:'16 Sep 2026',ver:'VER-000655',h:26,ctx:'Every Verity area passed. Acme Assessments sent <b>only a link</b> to the result on its own portal.',sline:'Sat the full exam.',
-  schk:CHK('list','Assessment result',['',''],'A link to the result only.','Returned by Acme Assessments · 16 Sep 2026',[{t:'rep',items:[{kind:'link',t:'Result on Acme Assessments',url:'portal.acmeassess.com/r/NE-5120'}],on:'16 Sep 2026'}]),mark:'Result from Acme Assessments.',
+  en:'6 Sep 2026',sat:'15 Sep 2026',pub:'16 Sep 2026',ver:'VER-000655',h:26,ctx:'Every Verity area passed. TAE sent <b>only a link</b> to the result on its own portal.',sline:'Sat the full exam.',
+  schk:CHK('list','Assessment result',['',''],'A link to the result only.','Returned by TAE · 16 Sep 2026',[{t:'rep',items:[{kind:'link',t:'Result on TAE',url:'portal.acmeassess.com/r/NE-5120'}],on:'16 Sep 2026'}]),mark:'Result from TAE.',
   cchk:CHK('award','Certificate',['Yet to review','pending'],'Result received. Awaiting review.','Credly · 16 Sep 2026'),cline:'Awaiting review.',issueNote:'Awaiting review.'}),
  DONE({id:'jack',n:'Jack Hill',em:'jack.hill@example.com',cid:'CAN-13390',ext:'EXT-89077',period:'6 Sep 2026 – 23 Sep 2026',
   row:{step:['Scoring - Not generated', 'Expected 25 Sep, 2026'],pay:['$195','Paid','grn'],idv:'ok',ec:['ProctorU','Virtual'],src:'usr',en:'6 Sep, 2026'},
   en:'6 Sep 2026',sat:'22 Sep 2026',pub:'23 Sep 2026',ver:'VER-000652',h:26,ctx:'Every Verity area passed. <b>The report isn’t generated yet</b>; it’s expected by 25 Sep.',sline:'Sat the full exam.',
-  schk:CHK('list','Assessment result',['',''],'Waiting for the report.','Sent to Acme Assessments · 22 Sep 2026',[{t:'state',k:'wait',by:'Acme Assessments',exp:'25 Sep'}]),mark:'Result from Acme Assessments.',
+  schk:CHK('list','Assessment result',['',''],'Waiting for the report.','Sent to TAE',[{t:'state',k:'wait',by:'TAE',exp:'25 Sep'}]),mark:'Result from TAE.',
   cchk:CHK('award','Certificate',['Yet to review','pending'],'Result received. Awaiting review.','Credly · 23 Sep 2026'),cline:'Awaiting review.',issueNote:'Awaiting review.'})
 ];
 /* no result, no credential: those candidates stop at scoring */
@@ -6435,7 +6435,7 @@ const ST4={
   credentialing:['pending',['Not reached','pending'],'No result to issue a credential against.','\u2014']},
  liam:{enrollment:['clear',null,'Approved by Divya K. after review.','4 Jul 2026, 08:21'],
   assessment:['clear',null,'Sat 18 Jul. Every Verity area passed.','18 Jul 2026, 12:20'],
-  scoring:['clear',['68','clear'],'Acme Assessments scored Liam by section on 18 Jul. No sub-scores.','18 Jul 2026, 12:05'],
+  scoring:['clear',['68','clear'],'TAE scored Liam by section on 18 Jul. No sub-scores.','18 Jul 2026, 12:05'],
   credentialing:['pending',['Expired','pending'],'The Credly badge expired on 20 Sep.','20 Sep 2026']},
  ava:{enrollment:['clear',null,'Approved by Divya K. The fee is still outstanding, so booking is locked.','10 Sep 2026, 11:16'],
   assessment:['pending',['Not booked','pending'],'Booking opens once the fee clears or is waived.','\u2014'],
@@ -6447,19 +6447,19 @@ const ST4={
   credentialing:['pending',['Not reached','pending'],'No result to issue a credential against.','\u2014']},
  mason:{enrollment:['clear',null,'Approved by Divya K. after review.','25 Jul 2026, 10:12'],
   assessment:['clear',null,'Sat 5 Aug. Every Verity area passed.','5 Aug 2026, 12:20'],
-  scoring:['clear',['Expert','clear'],'Acme Assessments rated Mason by section on 5 Aug.','5 Aug 2026, 12:05'],
+  scoring:['clear',['Expert','clear'],'TAE rated Mason by section on 5 Aug.','5 Aug 2026, 12:05'],
   credentialing:['blocked',['Credential revoked','blocked'],'Revoked on 12 Aug. It was issued before the dispute closed.','12 Aug 2026, 11:30']},
  james:{enrollment:['clear',null,'Approved by Divya K. after review.','12 Aug 2026, 10:12'],
   assessment:['clear',null,'Sat 28 Aug. Every Verity area passed.','28 Aug 2026, 12:20'],
-  scoring:['clear',['Professional','clear'],'Acme Assessments rated James by section on 28 Aug.','28 Aug 2026, 12:05'],
+  scoring:['clear',['Professional','clear'],'TAE rated James by section on 28 Aug.','28 Aug 2026, 12:05'],
   credentialing:['review',['Withheld','review'],'Held on 30 Aug for an identity re-check.','30 Aug 2026']},
  amelia:{enrollment:['clear',null,'Approved by Divya K. after review.','20 Aug 2026, 10:12'],
   assessment:['clear',null,'Sat 31 Aug. Every Verity area passed.','31 Aug 2026, 12:20'],
-  scoring:['clear',['Report only','clear'],'Acme Assessments sent a PDF report on 2 Sep. No scores.','2 Sep 2026, 08:15'],
+  scoring:['clear',['Report only','clear'],'TAE sent a PDF report on 2 Sep. No scores.','2 Sep 2026, 08:15'],
   credentialing:['pending',['Yet to review','pending'],'Result received on 2 Sep. Awaiting review.','2 Sep 2026']},
  charlotte:{enrollment:['clear',null,'Approved by Divya K. after review.','25 Aug 2026, 10:12'],
   assessment:['clear',null,'Sat 7 Sep. Every Verity area passed.','7 Sep 2026, 12:20'],
-  scoring:['clear',['Expert','clear'],'Acme Assessments rated Charlotte by section on 9 Sep. Full marks.','9 Sep 2026, 08:40'],
+  scoring:['clear',['Expert','clear'],'TAE rated Charlotte by section on 9 Sep. Full marks.','9 Sep 2026, 08:40'],
   credentialing:['blocked',['Disqualified','blocked'],'Disqualified on 10 Sep after misconduct was found.','10 Sep 2026']},
  isabella:{enrollment:['clear',null,'Approved by Divya K. after review.','20 Jul 2026, 09:40'],
   assessment:['info',['In progress','info'],'Sitting now. Verity checks are running.','23 Sep 2026, 09:00'],
@@ -6467,7 +6467,7 @@ const ST4={
   credentialing:['pending',['Not reached','pending'],'No result to issue a credential against yet.','\u2014']},
  henry:{enrollment:['clear',null,'Approved by Divya K. after review.','1 Sep 2026, 10:12'],
   assessment:['clear',null,'Sat the exam. Every Verity area passed.','\u2014'],
-  scoring:['clear',['0','clear'],'Acme Assessments returned 0 in every section on 15 Sep.','15 Sep 2026, 08:10'],
+  scoring:['clear',['0','clear'],'TAE returned 0 in every section on 15 Sep.','15 Sep 2026, 08:10'],
   credentialing:['pending',['Yet to review','pending'],'Result received on 15 Sep. Awaiting review.','15 Sep 2026']},
  grace:{enrollment:['clear',null,'Approved by Divya K. after review.','2 Sep 2026, 10:12'],
   assessment:['clear',null,'Sat the exam. Every Verity area passed.','\u2014'],
@@ -6483,19 +6483,19 @@ const ST4={
   credentialing:['pending',['Not reached','pending'],'No result to issue a credential against.','\u2014']},
  ruby:{enrollment:['clear',null,'Approved by Divya K. after review.','4 Sep 2026, 10:12'],
   assessment:['clear',null,'Sat the exam. Every Verity area passed.','\u2014'],
-  scoring:['blocked',['Empty report','blocked'],'Acme Assessments sent a report with no scores on 16 Sep.','16 Sep 2026, 07:55'],
+  scoring:['blocked',['Empty report','blocked'],'TAE sent a report with no score.','16 Sep 2026, 07:55'],
   credentialing:['pending',['Not reached','pending'],'No result to issue a credential against.','\u2014']},
  daniel:{enrollment:['clear',null,'Approved by Divya K. after review.','5 Sep 2026, 10:12'],
   assessment:['clear',null,'Sat the exam. Every Verity area passed.','\u2014'],
-  scoring:['info',['Fetching','info'],'Fetching the result from Acme Assessments.','23 Sep 2026, 09:14'],
+  scoring:['info',['Fetching','info'],'Fetching the result from TAE.','23 Sep 2026, 09:14'],
   credentialing:['pending',['Not reached','pending'],'No result to issue a credential against.','\u2014']},
  ella:{enrollment:['clear',null,'Approved by Divya K. after review.','5 Sep 2026, 10:12'],
   assessment:['clear',null,'Sat the exam. Every Verity area passed.','\u2014'],
-  scoring:['blocked',['Couldn\u2019t fetch','blocked'],'Acme Assessments didn\u2019t respond. Three tries since 20 Sep.','23 Sep 2026, 08:40'],
+  scoring:['blocked',['Couldn\u2019t fetch','blocked'],'TAE didn\u2019t respond to the request for the result.','23 Sep 2026, 08:40'],
   credentialing:['pending',['Not reached','pending'],'No result to issue a credential against.','\u2014']},
  nora:{enrollment:['clear',null,'Approved by Divya K. after review.','6 Sep 2026, 10:12'],
   assessment:['clear',null,'Sat the exam. Every Verity area passed.','\u2014'],
-  scoring:['clear',['Link only','clear'],'Acme Assessments sent a link to the result on 16 Sep. No scores.','16 Sep 2026, 08:30'],
+  scoring:['clear',['Link only','clear'],'TAE sent a link to the result. No scores.','16 Sep 2026, 08:30'],
   credentialing:['pending',['Yet to review','pending'],'Result received on 16 Sep. Awaiting review.','16 Sep 2026']},
  jack:{enrollment:['clear',null,'Approved by Divya K. after review.','6 Sep 2026, 10:12'],
   assessment:['clear',null,'Sat the exam. Every Verity area passed.','\u2014'],
@@ -6911,8 +6911,8 @@ function payBits(c,pay){
  const st=pay.chip[0];
  if(st==='Paid'||st==='Refunded') return {lab:st==='Refunded'?'Refunded':'Paid',
    amt:c.vou?c.vou[2]:CFG.fee,
-   sub:(c.vou?'of '+CFG.fee+' after '+c.vou[0]:'of '+CFG.fee)+' · Mastercard',chip:pay.chip};
- if(st==='Waived') return {lab:'Waived',amt:'$0.00',sub:'of '+CFG.fee+' · waived by Divya K.',chip:pay.chip};
+   sub:'Exam Fee '+CFG.fee+(c.vou?' · '+(c.vou[0].length>15?c.vou[0].slice(0,14)+'…':c.vou[0])+' '+c.vou[1]:'')+' · Mastercard',chip:pay.chip};
+ if(st==='Waived') return {lab:'Waived',amt:'$0.00',sub:'Exam Fee '+CFG.fee+' · waived by Divya K.',chip:pay.chip};
  if(st==='Failed') return {lab:'Outstanding',amt:CFG.fee,sub:'Declined twice · booking is locked',chip:pay.chip};
  if(st==='Not due') return {lab:'Fee',amt:null,sub:'Taken once the enrolment is approved',chip:pay.chip};
  if(st==='Awaiting payment') return {lab:'Payment',amt:null,v:'Not paid yet',sub:CFG.fee+' due · payable until '+CFG.window,chip:pay.chip};
@@ -7263,7 +7263,7 @@ let CTX=null;  /* the gallery renders cases that aren't candidates; it sets this
 const ctxOf=cd=>CTX||{name:cd.n,first:cd.n.split(' ')[0],who:(cd.who||[cd.n])[0],em:cd.em,pub:pubOf(cd),sat:(BOOK[cd.id]||{}).d||'',band:(s=>s?GR(s):null)(scoreOf(cd))};
 const SKINDS=['stot','scard','num','rep','wait','fail'];
 const scoreBlk=c=>(c.ev||[]).find(b=>SKINDS.indexOf(b.t)>-1);
-const srcOf=c=>{const m=String(c.prov||'').match(/^(?:Returned by|Received from|Sent to) (.+?) · (.+)$/);return m?{by:m[1],on:m[2]}:{by:String(c.prov||''),on:''};};
+const srcOf=c=>{const m=String(c.prov||'').match(/^(?:Returned by|Received from|Sent to) (.+?)(?: · (.+))?$/);return m?{by:m[1],on:m[2]||''}:{by:String(c.prov||''),on:''};};
 /* a scale meter: ordered bands on a half dial, the needle in the band that was returned */
 function meterH(i,L,sm){const n=L.length, cx=100, cy=96, R=88, w=sm?24:20, sp=180/n, g=1.4;
  const pt=(a,r)=>[cx+r*Math.cos(a*Math.PI/180),cy-r*Math.sin(a*Math.PI/180)].map(v=>v.toFixed(1));
@@ -7464,7 +7464,7 @@ function scoreCardBody(c,x){const b=scoreBlk(c), s=srcOf(c), L=CFG.card.lv, at=a
  if(b.t==='scard') return `<div class="srail">${ovBlockH(b,CFG.card.ov.indexOf(b.ov),1)}${secVizH(b,0,0)}
    ${b.adj?`<p class="sadj">${I.edit}<span>${E(SHORT(CFG.secs[b.adj.sec][0]))} re-marked · <s>${E(L[b.adj.from-1])}</s> → ${E(L[b.adj.to-1])} · ${E(b.adj.on)}</span></p>`:''}${attsH(at,x,1)}${cid}</div>`;
  if(b.t==='rep') return `${attsH(at,x,0)}${ft('Received '+E(b.on))}`;
- return `${emptyH(b)}${ft(b.t==='wait'?'Sent '+E(b.sent):'Last tried '+E(b.tried))}`;}
+ return `${emptyH(b)}${ft('Not published')}`;}
 /* the detail: result, what changed, attachments, details */
 function scoreDetailH(c,x){const b=scoreBlk(c), s=srcOf(c), L=CFG.card.lv, at=attsOf(b);
  const T=(h,i,cls)=>`<div class="tcard ${cls||''}"><h4>${h}</h4><div class="in">${i}</div></div>`, R=r=>blockH(ROWS('',r));
@@ -7478,15 +7478,15 @@ function scoreDetailH(c,x){const b=scoreBlk(c), s=srcOf(c), L=CFG.card.lv, at=at
    +rep;}
  if(b.t==='rep') return rep+T('Details',R([['Sent by',E(s.by)],['Received',E(b.on)],exam]));
  return T('Result',emptyH(b))+T('Details',R(b.t==='wait'
-   ?[['Sent to',E(s.by)],['Sent',E(b.sent)],['Expected by',E(b.exp)],['Last checked',E(b.checked)]]
-   :[['Sent to',E(s.by)],['Sent',E(b.sent)],['Last tried',E(b.tried)+' · '+b.tries+' tries'],['Candidate ID',E(b.cid)]]));}
+   ?[['Sent to',E(s.by)],exam]
+   :[['Sent to',E(s.by)],exam]));}
 const hdChip=c=>{const b=scoreBlk(c); if(b&&b.t==='stot') return ''; if(b&&b.t==='scard') return '';
  if(BASE(c.t)==='Certificate'){const X=credX(C()); if(X){const st=credStatus(X,ctxOf(C()));return chip([st.k,st.chip]);}}
  const q=subChip(c); return q?chip(q):'';};
 const scoreActs=b=>{const k=b.t==='state'?b.k:b.t;
- return k==='wait'?`<button class="btn" data-toast="Checked with Acme Assessments · the report isn’t ready yet">Check now</button>`
- :k==='fail'?`<button class="btn" data-toast="Choose the result file to attach">Attach result</button><button class="btn pri" data-toast="Trying Acme Assessments again">Retry</button>`
- :k==='empty'?`<button class="btn pri" data-toast="Asked Acme Assessments to send the report again">Request again</button>`:'';}
+ return k==='wait'?`<button class="btn" data-toast="Checked with TAE · the report isn’t ready yet">Check now</button>`
+ :k==='fail'?`<button class="btn" data-toast="Choose the result file to attach">Attach result</button><button class="btn pri" data-toast="Trying TAE again">Retry</button>`
+ :k==='empty'?`<button class="btn pri" data-toast="Asked TAE to send the report again">Request again</button>`:'';}
 /* ---- credentials: one card and one detail, whoever issues it; statuses are ours, not the provider's words ---- */
 const credX=cd=>cd.cert?Object.assign({mode:'talview'},cd.cert):cd.xcred||null;
 const SYNCLIVE={Accepted:1,Claimed:1,Issued:1};
@@ -8580,8 +8580,8 @@ function payBits(c,pay){
  const st=pay.chip[0], rs=(BOOK[c.id]||{}).resched;
  if(st==='Paid'||st==='Refunded') return {lab:st==='Refunded'?'Refunded':'Paid',
    amt:rs?rs.total:c.vou?c.vou[2]:CFG.fee,
-   sub:(rs?'Exam fee '+CFG.fee+' + reschedule fee '+rs.fee:c.vou?'of '+CFG.fee+' after '+c.vou[0]:'of '+CFG.fee)+' · Mastercard',chip:pay.chip};
- if(st==='Waived') return {lab:'Waived',amt:'$0.00',sub:'of '+CFG.fee+' · waived by Divya K.',chip:pay.chip};
+   sub:'Exam Fee '+CFG.fee+(rs?' + Reschedule Fee '+rs.fee:c.vou?' · '+(c.vou[0].length>15?c.vou[0].slice(0,14)+'…':c.vou[0])+' '+c.vou[1]:'')+' · Mastercard',chip:pay.chip};
+ if(st==='Waived') return {lab:'Waived',amt:'$0.00',sub:'Exam Fee '+CFG.fee+' · waived by Divya K.',chip:pay.chip};
  if(st==='Failed') return {lab:'Outstanding',amt:CFG.fee,sub:'Declined twice · booking is locked',chip:pay.chip};
  if(st==='Not due') return {lab:'Fee',amt:null,sub:'Taken once the enrolment is approved',chip:pay.chip};
  if(st==='Awaiting payment') return {lab:'Payment',amt:null,v:'Not paid yet',sub:CFG.fee+' due · payable until '+CFG.window,chip:pay.chip};
@@ -8666,10 +8666,10 @@ function lvLegendH(S,b){
 SKINDS.push('one','state');
 const RST={
  loading:{ic:'',t:'Fetching the result',s:b=>''},
- wait:{ic:I.clock,t:'Result not ready yet',s:b=>b.by+' is still generating the report. It’s expected by '+b.exp+'.'},
- fail:{ic:I.warnc,t:'Couldn’t get the result',s:b=>'No response from '+b.by+' after '+b.tries+' tries, the last at '+b.tried.split(', ')[1]+' on '+b.tried.split(', ')[0]+'. Retry, or attach the result yourself.'},
+ wait:{ic:I.clock,t:'Result not ready yet',s:b=>b.by+' is still generating the report.'},
+ fail:{ic:I.warnc,t:'Couldn’t fetch the result',s:b=>b.by+' didn’t respond when we asked for the result.'},
  abandoned:{ic:I.stopS,t:'Attempt incomplete',s:b=>C().n.split(' ')[0]+' left after '+b.after+' without submitting, so there’s no result to show.'},
- empty:{ic:I.doc,t:'Report has no scores',s:b=>b.by+' sent the report on '+b.on+', but it has no scores in it. Ask them to send it again.'}};
+ empty:{ic:I.doc,t:'Report has no score',s:b=>b.by+' sent the report, but it has no score in it.'}};
 function rstateH(b,big){const r=RST[b.k]||RST.wait;
  return `<div class="rst k-${b.k} ${big?'big':''}"><span class="rsr">${b.k==='loading'?'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" class="rtk"/><circle cx="12" cy="12" r="9.5" class="rsp"/></svg>':'<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" class="rtk"/></svg>'}${r.ic?`<span class="ic">${r.ic}</span>`:''}</span>
   <b>${E(r.t)}</b>${r.s(b)?`<span>${E(r.s(b))}</span>`:''}</div>`;}
@@ -12281,7 +12281,7 @@ a2rqScreen=function(){const c=C(), r=a2req(c), f=accFirst(c); if(!r) return '';
   x.fillStyle='#71717a'; x.font='20px Helvetica, Arial, sans-serif'; x.fillText('Sample document for the prototype',110,182);
   x.fillStyle='#1e3a8a'; x.fillRect(110,215,W-220,3);
   x.fillStyle='#18181b'; x.font='600 40px Helvetica, Arial, sans-serif'; x.fillText('Letter of religious practice',110,330);
-  x.font='24px Helvetica, Arial, sans-serif'; x.fillText('Candidate: Priya Nair',110,395); x.fillText('Date: 12 Sep 2026',110,432); x.fillText('To: Acme Assessments, accommodations team',110,469);
+  x.font='24px Helvetica, Arial, sans-serif'; x.fillText('Candidate: Priya Nair',110,395); x.fillText('Date: 12 Sep 2026',110,432); x.fillText('To: TAE, accommodations team',110,469);
   x.font='26px Georgia, serif'; x.fillText('To whom it may concern,',110,570);
   const body='Priya Nair wears a hijab as part of a religious practice and keeps it on in public, including during examinations. Please allow the exam to be sat with the head covered. The face stays fully visible for identity checks.';
   let ln='', y=650; body.split(' ').forEach(w=>{const t=ln?ln+' '+w:w; if(x.measureText(t).width>W-220){x.fillText(ln,110,y); y+=44; ln=w;} else ln=t;}); if(ln) x.fillText(ln,110,y);
